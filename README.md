@@ -1,27 +1,47 @@
-# OpenPublicTransportFrontend
+[![Issues](https://img.shields.io/github/issues/open-public-transport/open-public-transport-frontend)](https://github.com/open-public-transport/open-public-transport-frontend/issues)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
+<br />
+<p align="center">
+  <a href="https://github.com/open-public-transport/open-public-transport-frontend">
+    <img src="./logo_with_text.png" alt="Logo" height="80">
+  </a>
 
-## Development server
+  <h1 align="center">Open Public Transport (Frontend)</h1>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+  <p align="center">
+    Angular based web app that public transport analysis results 
+  </p>
+</p>
 
-## Code scaffolding
+## About The Project
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+tbd
 
-## Build
+### Built With
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+* [Angular](https://angular.io/)
 
-## Running unit tests
+## Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+tbd
 
-## Running end-to-end tests
+## Usage
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+tbd
 
-## Further help
+## Roadmap
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+See the [open issues](https://github.com/open-public-transport/open-public-transport-frontend/issues) for a list of proposed features (and
+ known issues).
+
+## Contributing
+
+Since this project is currently founded by  contributions are not possible as for now.
+
+## License
+
+Distributed under the AGPLv3 License. See [LICENSE.md](./LICENSE.md) for more information.
+
+## Contact
+
+kontakt@openpublictransport.de
