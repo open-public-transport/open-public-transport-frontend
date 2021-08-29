@@ -1,0 +1,48 @@
+<div class="map"
+     [attr.id]="id"
+     [style.height]="height"
+     (mouseenter)="onMouseEnter()">
+</div>
+
+<app-legend [displayName]="displayName"
+            [legendGradient]="legendGradient"
+            [multiLegendGradient]="multiLegendGradient"
+            [multiLegend]="multiLegend"
+            [legendContents]="legendContents"
+            [multiLegendContents]="multiLegendContents"
+            [opacities]="opacities"></app-legend>
+
+<ng-container *ngIf="parametrizeOpacityEnabled">
+  <div *ngFor="let result of results">
+    <span class="layer-label">{{ result }}</span>
+    <mat-slider
+      [value]="100"
+      [min]=0
+      [max]=100
+      [step]=1
+      (input)="onOpacityChanged(result, $event)">
+    </mat-slider>
+  </div>
+  <div *ngFor="let result of hexResults">
+    <span class="layer-label">{{ result }}</span>
+    <mat-slider
+      [value]="100"
+      [min]=0
+      [max]=100
+      [step]=1
+      (input)="onOpacityChanged(result, $event)">
+    </mat-slider>
+  </div>
+</ng-container>
+
+<div *ngIf="flyableLocations.length > 0" class="flyable-locations">
+  <span class="flyable-location-label">fly to</span>
+  <button mat-button color="accent" *ngFor="let location of flyableLocations" class="flyable-location-button"
+          (click)="onFlyableLocationClicked(location)">
+    {{ location.name }}
+  </button>
+</div>
+
+<button mat-button *ngIf="resetEnabled" class="flyable-location-button" (click)="onResetClicked()">
+  RESET
+</button>

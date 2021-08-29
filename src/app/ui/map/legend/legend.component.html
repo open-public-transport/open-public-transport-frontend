@@ -1,0 +1,40 @@
+<div class="legend">
+  <p>{{ displayName }}</p>
+
+  <!-- Multi legend -->
+
+  <ng-container *ngIf="multiLegend">
+    <div *ngFor="let layer of getLayers()"
+         class="multiLegendRow" [attr.id]="getRowId(layer)" [ngClass]="{'visible': isVisible(layer)}">
+      <div *ngIf="hasGradient(layer)" class="gradient_container" [ngStyle]="getGradientStyleByLayer(layer)">
+      </div>
+      <div *ngIf="!hasGradient(layer)" class="solid_container">
+        <div *ngFor="let multiLegendContent of getMultiLegendContent(layer)"
+             [ngStyle]="{'background': multiLegendContent}">
+        </div>
+      </div>
+      <ul class="description">
+        <li *ngFor="let multiLegendContent of getMultiLegendContent(layer)">
+          {{ getMultiLegendDescription(layer, multiLegendContent) }}
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+
+  <!-- Single legend -->
+
+  <ng-container *ngIf="!multiLegend">
+    <div *ngIf="legendGradient" class="gradient_container" [ngStyle]="getGradientStyle()">
+    </div>
+    <div *ngIf="!legendGradient" class="solid_container">
+      <div *ngFor="let content of getLegendContent()"
+           [ngStyle]="{'background': content}">
+      </div>
+    </div>
+    <ul class="description">
+      <li *ngFor="let content of getLegendContent()">
+        {{ getDescription(content) }}
+      </li>
+    </ul>
+  </ng-container>
+</div>

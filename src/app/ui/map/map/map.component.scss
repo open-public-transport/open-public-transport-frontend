@@ -1,0 +1,157 @@
+.layer-label, .flyable-location-label {
+  color: #757575;
+  display: inline-block;
+  width: 150px;
+}
+
+.flyable-location-button {
+  display: block;
+}
+
+//
+// Pop-Up
+//
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+::ng-deep .mapboxgl-popup-close-button {
+  display: none;
+}
+
+::ng-deep .mapboxgl-popup-content {
+  font-size: 1.1em;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+}
+
+::ng-deep .mapboxgl-popup-anchor-left {
+  padding-left: 15px;
+}
+::ng-deep .mapboxgl-popup-anchor-right {
+  padding-right: 15px;
+}
+::ng-deep .mapboxgl-popup-anchor-top {
+  padding-top: 15px;
+}
+::ng-deep .mapboxgl-popup-anchor-bottom {
+  padding-bottom: 15px;
+}
+
+//
+// Legend
+//
+
+.legend {
+  width: 100%;
+  padding-top: 10px;
+  font-size: 0.8em;
+}
+
+::ng-deep .legend p {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin: 0 2px;
+  line-height: 1.2em;
+}
+
+::ng-deep .legend .gradient_container {
+  width: 100%;
+  height: 0.5em;
+  margin: 2px;
+  //background: linear-gradient(90deg, blue, green, red, black);
+}
+
+::ng-deep .legend .solid_container {
+  width: 100%;
+  height: 0.5em;
+  display: flex;
+  justify-content: stretch;
+  //background: linear-gradient(90deg, blue, green, red, black);
+}
+
+::ng-deep .legend .multiLegendRow {
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transition: all 0.3s ease-in;
+}
+
+::ng-deep .legend .multiLegendRow.visible {
+  height: 3em;
+  opacity: 1;
+}
+
+::ng-deep .legend .solid_container div {
+  width: 1em;
+  height: 0.5em;
+  flex-grow: 1;
+  margin: 2px;
+  //background: linear-gradient(90deg, blue, green, red, black);
+}
+
+::ng-deep .legend ul.description {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep .legend ul.description li {
+  list-style: none;
+  padding: 0;
+  margin: 0.2em 2px 0;
+}
+
+//
+// Markers
+//
+
+::ng-deep .mapboxgl-popup {
+  z-index: 11;
+}
+
+::ng-deep .mapboxgl-marker {
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+}
+
+::ng-deep .mapboxgl-marker:hover {
+  border: 5px solid white;
+}
+
+// General
+
+::ng-deep div[id^='marker-'] {
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+::ng-deep div[id^='marker-tec'],
+::ng-deep div[id^='marker-bus-'],
+::ng-deep div[id^='marker-tram-'] {
+  background-size: cover;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+// Groups (used in problems)
+
+::ng-deep div[id^='marker-auto-'],
+::ng-deep div[id^='marker-light-rail-'],
+::ng-deep div[id^='marker-subway-'],
+::ng-deep div[id^='marker-intermodal-'] {
+  opacity: 0.0;
+}
