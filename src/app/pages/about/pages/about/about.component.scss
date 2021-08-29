@@ -1,0 +1,28 @@
+@import '../../../../../flex';
+
+.fixed {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
+.container {
+  margin-top: 128px;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  max-width: 960px;
+  margin: 32px;
+}
+
+.logo-funding {
+  max-width: 200px;
+  margin: 8px;
+}
+
+h2 {
+  text-transform: uppercase
+}

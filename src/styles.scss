@@ -1,3 +1,10 @@
+@use '~@angular/material' as mat;
+// Theme
+
+@include mat.core();
+@import 'sizes.scss';
+@import 'flex.scss';
+
 /* You can add global styles to this file, and also import other style files */
 html, body {
   height: 100%;
@@ -6,11 +13,11 @@ html, body {
 
 body {
   margin: 0;
-  color: #111;
   width: 100%;
   min-height: 100%;
   //min-height: 200vh;
-  font-family: Merriweather, serif;
+  color: mat.get-color-from-palette(mat.$grey-palette, 800);
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   line-height: 1.5em;
   overflow-x: hidden;
 }
@@ -36,6 +43,15 @@ h3 {
   text-decoration: underline;
   margin: 0.75em 0 0.25em !important;
   line-height: 1.2em !important;
+}
+
+a {
+  color: #00599B;
+  text-decoration-style: dotted;
+}
+
+a:hover {
+  color: mat.get-color-from-palette(mat.$grey-palette, 600);
 }
 
 .mapboxgl-ctrl-top-left,
