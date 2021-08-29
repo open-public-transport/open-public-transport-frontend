@@ -6,13 +6,16 @@ import {MapModule} from '../../ui/map/map.module';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, ToolbarComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     MapModule,
+    MatIconModule,
     MatToolbarModule,
     MatSlideToggleModule,
     MatButtonModule
