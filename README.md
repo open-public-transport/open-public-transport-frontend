@@ -21,10 +21,21 @@ tbd
 ### Built With
 
 * [Angular](https://angular.io/)
+* [Mapbox](https://www.mapbox.com/)
 
 ## Installation
 
-tbd
+Install all packages by running
+
+```
+npm install
+```
+
+You can start the app locally by running
+
+```
+npm run start
+```
 
 ## Usage
 
