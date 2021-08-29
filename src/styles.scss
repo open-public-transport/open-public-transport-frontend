@@ -1,1 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: #111;
+  width: 100%;
+  min-height: 100%;
+  //min-height: 200vh;
+  font-family: Merriweather, serif;
+  line-height: 1.5em;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 40pt;
+  line-height: 1.2em;
+}
+
+h2 {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: lighter;
+  margin: 0.25em 0;
+  margin-top: 2em;
+  font-size: 36pt;
+  line-height: 1.2em;
+}
+
+
+h3 {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  text-decoration: underline;
+  margin: 0.75em 0 0.25em !important;
+  line-height: 1.2em !important;
+}
+
+.mapboxgl-ctrl-top-left,
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right {
+  display: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+.app-header {
+  z-index: 100;
+}
+
+.mapboxgl-map {
+  z-index: 0;
+}
