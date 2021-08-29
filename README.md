@@ -10,7 +10,7 @@
   <h1 align="center">Open Public Transport (Frontend)</h1>
 
   <p align="center">
-    Angular based web app that public transport analysis results 
+    Angular based web app that presents public transport analysis results 
   </p>
 </p>
 
