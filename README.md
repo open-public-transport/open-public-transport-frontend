@@ -1,3 +1,4 @@
+[![Build](https://github.com/open-public-transport/open-public-transport-frontend/actions/workflows/build-app-workflow.yml/badge.svg?branch=main)](https://github.com/open-public-transport/open-public-transport-frontend/actions/workflows/build-app-workflow.yml)
 [![Issues](https://img.shields.io/github/issues/open-public-transport/open-public-transport-frontend)](https://github.com/open-public-transport/open-public-transport-frontend/issues)
 
 <br />
