@@ -48,7 +48,20 @@ See the [open issues](https://github.com/open-public-transport/open-public-trans
 
 ## Contributing
 
-Since this project is currently founded by  contributions are not possible as for now.
+tbd
+
+## Funding
+
+Between September 2021 through February 2022 this project is founded by [German Federal Ministry of Education and Research](https://www.bmbf.de/bmbf/en/home/home_node.html) and supported by [Prototype Fund](https://prototypefund.de/).
+
+<p align="center">
+  <a href="https://www.bmbf.de/bmbf/en/home/home_node.html">
+    <img src="./logo-bmbf.svg" alt="Logo" height="100">
+  </a>
+  <a href="https://prototypefund.de/">
+    <img src="./logo-ptf.svg" alt="Logo" height="80">
+  </a>
+</p>
 
 ## License
 
