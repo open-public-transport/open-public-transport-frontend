@@ -1,0 +1,55 @@
+@use '~@angular/material' as mat;
+
+@import '../../../../../flex';
+
+@include mat.core();
+
+.fixed {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
+.container {
+  padding-top: 128px;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  max-width: 960px;
+  margin: 32px;
+}
+
+.logo-funding {
+  max-width: 200px;
+  margin: 8px;
+}
+
+h2 {
+  text-transform: uppercase
+}
+
+a {
+  color: mat.get-color-from-palette(mat.$grey-palette, 800);
+  text-decoration-style: dotted;
+}
+
+.member-image {
+  height: 75px;
+  width: 75px;
+  margin-right: 25px;;
+}
+
+.team-container, .contact-container {
+  margin-bottom: 50px;
+}
+
+.team-sub-container, .contact-sub-container {
+  margin-bottom: 25px;
+}
+
+.contact-icon {
+  margin-right: 10px;
+}
