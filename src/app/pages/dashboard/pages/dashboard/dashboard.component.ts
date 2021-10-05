@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
 import {MapBoxStyle} from '../../../../core/mapbox/model/map-box-style.enum';
 import {Place} from '../../../../core/mapbox/model/place.model';
+import {MaterialIconService} from "../../../../core/ui/services/material-icon.service";
+import {MatIconRegistry} from "@angular/material/icon";
+import {DomSanitizer} from "@angular/platform-browser";
 
 /**
  * Displays a dashboard
