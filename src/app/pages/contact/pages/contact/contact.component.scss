@@ -1,8 +1,4 @@
-@use '~@angular/material' as mat;
-
 @import '../../../../../flex';
-
-@include mat.core();
 
 .fixed {
   width: 100%;
@@ -32,7 +28,7 @@ h2 {
 }
 
 a {
-  color: mat.get-color-from-palette(mat.$grey-palette, 800);
+  color: #424242;
   text-decoration-style: dotted;
 }
 
