@@ -8,10 +8,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MapModule} from './ui/map/map.module';
 import {MatCardModule} from '@angular/material/card';
+import {ToolbarComponent} from "./components/toolbar/toolbar.component";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +29,8 @@ import {MatCardModule} from '@angular/material/card';
     // Core modules
     MapboxModule,
 
+    MatButtonModule,
+    MatToolbarModule,
     MatCardModule,
 
     BrowserAnimationsModule
