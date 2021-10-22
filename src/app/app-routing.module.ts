@@ -3,6 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)},
+  {path: 'vergleich', loadChildren: () => import('./pages/comparison/comparison.module').then(m => m.ComparisonModule)},
+  {path: 'details', loadChildren: () => import('./pages/details/details.module').then(m => m.DetailsModule)},
   {path: 'ueber', loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule)},
   {path: 'kontakt', loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule)},
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
