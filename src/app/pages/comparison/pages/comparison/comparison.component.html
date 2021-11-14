@@ -1,6 +1,20 @@
+
+
+
 <p>comparison works!</p>
 <!-- Container for Comparsion Candidate 1 -->
+<div class='double-map-container'>
+
 <div style="width: 50%; float:left">
+  <div align="center">
+    <form>
+      Ort: <input type="text" value="BRANDENBURG_GATE"><br>
+      <!-- <input type="submit" value="Submit">-->
+    </form>
+  </div>
+
+
+
   <app-map [id]="'map_left'"
          [height]="mapHeight"
          [style]="mapBoxStyleEnum.LIGHT_V10"
@@ -8,9 +22,24 @@
          [center]="placeEnum.BRANDENBURG_GATE"
          [interactiveEnabled]=true>
   </app-map>
-  <div>
+  <div align="center">
     <h1>
-      DATA SLOT 1 ->
+      <b>ALLE INFOS 2-5KM Radius ??</b><br>
+      Anzahl Öffentlicher Verkehrsmittel <br>
+      Haltestellen Anzahl <br>
+      Durchschnittsgeschwindigkeit Öffis<br>
+      Durchschnittsgeschwindigkeit PKW<br>
+      Durchschnittsgeschwindigkeit Bike<br>
+      Wohnungsflächennutzung <br>
+      Gewerbegebietsflächennutzung <br>
+      Grünflächennutzung <br>
+      Top 5 POIs (REWE, BBT, MUSEUM) <br>
+      DATA SLOT 1<br>
+      |<br>
+      |<br>
+      DATA SLOT X<br>
+      |<br>
+      v<br>
     </h1>
 
   </div>
@@ -23,6 +52,12 @@
 
 <!-- Container for Comparsion Candidate 2 -->
 <div style="width: 50%; float:right">
+  <div align="center">
+    <form>
+      Ort: <input type="text" value="ELBPHILHARMONIE"><br>
+      <!-- <input type="submit" value="Submit">-->
+    </form>
+  </div>
   <app-map [id]="'map_rigth'"
     [height]="mapHeight"
     [style]="mapBoxStyleEnum.LIGHT_V10"
@@ -30,14 +65,29 @@
     [center]="placeEnum.ELBPHILHARMONIE"
     [interactiveEnabled]=true>
   </app-map>
-  <div>
+  <div align="center">
     <h1>
-      DATA SLOT 1 ->
+      <b>ALLE INFOS 2-5KM Radius ??</b><br>
+      Anzahl Öffentlicher Verkehrsmittel <br>
+      Haltestellen Anzahl <br>
+      Durchschnittsgeschwindigkeit Öffis<br>
+      Durchschnittsgeschwindigkeit PKW<br>
+      Durchschnittsgeschwindigkeit Bike<br>
+      Wohnungsflächennutzung <br>
+      Gewerbegebietsflächennutzung <br>
+      Grünflächennutzung <br>
+      Top 5 POIs (REWE, BBT, MUSEUM) <br>
+      DATA SLOT 1<br>
+      |<br>
+      |<br>
+      DATA SLOT X<br>
+      |<br>
+      v<br>
     </h1>
 
   </div>
 </div>
 
-
+</div>
 
 
