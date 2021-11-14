@@ -1,1 +1,43 @@
 <p>comparison works!</p>
+<!-- Container for Comparsion Candidate 1 -->
+<div style="width: 50%; float:left">
+  <app-map [id]="'map_left'"
+         [height]="mapHeight"
+         [style]="mapBoxStyleEnum.LIGHT_V10"
+         [zoom]="9"
+         [center]="placeEnum.BRANDENBURG_GATE"
+         [interactiveEnabled]=true>
+  </app-map>
+  <div>
+    <h1>
+      DATA SLOT 1 ->
+    </h1>
+
+  </div>
+
+
+
+
+</div>
+
+
+<!-- Container for Comparsion Candidate 2 -->
+<div style="width: 50%; float:right">
+  <app-map [id]="'map_rigth'"
+    [height]="mapHeight"
+    [style]="mapBoxStyleEnum.LIGHT_V10"
+    [zoom]="9"
+    [center]="placeEnum.ELBPHILHARMONIE"
+    [interactiveEnabled]=true>
+  </app-map>
+  <div>
+    <h1>
+      DATA SLOT 1 ->
+    </h1>
+
+  </div>
+</div>
+
+
+
+
