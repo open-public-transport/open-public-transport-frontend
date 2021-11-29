@@ -13,14 +13,13 @@
     </form>
   </div>
 
-
-
   <app-map [id]="'map_left'"
          [height]="mapHeight"
          [style]="mapBoxStyleEnum.LIGHT_V10"
          [zoom]="9"
          [center]="placeEnum.BRANDENBURG_GATE"
          [interactiveEnabled]=true>
+         [searchable]
   </app-map>
   <div align="center">
     <h1>
@@ -41,12 +40,7 @@
       |<br>
       v<br>
     </h1>
-
   </div>
-
-
-
-
 </div>
 
 
