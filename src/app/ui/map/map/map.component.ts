@@ -587,4 +587,26 @@ export class MapComponent implements OnChanges, AfterViewInit {
     const initialLocation = new Location('init', '', this.zoom, this.center.longitude, this.center.latitude);
     this.flyableLocationSubject.next(initialLocation);
   }
+
+  /**
+   *
+   * I Think we need an extra MapComponent to seperate two Maps .. one with an active search element and one without an Search element
+   *
+  const geocoder = new MapboxGeocoder({
+    // Initialize the geocoder
+    accessToken: mapboxgl.accessToken, // Set the access token
+    mapboxgl: mapboxgl, // Set the mapbox-gl instance
+    marker: false, // Do not use the default marker style
+    placeholder: 'Search for places in Berlin', // Placeholder text for the search bar
+    bbox: [13.091992716067702, 52.33488609760638, 13.742786470433, 52.67626223889507], // Boundary for Berlin
+    proximity: {
+    longitude: 13.377777777778,
+    latitude: 52.516388888889
+    } // Coordinates of UC Berkeley
+    });
+
+    // Add the geocoder to the map
+    map.addControl(geocoder);
+*/
+
 }
