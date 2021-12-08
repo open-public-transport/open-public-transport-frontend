@@ -2,10 +2,10 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   Inject,
   Input,
-  OnChanges,
+  OnChanges, Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
@@ -22,6 +22,7 @@ import {BoundingBox} from '../model/bounding-box.model';
 import {ColorRamp} from '../model/color-ramp.model';
 import {DOCUMENT} from '@angular/common';
 import {UUID} from '../model/uuid.model';
+import {GeocoderResult} from "../model/geocoder-result";
 
 /**
  * Displays a map box
@@ -143,6 +144,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
   /** Whether or not debug mode is enabled */
   @Input() debug = false;
+
+  /** Event emitter indicating a new geocoder results */
+  @Output() public geocodingResultEventEmitter = new EventEmitter<GeocoderResult>();
 
   /** Map Box object */
   private map: mapboxgl.Map;
@@ -489,27 +493,32 @@ export class MapComponent implements OnChanges, AfterViewInit {
    */
   private initializeGeocoder() {
     if (this.geocoderEnabled) {
-      this.map.addControl(
-        new MapboxGeocoder({
-          accessToken: mapboxgl.accessToken,
-          mapboxgl: mapboxgl,
-          // filter: (result) => {
-          //   console.log(`result ${JSON.stringify(result)}`);
-          //   return result.place_name.toLowerCase().includes("berlin, deutschland")
-          // },
-          // bbox: BoundingBox.BERLIN
-          limit: 100,
-          filter: (result) => {
-            return this.geocoderFilter.some(items =>
-              items.every(item =>
-                result.context.some(c => {
-                  return c.text === item;
-                })
-              )
+
+      const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        // filter: (result) => {
+        //   console.log(`result ${JSON.stringify(result)}`);
+        //   return result.place_name.toLowerCase().includes("berlin, deutschland")
+        // },
+        // bbox: BoundingBox.BERLIN
+        limit: 100,
+        filter: (result) => {
+          return this.geocoderFilter.some(items =>
+            items.every(item =>
+              result.context.some(c => {
+                return c.text === item;
+              })
             )
-          },
-        })
-      );
+          )
+        },
+      });
+
+      this.map.addControl(geocoder);
+
+      geocoder.on("result", result => {
+        this.geocodingResultEventEmitter.emit(result.result as GeocoderResult)
+      });
     }
   }
 
