@@ -1,0 +1,12 @@
+<div class="map-container">
+  <app-map [id]=mapId
+           [height]="mapHeight"
+           [style]="mapBoxStyleEnum.LIGHT_V10"
+           [zoom]="11.5"
+           [center]="placeEnum.BRANDENBURG_GATE"
+           [geocoderEnabled]="true"
+           [geocoderFilter]=geocoderFilter
+           [interactiveEnabled]=true
+           (geocodingResultEventEmitter)="onGeocodingResultChanged($event)">
+  </app-map>
+</div>
