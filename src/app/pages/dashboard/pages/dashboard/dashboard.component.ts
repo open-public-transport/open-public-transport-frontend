@@ -22,4 +22,9 @@ export class DashboardComponent {
   placeEnum = Place;
   /** Enum representing map box style */
   mapBoxStyleEnum = MapBoxStyle;
+  /** Geocoder filter */
+  geocoderFilter = [
+    ["Deutschland", "Berlin"],
+    ["Deutschland", "Hamburg"]
+  ];
 }

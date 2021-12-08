@@ -92,6 +92,11 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
   /** Whether geocoder is enabled or not */
   @Input() geocoderEnabled = false;
+  /** Places to use for geocoder filter */
+  @Input() geocoderFilter = [
+    ["Deutschland", "Berlin"],
+    ["Deutschland", "Hamburg"]
+  ]
 
   /** Whether reset map position and zoom is enabled */
   @Input() resetEnabled = false;
@@ -487,7 +492,22 @@ export class MapComponent implements OnChanges, AfterViewInit {
       this.map.addControl(
         new MapboxGeocoder({
           accessToken: mapboxgl.accessToken,
-          mapboxgl: mapboxgl
+          mapboxgl: mapboxgl,
+          // filter: (result) => {
+          //   console.log(`result ${JSON.stringify(result)}`);
+          //   return result.place_name.toLowerCase().includes("berlin, deutschland")
+          // },
+          // bbox: BoundingBox.BERLIN
+          limit: 100,
+          filter: (result) => {
+            return this.geocoderFilter.some(items =>
+              items.every(item =>
+                result.context.some(c => {
+                  return c.text === item;
+                })
+              )
+            )
+          },
         })
       );
     }
