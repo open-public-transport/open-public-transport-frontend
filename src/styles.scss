@@ -54,11 +54,11 @@ a:hover {
   color: mat.get-color-from-palette(mat.$grey-palette, 600);
 }
 
-.mapboxgl-ctrl-top-left,
-.mapboxgl-ctrl-bottom-left,
-.mapboxgl-ctrl-bottom-right {
-  display: none;
-}
+//.mapboxgl-ctrl-top-left,
+//.mapboxgl-ctrl-bottom-left,
+//.mapboxgl-ctrl-bottom-right {
+//  display: none;
+//}
 
 *:focus {
   outline: none;
