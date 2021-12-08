@@ -10,6 +10,7 @@ import {
   ViewChild
 } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import {environment} from '../../../../environments/environment';
 import {Place} from '../../../core/mapbox/model/place.model';
 import {MapBoxStyle} from '../../../core/mapbox/model/map-box-style.enum';
@@ -88,6 +89,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
   @Input() flyToLocation: Location;
   /** Fly-to bounding box */
   @Input() flyToBoundingBox: BoundingBox;
+
+  /** Whether geocoder is enabled or not */
+  @Input() geocoderEnabled = false;
 
   /** Whether reset map position and zoom is enabled */
   @Input() resetEnabled = false;
@@ -210,6 +214,8 @@ export class MapComponent implements OnChanges, AfterViewInit {
     this.initializeTouchZoomRotate(this.touchZoomRotateEnabled);
 
     this.initializeFlyTo();
+
+    this.initializeGeocoder();
 
     // Display overlays
     this.initializeResultOverlays(this.results);
@@ -471,6 +477,20 @@ export class MapComponent implements OnChanges, AfterViewInit {
       // @ts-ignore
       this.map.fitBounds(boundingBox);
     });
+  }
+
+  /**
+   * Initializes geocoder
+   */
+  private initializeGeocoder() {
+    if (this.geocoderEnabled) {
+      this.map.addControl(
+        new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          mapboxgl: mapboxgl
+        })
+      );
+    }
   }
 
   /**
