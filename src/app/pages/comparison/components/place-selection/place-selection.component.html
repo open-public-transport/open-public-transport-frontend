@@ -6,7 +6,25 @@
            [center]="placeEnum.BRANDENBURG_GATE"
            [geocoderEnabled]="true"
            [geocoderFilter]=geocoderFilter
-           [interactiveEnabled]=true
+           [interactiveEnabled]=false
            (geocodingResultEventEmitter)="onGeocodingResultChanged($event)">
   </app-map>
+  <div *ngIf="result != null" class="card-container">
+    <mat-card>
+      <div class="flexcontainer">
+        <app-spider-diagram class="spider-diagram"></app-spider-diagram>
+        <div>
+          <mat-card-title>{{ placeNames[0] }}</mat-card-title>
+          <mat-card-subtitle>{{ placeNames[1] }}<br/>{{ placeNames[2] }}<br/>{{ placeNames[3] }}</mat-card-subtitle>
+        </div>
+        <div class="flexbox"></div>
+        <div>
+          Mobilitätsindex
+          <div class="mobility-index">
+            {{ mobilityIndex }}
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
 </div>
