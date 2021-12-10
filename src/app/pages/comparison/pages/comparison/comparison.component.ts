@@ -23,6 +23,10 @@ export class ComparisonComponent {
   /** Metrics of result right */
   metricsRight: Metrics;
 
+  /**
+   * Constructor
+   * @param metricsService metrics service
+   */
   constructor(private metricsService: MetricsService) {
   }
 
@@ -56,7 +60,7 @@ export class ComparisonComponent {
 
     if (result != null) {
       const lat = result.center[0];
-      const lon = result.center[0];
+      const lon = result.center[1];
 
       this.metricsService.getMetrics(lat, lon).subscribe((metrics: Metrics) => {
         this.metricsRight = metrics;
