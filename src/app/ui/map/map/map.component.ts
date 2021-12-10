@@ -2,10 +2,12 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   Inject,
   Input,
-  OnChanges, Output,
+  OnChanges,
+  Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
@@ -504,9 +506,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
         // bbox: BoundingBox.BERLIN
         limit: 100,
         filter: (result) => {
-          return this.geocoderFilter.some(items =>
+          return result != null && this.geocoderFilter.some(items =>
             items.every(item =>
-              result.context.some(c => {
+              result.context != null && result.context.some(c => {
                 return c.text === item;
               })
             )
@@ -521,6 +523,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
       });
       geocoder.on("clear", result => {
         this.geocodingResultEventEmitter.emit(null);
+      });
+      geocoder.on("error", error => {
+        console.error(error);
       });
     }
   }
