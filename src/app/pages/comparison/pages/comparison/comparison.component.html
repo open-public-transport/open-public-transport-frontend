@@ -1,3 +1,8 @@
+<div class="button-container">
+  <button mat-fab color="primary" class="vs-button">
+    VS
+  </button>
+</div>
 <div class="flexcontainer selection-container">
   <app-place-selection class="place-selection"
                        [mapId]="'left'"
@@ -7,8 +12,4 @@
                        [mapId]="'right'"
                        (geocodingResultEventEmitter)="onGeocodingResultRightChanged($event)"></app-place-selection>
 </div>
-<div class="button-container">
-  <button mat-fab color="primary" class="vs-button">
-    VS
-  </button>
-</div>
+
