@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
+import {MetricsService} from "../../services/metrics.service";
+import {Metrics} from "../../model/metrics";
 
 /**
  * Displays comparison page
@@ -16,6 +18,14 @@ export class ComparisonComponent {
   /** Selected geocoder result right */
   resultRight: GeocoderResult;
 
+  /** Metrics of result left */
+  metricsLeft: Metrics;
+  /** Metrics of result right */
+  metricsRight: Metrics;
+
+  constructor(private metricsService: MetricsService) {
+  }
+
   //
   // Actions
   //
@@ -27,7 +37,14 @@ export class ComparisonComponent {
   onGeocodingResultLeftChanged(result: GeocoderResult) {
     this.resultLeft = result;
 
-    // TODO Call our endpoint to get metrics
+    if (result != null) {
+      const lat = result.center[0];
+      const lon = result.center[0];
+
+      this.metricsService.getMetrics(lat, lon).subscribe((metrics: Metrics) => {
+        this.metricsLeft = metrics;
+      });
+    }
   }
 
   /**
@@ -37,6 +54,13 @@ export class ComparisonComponent {
   onGeocodingResultRightChanged(result: GeocoderResult) {
     this.resultRight = result;
 
-    // TODO Call our endpoint to get metrics
+    if (result != null) {
+      const lat = result.center[0];
+      const lon = result.center[0];
+
+      this.metricsService.getMetrics(lat, lon).subscribe((metrics: Metrics) => {
+        this.metricsRight = metrics;
+      });
+    }
   }
 }
