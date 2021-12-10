@@ -6,6 +6,9 @@ export const environment = {
   production: false,
   mapbox: {
     accessToken: 'pk.eyJ1Ijoib3BucGJsY3RybnNwcnQiLCJhIjoiY2tzeDJ0NWd5MG95cDJ3bHFicHZnaTc5ayJ9.bQNmZPQRhtzTaLV8BSuLiQ'
+  },
+  endpoint: {
+    metrics: 'http://localhost:8000/metrics'
   }
 };
 
