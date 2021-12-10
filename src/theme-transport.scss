@@ -1,0 +1,113 @@
+@use '~@angular/material' as mat;
+
+$color-u8: #245896;
+$color-u3: #479E92;
+$color-u1: #73AB42;
+$color-u8: hsl(213, 61%, 36%);
+$color-u3: hsl(172, 38%, 45%);
+$color-u1: hsl(92, 44%, 46%);
+
+$mat-u8: (
+  50: hsl(213, 61%, 99%),
+  100: hsl(213, 61%, 89%),
+  200: hsl(213, 61%, 79%),
+  300: hsl(213, 61%, 69%),
+  400: hsl(213, 61%, 59%),
+  500: hsl(213, 61%, 49%),
+  600: hsl(213, 61%, 39%),
+  700: hsl(213, 61%, 29%),
+  800: hsl(213, 61%, 19%),
+  900: hsl(213, 61%, 9%),
+  A100: $color-u8,
+  A200: $color-u8,
+  A400: $color-u8,
+  A700: $color-u8,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$mat-u3: (
+  50: hsl(172, 38%, 99%),
+  100: hsl(172, 38%, 89%),
+  200: hsl(172, 38%, 79%),
+  300: hsl(172, 38%, 69%),
+  400: hsl(172, 38%, 59%),
+  500: hsl(172, 38%, 49%),
+  600: hsl(172, 38%, 39%),
+  700: hsl(172, 38%, 29%),
+  800: hsl(172, 38%, 19%),
+  900: hsl(172, 38%, 9%),
+  A100: $color-u3,
+  A200: $color-u3,
+  A400: $color-u3,
+  A700: $color-u3,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$mat-u1: (
+  50: hsl(92, 44%, 99%),
+  100: hsl(92, 44%, 89%),
+  200: hsl(92, 44%, 79%),
+  300: hsl(92, 44%, 69%),
+  400: hsl(92, 44%, 59%),
+  500: hsl(92, 44%, 49%),
+  600: hsl(92, 44%, 39%),
+  700: hsl(92, 44%, 29%),
+  800: hsl(92, 44%, 19%),
+  900: hsl(92, 44%, 9%),
+  A100: $color-u1,
+  A200: $color-u1,
+  A400: $color-u1,
+  A700: $color-u1,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$transport-primary: mat.define-palette($mat-u8, 500, 600, 700);
+$transport-accent: mat.define-palette($mat-u3, 700, 600, 800);
+$transport-warn: mat.define-palette(mat.$red-palette);
+
+$transport-theme: mat.define-light-theme($transport-primary, $transport-accent, $transport-warn);
