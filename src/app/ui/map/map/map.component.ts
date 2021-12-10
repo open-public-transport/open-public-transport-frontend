@@ -38,7 +38,7 @@ export class MapComponent implements OnChanges, AfterViewInit {
   /** Unique ID for this map */
   @Input() id = UUID.toString();
   /** Height of the map */
-  @Input() height = '500px';
+  @Input() height = "500px";
   /** Display name of the map */
   @Input() displayName = '';
 
@@ -517,7 +517,10 @@ export class MapComponent implements OnChanges, AfterViewInit {
       this.map.addControl(geocoder);
 
       geocoder.on("result", result => {
-        this.geocodingResultEventEmitter.emit(result.result as GeocoderResult)
+        this.geocodingResultEventEmitter.emit(result.result as GeocoderResult);
+      });
+      geocoder.on("clear", result => {
+        this.geocodingResultEventEmitter.emit(null);
       });
     }
   }
