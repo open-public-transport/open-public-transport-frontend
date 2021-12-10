@@ -17,7 +17,6 @@ export class MaterialIconService {
    * @param sanitizer sanitizer
    */
   public initializeIcons(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    console.log("initializeIcons");
     iconRegistry.addSvgIcon('email_outline', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/email_outline_24dp.svg'));
     iconRegistry.addSvgIcon('github', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/github_24dp.svg'));
     iconRegistry.addSvgIcon('linkedin', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/linkedin_24dp.svg'));
