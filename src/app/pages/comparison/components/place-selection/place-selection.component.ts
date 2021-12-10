@@ -1,8 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Place} from "../../../../core/mapbox/model/place.model";
 import {MapBoxStyle} from "../../../../core/mapbox/model/map-box-style.enum";
 import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
 
+/**
+ * Displays place selection component
+ */
 @Component({
   selector: 'app-place-selection',
   templateUrl: './place-selection.component.html',
@@ -13,7 +16,7 @@ export class PlaceSelectionComponent {
   @Input() mapId = "map";
 
   /** Height of the map */
-  mapHeight = '60vh';
+  mapHeight = "100%";
 
   /** Enum representing places */
   placeEnum = Place;
@@ -25,11 +28,21 @@ export class PlaceSelectionComponent {
     ["Deutschland", "Hamburg"]
   ];
 
+  /** Selected geocoder result */
   result: GeocoderResult;
+  /** Place names of selected geocoder result */
+  placeNames = [];
 
+  //
+  // Actions
+  //
+
+  /**
+   * Handles geocoder results
+   * @param result geocoder result
+   */
   onGeocodingResultChanged(result: GeocoderResult) {
-    console.log(`kam an`);
-    console.log(`${JSON.stringify(result)}`);
     this.result = result;
+    this.placeNames = result.place_name.split(",");
   }
 }
