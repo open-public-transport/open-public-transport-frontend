@@ -13,7 +13,12 @@ import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
 })
 export class PlaceSelectionComponent {
 
+  /** Map ID */
   @Input() mapId = "map";
+  /** Mobility index of selected place */
+  @Input() mobilityIndex = -1;
+  /** Event emitter indicating a new geocoder results */
+  @Output() public geocodingResultEventEmitter = new EventEmitter<GeocoderResult>();
 
   /** Height of the map */
   mapHeight = "100%";
@@ -44,5 +49,6 @@ export class PlaceSelectionComponent {
   onGeocodingResultChanged(result: GeocoderResult) {
     this.result = result;
     this.placeNames = result.place_name.split(",");
+    this.geocodingResultEventEmitter.emit(result);
   }
 }

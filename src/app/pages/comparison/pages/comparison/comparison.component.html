@@ -1,5 +1,9 @@
-<div class="flexcontainer">
-  <app-place-selection class="place-selection" [mapId]="'left'"></app-place-selection>
+<div class="flexcontainer selection-container">
+  <app-place-selection class="place-selection"
+                       [mapId]="'left'"
+                       (geocodingResultEventEmitter)="onGeocodingResultLeftChanged($event)"></app-place-selection>
   <div class="flexbox"></div>
-  <app-place-selection class="place-selection" [mapId]="'right'"></app-place-selection>
+  <app-place-selection class="place-selection"
+                       [mapId]="'right'"
+                       (geocodingResultEventEmitter)="onGeocodingResultRightChanged($event)"></app-place-selection>
 </div>
