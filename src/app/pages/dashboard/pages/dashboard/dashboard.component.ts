@@ -4,6 +4,7 @@ import {Place} from '../../../../core/mapbox/model/place.model';
 import {MaterialIconService} from "../../../../core/ui/services/material-icon.service";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
+import {BoundingBox} from "../../../../ui/map/model/bounding-box.model";
 
 /**
  * Displays a dashboard
@@ -22,9 +23,18 @@ export class DashboardComponent {
   placeEnum = Place;
   /** Enum representing map box style */
   mapBoxStyleEnum = MapBoxStyle;
+  /** Enum representing bounding boxes */
+  boundingBoxEnum = BoundingBox;
+
   /** Geocoder filter */
   geocoderFilter = [
     ["Deutschland", "Berlin"],
     ["Deutschland", "Hamburg"]
+  ];
+
+  /** Isochrone results */
+  hexResults = [
+    "berlin/geojson/isochrones-15",
+    // "hamburg/geojson/isochrones-15",
   ];
 }

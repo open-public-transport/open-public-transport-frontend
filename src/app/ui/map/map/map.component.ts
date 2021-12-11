@@ -12,7 +12,10 @@ import {
   ViewChild
 } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import * as turf from '@turf/turf';
+import * as turfMeta from '@turf/meta';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import {environment} from '../../../../environments/environment';
 import {Place} from '../../../core/mapbox/model/place.model';
 import {MapBoxStyle} from '../../../core/mapbox/model/map-box-style.enum';
@@ -25,6 +28,7 @@ import {ColorRamp} from '../model/color-ramp.model';
 import {DOCUMENT} from '@angular/common';
 import {UUID} from '../model/uuid.model';
 import {GeocoderResult} from "../model/geocoder-result";
+import RBush from 'rbush';
 
 /**
  * Displays a map box
@@ -112,7 +116,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
   @Input() hexResults: string[] = [];
 
   /** Hexagon edge size in km */
-  @Input() cellSize = 0.5;
+  @Input() hexCellSize = 0.5;
+  /** Hexagon bounding box */
+  @Input() hexBoundingBox = BoundingBox.BERLIN;
   /** Property to use aggregate data from */
   @Input() hexAggregateProperty = 'mean_spatial_distance_60min';
   /** Color ramp */
@@ -230,7 +236,7 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
     // Display overlays
     this.initializeResultOverlays(this.results);
-    this.initializeResultOverlays(this.hexResults);
+    this.initializeHexResultOverlays(this.hexResults);
   }
 
   //
@@ -537,7 +543,267 @@ export class MapComponent implements OnChanges, AfterViewInit {
    */
   private initializeResultOverlays(results: string[]) {
     this.map.on('load', () => {
+
+      // Base URL for results
+      const baseUrl = environment.github.resultsUrl;
+
+      results.forEach(name => {
+
+        // Add source
+        this.map.addSource(name,
+          {
+            type: 'geojson',
+            data: baseUrl + name + '.geojson'
+          }
+        );
+
+        // Download styling for result
+        this.http.get(baseUrl + 'styles/' + name + '.json', {responseType: 'text' as 'json'}).subscribe((data: any) => {
+          this.initializeLayer(name, data);
+        });
+      });
     });
+  }
+
+  /**
+   * Initializes a layer
+   * @param name name
+   * @param data data
+   */
+  private initializeLayer(name: string, data: any) {
+    // Link layer to source
+    const layer = JSON.parse(data);
+    layer['id'] = name + '-layer';
+    layer['source'] = name;
+
+    // Get ID of first layer which contains labels
+    const firstSymbolId = this.getFirstLayerWithLabels(this.map);
+
+    // Remove layer
+    if (this.map.getLayer(layer['id'])) {
+      this.map.removeLayer(layer['id']);
+    }
+
+    // Add layer
+    this.map.addLayer(layer, firstSymbolId);
+
+    // Initialize layer transparency
+    if (layer['paint'].hasOwnProperty('fill-color')) {
+      this.map.setPaintProperty(layer['id'], 'fill-opacity', this.initialOpacity / 100);
+    }
+    if (layer['paint'].hasOwnProperty('line-color')) {
+      this.map.setPaintProperty(layer['id'], 'line-opacity', this.initialOpacity / 100);
+    }
+    if (layer['paint'].hasOwnProperty('heatmap-color')) {
+      this.map.setPaintProperty(layer['id'], 'heatmap-opacity', this.initialOpacity / 100);
+    }
+    if (layer['paint'].hasOwnProperty('circle-color')) {
+      this.map.setPaintProperty(layer['id'], 'circle-opacity', this.initialOpacity / 100);
+    }
+
+    // Update layer transparency
+    this.opacitySubject.subscribe((e: { name, value }) => {
+      const layerId = e.name + '-layer';
+
+      if (layer.id === layerId) {
+        if (layer['paint'].hasOwnProperty('fill-color')) {
+          this.map.setPaintProperty(layerId, 'fill-opacity', e.value / 100);
+        }
+        if (layer['paint'].hasOwnProperty('line-color')) {
+          this.map.setPaintProperty(layerId, 'line-opacity', e.value / 100);
+        }
+        if (layer['paint'].hasOwnProperty('heatmap-color')) {
+          this.map.setPaintProperty(layerId, 'heatmap-opacity', e.value / 100);
+        }
+        if (layer['paint'].hasOwnProperty('circle-color')) {
+          this.map.setPaintProperty(layerId, 'circle-opacity', e.value / 100);
+        }
+      }
+    });
+
+    // Check if debug mode is enabled
+    if (this.debug) {
+      this.map.on('click', name + '-layer', (e) => {
+        new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(`value ${e.features[0]
+            .properties['max_spatial_distance_15min']} / coords ${e.features[0].geometry['coordinates']}`)
+          .addTo(this.map);
+      });
+    }
+  }
+
+  /**
+   * Initializes hex results overlays
+   *
+   * @param results results
+   */
+  private initializeHexResultOverlays(results: string[]) {
+    this.map.on('load', () => {
+
+      // Base URL for results
+      const baseUrl = environment.github.resultsUrl;
+
+      // Map of results
+      const resultsMap: Map<string, any> = new Map();
+
+      // Initialize scale
+      let aggregatePropertyMin = 10_000;
+      let aggregatePropertyMax = -10_000;
+      let aggregatePropertyStep = 1;
+
+      results.forEach(name => {
+
+        console.log(`FOO baseUrl ${baseUrl}`);
+        console.log(`FOO name ${name}`);
+        console.log(`FOO all ${baseUrl + name}`);
+
+        // Download geojson for result
+        this.http.get(baseUrl + name, {responseType: 'text' as 'json'}).subscribe((geojsonData: any) => {
+
+          const processedGeojson = this.preprocessHexagonData(JSON.parse(geojsonData), this.hexBoundingBox,
+            this.hexAggregateProperty, this.hexCellSize, this.hexBinLimit, this.hexBinThreshold);
+
+          console.log(`FOO processedGeojson ${JSON.stringify(processedGeojson)}`);
+
+          // Save preprocessed GeoJSON
+          resultsMap.set(name, processedGeojson);
+
+          // Add source
+          if (!this.map.getSource(name)) {
+            this.map.addSource(name, {
+                type: 'geojson',
+                data: processedGeojson
+              }
+            );
+          }
+
+          // Check if individual scale should be applied
+          if (this.individualScale) {
+
+            const aggregatePropertyValues = processedGeojson.features.map(f => {
+              return f['properties']['avg'];
+            });
+            aggregatePropertyMin = Math.min(...aggregatePropertyValues);
+            aggregatePropertyMax = Math.max(...aggregatePropertyValues);
+            aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
+
+            // Just draw this layer with its individual scale
+            this.initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep);
+          } else {
+            // Re-calculate scale
+            resultsMap.forEach((p, _) => {
+              const aggegatePropertyValues = p.features.map(f => {
+                return f['properties']['avg'];
+              });
+              const layerAggregatePropertyMin = Math.min(...aggegatePropertyValues);
+              const layerAggregatePropertyMax = Math.max(...aggegatePropertyValues);
+
+              if (layerAggregatePropertyMin < aggregatePropertyMin) {
+                aggregatePropertyMin = layerAggregatePropertyMin;
+              }
+              if (layerAggregatePropertyMax > aggregatePropertyMax) {
+                aggregatePropertyMax = layerAggregatePropertyMax;
+              }
+            });
+
+            // Re-calculate step
+            aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
+
+            // Re-draw each layer with unified scale
+            resultsMap.forEach((_, n) => {
+              this.initializeHexLayer(n, aggregatePropertyMin, aggregatePropertyStep);
+            });
+          }
+        });
+      });
+    });
+  }
+
+  /**
+   * Initializes a hex layer
+   * @param name layer name
+   * @param aggregatePropertyMin min value
+   * @param aggregatePropertyStep step size
+   */
+  private initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep) {
+
+    console.log(`FOO aggregatePropertyMin ${aggregatePropertyMin}`);
+
+    // Link layer to source
+    const layer = {
+      id: '',
+      type: 'fill',
+      source: name,
+      paint: {
+        'fill-color': {
+          property: 'avg',
+          stops: this.hexColorRamp.map((d, i) =>
+            [aggregatePropertyMin + (i * aggregatePropertyStep), d])
+        },
+        'fill-opacity': 0.6
+      }
+    };
+    layer['id'] = name + '-layer';
+    layer['source'] = name;
+
+    // Get ID of first layer which contains labels
+    const firstSymbolId = this.getFirstLayerWithLabels(this.map);
+
+    // Remove layer
+    if (this.map.getLayer(layer['id'])) {
+      this.map.removeLayer(layer['id']);
+    }
+
+    console.log(`FOO layer ${JSON.stringify(layer)}`);
+
+    // Add layer
+    // @ts-ignore
+    this.map.addLayer(layer, firstSymbolId);
+
+    // Initialize layer opacity
+    if (layer['paint'].hasOwnProperty('fill-color')) {
+      this.map.setPaintProperty(layer['id'], 'fill-opacity', this.initialOpacity / 100);
+    }
+    if (layer['paint'].hasOwnProperty('line-color')) {
+      this.map.setPaintProperty(layer['id'], 'line-opacity', this.initialOpacity / 100);
+    }
+    if (layer['paint'].hasOwnProperty('heatmap-color')) {
+      this.map.setPaintProperty(layer['id'], 'heatmap-opacity', this.initialOpacity / 100);
+    }
+    if (layer['paint'].hasOwnProperty('circle-color')) {
+      this.map.setPaintProperty(layer['id'], 'circle-opacity', this.initialOpacity / 100);
+    }
+
+    // Update layer opacity
+    this.opacitySubject.subscribe((e: { name, value }) => {
+      const layerId = e.name + '-layer';
+      if (layer.id === layerId) {
+        if (layer['paint'].hasOwnProperty('fill-color')) {
+          this.map.setPaintProperty(layerId, 'fill-opacity', e.value / 100);
+        }
+        if (layer['paint'].hasOwnProperty('line-color')) {
+          this.map.setPaintProperty(layerId, 'line-opacity', e.value / 100);
+        }
+        if (layer['paint'].hasOwnProperty('heatmap-color')) {
+          this.map.setPaintProperty(layerId, 'heatmap-opacity', e.value / 100);
+        }
+        if (layer['paint'].hasOwnProperty('circle-color')) {
+          this.map.setPaintProperty(layerId, 'circle-opacity', e.value / 100);
+        }
+      }
+    });
+
+    // Check if debug mode is enabled
+    if (this.debug) {
+      this.map.on('click', name + '-layer', (e) => {
+        new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(`value ${e.features[0]
+            .properties['max_spatial_distance_15min']} / coords ${e.features[0].geometry['coordinates']}`)
+          .addTo(this.map);
+      });
+    }
   }
 
   /**
@@ -643,5 +909,119 @@ export class MapComponent implements OnChanges, AfterViewInit {
   onResetClicked() {
     const initialLocation = new Location('init', '', this.zoom, this.center.longitude, this.center.latitude);
     this.flyableLocationSubject.next(initialLocation);
+  }
+
+  //
+  // Hexagon helpers
+  //
+
+  /**
+   * Pre-processes raw data by clustering them into hexbins
+   * @param data raw data
+   * @param boundingBox bounding box
+   * @param aggregateProperty property
+   * @param cellSize cell size in km
+   * @param hexBinLimit hex-bin limit
+   * @param hexBinThreshold hex-bin threshold
+   *
+   * @return a geoJSON that represents polygons for each hexbin
+   */
+  private preprocessHexagonData(data: any, boundingBox: number[], aggregateProperty: string, cellSize: number, hexBinLimit: number, hexBinThreshold: number): any {
+
+    console.log(`FOO data ${JSON.stringify(data)}`);
+
+
+    // @ts-ignore
+    const hexGrid = turf.hexGrid(boundingBox, cellSize);
+
+    // perform a "spatial join" on our hexGrid geometry and our crashes point data
+    const collected = this.collect(hexGrid, data, aggregateProperty, 'values', hexBinThreshold);
+
+    // get rid of polygons with no joined data, to reduce our final output file size
+    collected.features = collected.features.filter(d => {
+      return d.properties.values.length > hexBinLimit;
+    });
+
+    // Count number of values and average per hexbin
+    turfMeta.propEach(collected, props => {
+      props.count = props.values.length || 0;
+      props.avg = (props.values.reduce((a, b) => a + b, 0) / props.values.length) || 0;
+      props.raw = JSON.stringify(props.values);
+    });
+
+    // Remove the "values" property from our hexBins as it's no longer needed
+    turfMeta.propEach(collected, props => {
+      delete props.values;
+    });
+
+    return collected;
+  }
+
+  /**
+   * Assigns all point into a hexbin polygon
+   * @param polygons hexagon polygons
+   * @param points points
+   * @param inProperty in-property
+   * @param outProperty out-property
+   * @param hexBinThreshold hex-bin threshold
+   */
+  private collect(polygons, points, inProperty, outProperty, hexBinThreshold) {
+    const rtree = new RBush(6);
+
+    const treeItems = points.features.map((item) => {
+      return {
+        minX: item.geometry.coordinates[0],
+        minY: item.geometry.coordinates[1],
+        maxX: item.geometry.coordinates[0],
+        maxY: item.geometry.coordinates[1],
+        property: item.properties[inProperty]
+      };
+    });
+
+    rtree.load(treeItems);
+
+    polygons.features.forEach((poly) => {
+
+      if (!poly.properties) {
+        poly.properties = {};
+      }
+      const bbox = turf.bbox(poly);
+      const potentialPoints = rtree.search({minX: bbox[0], minY: bbox[1], maxX: bbox[2], maxY: bbox[3]});
+      const values = [];
+      potentialPoints.forEach((pt) => {
+        // @ts-ignore
+        if (booleanPointInPolygon([pt.minX, pt.minY], poly) && pt.property > hexBinThreshold) {
+          // @ts-ignore
+          values.push(pt.property);
+        }
+      });
+
+      const properties = {};
+      properties[outProperty] = values;
+      poly.properties = properties;
+    });
+
+    return polygons;
+  }
+
+  //
+  // Helpers
+  //
+
+  /**
+   * Gets ID of first layer containing symbols
+   * @param map map
+   */
+  private getFirstLayerWithLabels(map): string {
+    const layers = map.getStyle().layers;
+    let firstSymbolId = '';
+    // Find the index of the first symbol layer in the map style
+    layers.forEach((_, index) => {
+      if (firstSymbolId === '' && layers[index].type === 'symbol') {
+        firstSymbolId = layers[index].id;
+      }
+    });
+
+    return firstSymbolId;
   }
 }
