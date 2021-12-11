@@ -43,10 +43,12 @@ export class ComparisonComponent {
 
     if (result != null) {
       const lat = result.center[0];
-      const lon = result.center[0];
+      const lon = result.center[1];
 
       this.metricsService.getMetrics(lat, lon).subscribe((metrics: Metrics) => {
         this.metricsLeft = metrics;
+      }, () => {
+        this.metricsLeft = null;
       });
     }
   }
@@ -64,6 +66,8 @@ export class ComparisonComponent {
 
       this.metricsService.getMetrics(lat, lon).subscribe((metrics: Metrics) => {
         this.metricsRight = metrics;
+      }, () => {
+        this.metricsLeft = null;
       });
     }
   }
