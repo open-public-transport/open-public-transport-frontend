@@ -1,9 +1,12 @@
 <app-map [id]="'map'"
          [height]="mapHeight"
          [style]="mapBoxStyleEnum.LIGHT_V10"
-         [zoom]="11.5"
+         [zoom]="10.0"
          [center]="placeEnum.BRANDENBURG_GATE"
          [geocoderEnabled]="true"
          [geocoderFilter]=geocoderFilter
-         [interactiveEnabled]=true>
+         [interactiveEnabled]=true
+         [hexResults]="hexResults"
+         [hexBoundingBox]="boundingBoxEnum.BERLIN"
+         [hexAggregateProperty]="'mean_spatial_distance_15min'">
 </app-map>

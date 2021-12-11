@@ -13,7 +13,10 @@ export const environment = {
     place: 'http://localhost:8000/place',
     isochrone: 'http://localhost:8000/isochrone',
     cities: 'http://localhost:8000/cities'
-  }
+  },
+  github: {
+    resultsUrl: 'https://raw.githubusercontent.com/open-public-transport/open-public-transport-results/main/results/'
+  },
 };
 
 /*
