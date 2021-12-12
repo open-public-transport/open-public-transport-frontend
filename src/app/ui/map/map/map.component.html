@@ -4,7 +4,8 @@
      (mouseenter)="onMouseEnter()">
 </div>
 
-<app-legend [displayName]="displayName"
+<app-legend *ngIf="legendEnabled"
+            [displayName]="displayName"
             [legendGradient]="legendGradient"
             [multiLegendGradient]="multiLegendGradient"
             [multiLegend]="multiLegend"

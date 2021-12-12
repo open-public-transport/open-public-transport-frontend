@@ -130,6 +130,8 @@ export class MapComponent implements OnChanges, AfterViewInit {
   /** Whether or not each layer should have an individual scale */
   @Input() individualScale = false;
 
+  /** Whether legend is enabled or not */
+  @Input() legendEnabled = false;
   /** Whether to a map legend should show as gradient or not */
   @Input() legendGradient = true;
   /** Multi legend gradient */
@@ -514,9 +516,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
         filter: (result) => {
           return result != null && this.geocoderFilter.some(items =>
             items.every(item =>
-              result.context != null && result.context.some(c => {
-                return c.text === item;
-              })
+                result.context != null && result.context.some(c => {
+                  return c.text === item;
+                })
             )
           )
         },
