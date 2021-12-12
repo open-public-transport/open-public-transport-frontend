@@ -106,7 +106,7 @@ $mat-u1: (
   )
 );
 
-$transport-primary: mat.define-palette($mat-u8, 500, 600, 700);
+$transport-primary: mat.define-palette($mat-u8, 600, 700, 800);
 $transport-accent: mat.define-palette($mat-u3, 700, 600, 800);
 $transport-warn: mat.define-palette(mat.$red-palette);
 
