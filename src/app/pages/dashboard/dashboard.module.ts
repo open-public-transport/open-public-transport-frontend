@@ -6,9 +6,10 @@ import {MapModule} from '../../ui/map/map.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
+import { OverlayComponent } from './components/overlay/overlay.component';
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, OverlayComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
