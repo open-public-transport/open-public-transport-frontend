@@ -1,9 +1,6 @@
 import {Component} from '@angular/core';
 import {MapBoxStyle} from '../../../../core/mapbox/model/map-box-style.enum';
 import {Place} from '../../../../core/mapbox/model/place.model';
-import {MaterialIconService} from "../../../../core/ui/services/material-icon.service";
-import {MatIconRegistry} from "@angular/material/icon";
-import {DomSanitizer} from "@angular/platform-browser";
 import {BoundingBox} from "../../../../ui/map/model/bounding-box.model";
 
 /**
@@ -17,7 +14,7 @@ import {BoundingBox} from "../../../../ui/map/model/bounding-box.model";
 export class DashboardComponent {
 
   /** Height of the map */
-  mapHeight = '100vh';
+  mapHeight = 'calc(100vh - 64px)';
 
   /** Enum representing places */
   placeEnum = Place;
