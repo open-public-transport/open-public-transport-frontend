@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {MapBoxStyle} from '../../../../core/mapbox/model/map-box-style.enum';
 import {Place} from '../../../../core/mapbox/model/place.model';
 import {BoundingBox} from "../../../../ui/map/model/bounding-box.model";
+import {City} from "../../model/city";
+import {ColorRamp} from "../../../../ui/map/model/color-ramp.model";
 
 /**
  * Displays a dashboard
@@ -20,8 +22,10 @@ export class DashboardComponent {
   placeEnum = Place;
   /** Enum representing map box style */
   mapBoxStyleEnum = MapBoxStyle;
-  /** Enum representing bounding boxes */
-  boundingBoxEnum = BoundingBox;
+  /** Enum representing color ramp */
+  colorRampEnum = ColorRamp;
+
+  flyToBoundingBox;
 
   /** Geocoder filter */
   geocoderFilter = [
@@ -30,8 +34,21 @@ export class DashboardComponent {
   ];
 
   /** Isochrone results */
-  hexResults = [
-    "berlin/geojson/isochrones-15",
-    // "hamburg/geojson/isochrones-15",
-  ];
+  hexResults = ["berlin/geojson/isochrones-15"];
+  /** Hexagon bounding box */
+  hexBoundingBox = BoundingBox.BERLIN;
+
+  //
+  // Actions
+  //
+
+  /**
+   * Handles selection of city
+   * @param city city
+   */
+  onCitySelected(city: City) {
+    this.hexResults = [`${city.name.toLowerCase()}/geojson/isochrones-15`]
+    this.hexBoundingBox = city.boundingBox;
+    this.flyToBoundingBox = city.boundingBox;
+  }
 }

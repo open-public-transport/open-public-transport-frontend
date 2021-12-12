@@ -3,13 +3,15 @@
          [style]="mapBoxStyleEnum.LIGHT_V10"
          [zoom]="10.0"
          [center]="placeEnum.BRANDENBURG_GATE"
+         [flyToBoundingBox]="flyToBoundingBox"
          [geocoderEnabled]="true"
          [geocoderFilter]=geocoderFilter
          [interactiveEnabled]=true
          [hexResults]="hexResults"
-         [hexBoundingBox]="boundingBoxEnum.BERLIN"
-         [hexAggregateProperty]="'mean_spatial_distance_15min'">
+         [hexBoundingBox]="hexBoundingBox"
+         [hexAggregateProperty]="'mean_spatial_distance_15min'"
+         [hexColorRamp]="colorRampEnum.LUFTDATEN_COLOR_RAMP_30">
 </app-map>
 <div class="overlay-container">
-  <app-overlay></app-overlay>
+  <app-overlay (citySelectionEventEmitter)="onCitySelected($event)"></app-overlay>
 </div>
