@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
-import {MetricsService} from "../../services/metrics.service";
-import {Metrics} from "../../model/metrics";
+import {PlaceService} from "../../services/place.service";
+import {PlaceMetrics} from "../../model/place-metrics";
 
 /**
  * Displays comparison page
@@ -14,20 +14,20 @@ import {Metrics} from "../../model/metrics";
 export class ComparisonComponent {
 
   /** Selected geocoder result left */
-  resultLeft: GeocoderResult;
+  geocoderResultLeft: GeocoderResult;
   /** Selected geocoder result right */
-  resultRight: GeocoderResult;
+  geocoderResultRight: GeocoderResult;
 
-  /** Metrics of result left */
-  metricsLeft: Metrics;
-  /** Metrics of result right */
-  metricsRight: Metrics;
+  /** Place metrics of left geocoder result */
+  placeMetricsLeft: PlaceMetrics;
+  /** Place metrics of right geocoder result */
+  placeMetricsRight: PlaceMetrics;
 
   /**
    * Constructor
-   * @param metricsService metrics service
+   * @param placeService metrics service
    */
-  constructor(private metricsService: MetricsService) {
+  constructor(private placeService: PlaceService) {
   }
 
   //
@@ -36,38 +36,39 @@ export class ComparisonComponent {
 
   /**
    * Handles left geocoder results
-   * @param result geocoder result
+   * @param geocoderResult geocoder result
    */
-  onGeocodingResultLeftChanged(result: GeocoderResult) {
-    this.resultLeft = result;
+  onGeocodingResultLeftChanged(geocoderResult: GeocoderResult) {
+    this.geocoderResultLeft = geocoderResult;
 
-    if (result != null) {
-      const lat = result.center[0];
-      const lon = result.center[1];
+    if (geocoderResult != null) {
+      const lat = geocoderResult.center[0];
+      const lon = geocoderResult.center[1];
 
-      this.metricsService.getMetrics(lat, lon).subscribe((metrics: Metrics) => {
-        this.metricsLeft = metrics;
+      this.placeService.getPlace(lat, lon).subscribe((place: PlaceMetrics) => {
+        this.placeMetricsLeft = place;
+        console.log(`FOO place ${JSON.stringify(place)}`);
       }, () => {
-        this.metricsLeft = null;
+        this.placeMetricsLeft = null;
       });
     }
   }
 
   /**
    * Handles right geocoder results
-   * @param result geocoder result
+   * @param geocoderResult geocoder result
    */
-  onGeocodingResultRightChanged(result: GeocoderResult) {
-    this.resultRight = result;
+  onGeocodingResultRightChanged(geocoderResult: GeocoderResult) {
+    this.geocoderResultRight = geocoderResult;
 
-    if (result != null) {
-      const lat = result.center[0];
-      const lon = result.center[1];
+    if (geocoderResult != null) {
+      const lat = geocoderResult.center[0];
+      const lon = geocoderResult.center[1];
 
-      this.metricsService.getMetrics(lat, lon).subscribe((metrics: Metrics) => {
-        this.metricsRight = metrics;
+      this.placeService.getPlace(lat, lon).subscribe((place: PlaceMetrics) => {
+        this.placeMetricsRight = place;
       }, () => {
-        this.metricsLeft = null;
+        this.placeMetricsRight = null;
       });
     }
   }
