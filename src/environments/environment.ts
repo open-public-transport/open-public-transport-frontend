@@ -8,7 +8,11 @@ export const environment = {
     accessToken: 'pk.eyJ1Ijoib3BucGJsY3RybnNwcnQiLCJhIjoiY2tzeDJ0NWd5MG95cDJ3bHFicHZnaTc5ayJ9.bQNmZPQRhtzTaLV8BSuLiQ'
   },
   endpoint: {
-    metrics: 'http://localhost:8000/metrics'
+    isochrones: 'http://localhost:8000/isochrones',
+    transport: 'http://localhost:8000/transport',
+    place: 'http://localhost:8000/place',
+    isochrone: 'http://localhost:8000/isochrone',
+    cities: 'http://localhost:8000/cities'
   }
 };
 

@@ -6,12 +6,12 @@
 <div class="flexcontainer selection-container">
   <app-place-selection class="place-selection"
                        [mapId]="'left'"
-                       [metrics]="metricsLeft"
+                       [placeMetrics]="placeMetricsLeft"
                        (geocodingResultEventEmitter)="onGeocodingResultLeftChanged($event)"></app-place-selection>
   <div class="flexbox"></div>
   <app-place-selection class="place-selection"
                        [mapId]="'right'"
-                       [metrics]="metricsRight"
+                       [placeMetrics]="placeMetricsRight"
                        (geocodingResultEventEmitter)="onGeocodingResultRightChanged($event)"></app-place-selection>
 </div>
 

@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Place} from "../../../../core/mapbox/model/place.model";
 import {MapBoxStyle} from "../../../../core/mapbox/model/map-box-style.enum";
 import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
-import {Metrics} from "../../model/metrics";
+import {PlaceMetrics} from "../../model/place-metrics";
 
 /**
  * Displays place selection component
@@ -16,8 +16,8 @@ export class PlaceSelectionComponent {
 
   /** Map ID */
   @Input() mapId = "map";
-  /** Metrics */
-  @Input() metrics: Metrics;
+  /** Place metrics */
+  @Input() placeMetrics: PlaceMetrics;
   /** Event emitter indicating a new geocoder results */
   @Output() public geocodingResultEventEmitter = new EventEmitter<GeocoderResult>();
 
@@ -45,15 +45,15 @@ export class PlaceSelectionComponent {
 
   /**
    * Handles geocoder results
-   * @param result geocoder result
+   * @param geocoderResult geocoder result
    */
-  onGeocodingResultChanged(result: GeocoderResult) {
-    this.geocoderResult = result;
-    if (result != null) {
-      this.placeNames = result.place_name.split(",");
+  onGeocodingResultChanged(geocoderResult: GeocoderResult) {
+    this.geocoderResult = geocoderResult;
+    if (geocoderResult != null) {
+      this.placeNames = geocoderResult.place_name.split(",");
     } else {
       this.placeNames = [];
     }
-    this.geocodingResultEventEmitter.emit(result);
+    this.geocodingResultEventEmitter.emit(geocoderResult);
   }
 }
