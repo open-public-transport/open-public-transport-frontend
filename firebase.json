@@ -1,16 +1,16 @@
 {
-  "hosting": {
-    "public": "dist/open-public-transport-frontend",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
+  "hosting": [
+    {
+      "target": "open-public-transport-prod",
+      "public": "dist/open-public-transport-frontend",
+      "ignore": [ "firebase.json", "**/.*", "**/node_modules/**" ],
+      "rewrites": [ { "source": "**", "destination": "/index.html" } ]
+    },
+    {
+      "target": "open-public-transport-qa",
+      "public": "dist/open-public-transport-frontend",
+      "ignore": [ "firebase.json", "**/.*", "**/node_modules/**" ],
+      "rewrites": [ { "source": "**", "destination": "/index.html" } ]
+    }
+  ]
 }

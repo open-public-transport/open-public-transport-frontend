@@ -1,5 +1,14 @@
 {
-  "projects": {
-    "default": "open-public-transport"
+  "targets": {
+    "open-public-transport": {
+      "hosting": {
+        "open-public-transport-prod": [
+          "open-public-transport-prod"
+        ],
+        "open-public-transport-qa": [
+          "open-public-transport-qa"
+        ]
+      }
+    }
   }
 }
