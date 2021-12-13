@@ -1,0 +1,28 @@
+name: Build and Deploy to Firebase PROD
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Init submodules
+        uses: snickerbockers/submodules-init@v4
+      - name: Build Angular
+        run: |
+          npm install
+          npm run build -- --configuration=production
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --project open-public-transport --only hosting:open-public-transport-prod
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
