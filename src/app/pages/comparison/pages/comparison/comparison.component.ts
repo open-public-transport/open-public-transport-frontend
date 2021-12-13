@@ -47,7 +47,6 @@ export class ComparisonComponent {
 
       this.placeService.getPlace(lat, lon).subscribe((place: PlaceMetrics) => {
         this.placeMetricsLeft = place;
-        console.log(`FOO place ${JSON.stringify(place)}`);
       }, () => {
         this.placeMetricsLeft = null;
       });
