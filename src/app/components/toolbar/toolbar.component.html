@@ -5,13 +5,13 @@
     </a>
   </div>
   <div class="toolbar-block start">
-    <button mat-button class="toolbar-menu-item" [routerLink]="['/']">
+    <button mat-button class="toolbar-menu-item" [routerLink]="['/dashboard']" [disabled]="!env.feature.dashboard">
       Mobilitäts-Dashboard
     </button>
-    <button mat-button class="toolbar-menu-item" [routerLink]="['/vergleich']">
+    <button mat-button class="toolbar-menu-item" [routerLink]="['/vergleich']" [disabled]="!env.feature.comparison">
       Ortsvergleich
     </button>
-    <button mat-button class="toolbar-menu-item" [routerLink]="['/uebersicht']">
+    <button mat-button class="toolbar-menu-item" [routerLink]="['/uebersicht']" [disabled]="!env.feature.overview">
       Verkehr in meiner Stadt
     </button>
   </div>

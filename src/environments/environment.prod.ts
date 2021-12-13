@@ -18,5 +18,10 @@ export const environment = {
       {name: 'Berlin', boundingBox: [13.0919927, 52.334886, 13.742786, 52.676262]},
       {name: 'Hamburg', boundingBox: [9.7341703, 53.739442, 10.324022, 53.396905]}
     ]
+  },
+  feature: {
+    dashboard: true,
+    comparison: false,
+    overview: false
   }
 };
