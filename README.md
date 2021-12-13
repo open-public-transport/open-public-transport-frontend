@@ -1,5 +1,6 @@
 [![Build](https://github.com/open-public-transport/open-public-transport-frontend/actions/workflows/build-app-workflow.yml/badge.svg?branch=main)](https://github.com/open-public-transport/open-public-transport-frontend/actions/workflows/build-app-workflow.yml)
-[![Build and Deploy to Firebase](https://github.com/open-public-transport/open-public-transport-frontend/actions/workflows/deploy-app-firebase-workflow.yml/badge.svg)](https://github.com/open-public-transport/open-public-transport-frontend/actions/workflows/deploy-app-firebase-workflow.yml)
+[![Build and Deploy to Firebase QA](https://github.com/open-public-transport/open-public-transport-frontend/actions/workflows/deploy-app-firebase-qa-workflow.yml/badge.svg)](https://github.com/open-public-transport/open-public-transport-frontend/actions/workflows/deploy-app-firebase-qa-workflow.yml)
+[![Build and Deploy to Firebase PROD](https://github.com/open-public-transport/open-public-transport-frontend/actions/workflows/deploy-app-firebase-prod-workflow.yml/badge.svg)](https://github.com/open-public-transport/open-public-transport-frontend/actions/workflows/deploy-app-firebase-prod-workflow.yml)
 
 [![Issues](https://img.shields.io/github/issues/open-public-transport/open-public-transport-frontend)](https://github.com/open-public-transport/open-public-transport-frontend/issues)
 
@@ -18,7 +19,7 @@
 
 ## About The Project
 
-tbd
+The aim of this app is to visualize the results of open public transport analysis on a map. The latest version of this web app is available on https://openpublictransport.de/. A preview version is available on https://open-public-transport-qa.web.app/
 
 ### Built With
 
