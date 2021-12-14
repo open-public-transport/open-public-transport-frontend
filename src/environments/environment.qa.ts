@@ -4,11 +4,11 @@ export const environment = {
     accessToken: 'pk.eyJ1Ijoib3BucGJsY3RybnNwcnQiLCJhIjoiY2tzeDJ0NWd5MG95cDJ3bHFicHZnaTc5ayJ9.bQNmZPQRhtzTaLV8BSuLiQ'
   },
   endpoint: {
-    isochrones: null,
-    transport: null,
-    place: null,
-    isochrone: null,
-    cities: null
+    isochrones: 'https://open-public-transport-backend-pxicldzouq-ew.a.run.app/isochrones',
+    transport: 'https://open-public-transport-backend-pxicldzouq-ew.a.run.app/transport',
+    place: 'https://open-public-transport-backend-pxicldzouq-ew.a.run.app/place',
+    isochrone: 'https://open-public-transport-backend-pxicldzouq-ew.a.run.app/isochrone',
+    cities: 'https://open-public-transport-backend-pxicldzouq-ew.a.run.app/cities'
   },
   github: {
     resultsUrl: 'https://raw.githubusercontent.com/open-public-transport/open-public-transport-results/main/results/'
