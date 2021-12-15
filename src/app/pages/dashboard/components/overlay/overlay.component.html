@@ -1,7 +1,11 @@
 <div class="container">
-  <div *ngFor="let city of cities">
-    <button mat-stroked-button color="primary" class="city-button" (click)="onCityButtonClicked(city)">
-      {{ city.name }}
-    </button>
+  <div class="toolbar-spacer">
+  </div>
+  <div class="city-container">
+    <div *ngFor="let city of cities">
+      <button mat-stroked-button color="primary" class="city-button" (click)="onCityButtonClicked(city)">
+        {{ city.name }}
+      </button>
+    </div>
   </div>
 </div>
