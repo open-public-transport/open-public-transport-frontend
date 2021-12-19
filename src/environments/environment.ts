@@ -11,7 +11,7 @@ export const environment = {
     cities: 'http://localhost:8000/cities'
   },
   github: {
-    resultsUrl: 'https://raw.githubusercontent.com/open-public-transport/open-public-transport-results/main/results/'
+    resultsUrl: 'https://storage.cloud.google.com/open-public-transport-results/'
   },
   dashboard: {
     cities: [
