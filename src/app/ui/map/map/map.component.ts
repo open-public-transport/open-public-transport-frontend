@@ -672,6 +672,11 @@ export class MapComponent implements OnChanges, AfterViewInit {
             // Save preprocessed GeoJSON
             resultsMap.set(name, processedGeojson);
 
+            // Clean existing source
+            if (this.map.getSource(name)) {
+              this.map.removeSource(name);
+            }
+
             // Add source
             if (!this.map.getSource(name)) {
               this.map.addSource(name, {
@@ -709,6 +714,10 @@ export class MapComponent implements OnChanges, AfterViewInit {
                   aggregatePropertyMax = layerAggregatePropertyMax;
                 }
               });
+
+              // Scale min and max values
+              aggregatePropertyMax /= 4.5;
+              aggregatePropertyMin *= 1.5;
 
               // Re-calculate step
               aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
