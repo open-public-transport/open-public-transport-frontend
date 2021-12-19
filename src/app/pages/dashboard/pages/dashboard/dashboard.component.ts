@@ -34,7 +34,7 @@ export class DashboardComponent {
   ];
 
   /** Isochrone results */
-  hexResults = ["berlin/geojson/isochrones-15"];
+  hexResults = ["berlin/geojson/isochrones-15.geojson"];
   /** Hexagon bounding box */
   hexBoundingBox = BoundingBox.BERLIN;
 
@@ -47,7 +47,7 @@ export class DashboardComponent {
    * @param city city
    */
   onCitySelected(city: City) {
-    this.hexResults = [`${city.name.toLowerCase()}/geojson/isochrones-15`]
+    this.hexResults = [`${city.name.toLowerCase()}/geojson/isochrones-15.geojson`]
     this.hexBoundingBox = city.boundingBox;
     this.flyToBoundingBox = city.boundingBox;
   }
