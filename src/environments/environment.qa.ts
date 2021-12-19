@@ -11,7 +11,9 @@ export const environment = {
     cities: 'https://open-public-transport-backend-pxicldzouq-ew.a.run.app/cities'
   },
   github: {
-    resultsUrl: 'https://storage.cloud.google.com/open-public-transport-results/'
+    // resultsUrl: 'https://raw.githubusercontent.com/open-public-transport/open-public-transport-results/main/results/' // Github
+    // resultsUrl: 'https://storage.cloud.google.com/open-public-transport-results/' // Google Cloud
+    resultsUrl: 'https://storage.googleapis.com/open-public-transport.appspot.com/' // Firebase
   },
   dashboard: {
     cities: [
