@@ -30,7 +30,10 @@ export class DashboardComponent {
   /** Geocoder filter */
   geocoderFilter = [
     ["Deutschland", "Berlin"],
-    ["Deutschland", "Hamburg"]
+    ["Deutschland", "Cottbus"],
+    ["Deutschland", "Frankfurt (Oder)"],
+    ["Deutschland", "Hamburg"],
+    ["Deutschland", "Potsdam"]
   ];
 
   /** Isochrone results */
