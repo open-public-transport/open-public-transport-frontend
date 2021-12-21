@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MapBoxStyle} from '../../../../core/mapbox/model/map-box-style.enum';
 import {Place} from '../../../../core/mapbox/model/place.model';
 import {BoundingBox} from "../../../../ui/map/model/bounding-box.model";
 import {City} from "../../model/city";
 import {ColorRamp} from "../../../../ui/map/model/color-ramp.model";
+import {environment} from "../../../../../environments/environment";
 
 /**
  * Displays a dashboard
@@ -49,6 +50,9 @@ export class DashboardComponent {
   /** Hexagon bounding box */
   hexBoundingBox = BoundingBox.BERLIN;
 
+  /** Selected city */
+  selectedCity = environment.dashboard.cities[0] as City;
+
   //
   // Actions
   //
@@ -58,6 +62,8 @@ export class DashboardComponent {
    * @param city city
    */
   onCitySelected(city: City) {
+    this.selectedCity = city;
+
     const transportLayers = [];
     city.publicTransport.forEach(publicTransport => {
       transportLayers.push(`${city.name.toLowerCase()}/geojson/lines-${publicTransport}`);

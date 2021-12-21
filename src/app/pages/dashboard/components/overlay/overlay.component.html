@@ -3,8 +3,20 @@
   </div>
   <div class="city-container">
     <span *ngFor="let city of cities">
-      <button mat-stroked-button color="primary" class="city-button" (click)="onCityButtonClicked(city)">
+      <button *ngIf="city.name != selectedCity.name" mat-stroked-button color="primary" class="city-button"
+              (click)="onCityButtonClicked(city)">
         {{ city.name }}
+      </button>
+      <button *ngIf="city.name == selectedCity.name" mat-flat-button color="primary" class="city-button"
+              (click)="onCityButtonClicked(city)">
+        {{ city.name }}
+      </button>
+    </span>
+  </div>
+  <div class="transport-container" *ngIf="selectedCity != null">
+    <span *ngFor="let transport of selectedCity.publicTransport">
+      <button mat-button>
+        <img [src]=getTransportLogo(transport) mat-ripple class="transport-button" alt=""/>
       </button>
     </span>
   </div>

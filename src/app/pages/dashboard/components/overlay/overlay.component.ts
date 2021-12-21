@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {environment} from "../../../../../environments/environment";
 import {City} from "../../model/city";
 
@@ -12,6 +12,8 @@ import {City} from "../../model/city";
 })
 export class OverlayComponent implements OnInit {
 
+  /** Selected city */
+  @Input() selectedCity: City;
   /** Event emitter indicating a new geocoder results */
   @Output() public citySelectionEventEmitter = new EventEmitter<City>();
 
@@ -39,5 +41,17 @@ export class OverlayComponent implements OnInit {
    */
   onCityButtonClicked(city: City) {
     this.citySelectionEventEmitter.emit(city);
+  }
+
+  //
+  // Helpers
+  //
+
+  /**
+   * Retrieves logo of means of transport
+   * @param transport transport
+   */
+  getTransportLogo(transport: any) {
+    return `../../../../../assets/images/logo_${transport}.png`;
   }
 }

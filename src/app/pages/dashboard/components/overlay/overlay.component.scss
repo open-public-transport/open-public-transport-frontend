@@ -9,7 +9,7 @@
   height: 64px;
 }
 
-.city-container {
+.city-container, .transport-container {
   padding: 16px;
 
   width: 75%;
@@ -17,4 +17,10 @@
 
 .city-button {
   margin: 8px;
+}
+
+.transport-button {
+  margin: 8px;
+  height: 24px;
+  width: 24px;
 }

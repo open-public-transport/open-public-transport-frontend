@@ -14,5 +14,6 @@
          [hexColorRamp]="colorRampEnum.LUFTDATEN_COLOR_RAMP_30">
 </app-map>
 <div class="overlay-container">
-  <app-overlay (citySelectionEventEmitter)="onCitySelected($event)"></app-overlay>
+  <app-overlay [selectedCity]="selectedCity"
+               (citySelectionEventEmitter)="onCitySelected($event)"></app-overlay>
 </div>
