@@ -36,8 +36,16 @@ export class DashboardComponent {
     ["Deutschland", "Potsdam"]
   ];
 
+  /** Overlay results */
+  results = [
+    "berlin/geojson/lines-bus", "berlin/geojson/stations-bus",
+    "berlin/geojson/lines-light_rail", "berlin/geojson/stations-light_rail",
+    "berlin/geojson/lines-subway", "berlin/geojson/stations-subway",
+    "berlin/geojson/lines-tram", "berlin/geojson/stations-tram"
+  ];
+
   /** Isochrone results */
-  hexResults = ["berlin/geojson/isochrones-15.geojson"];
+  hexResults = ["berlin/geojson/isochrones-15"];
   /** Hexagon bounding box */
   hexBoundingBox = BoundingBox.BERLIN;
 
@@ -50,7 +58,14 @@ export class DashboardComponent {
    * @param city city
    */
   onCitySelected(city: City) {
-    this.hexResults = [`${city.name.toLowerCase()}/geojson/isochrones-15.geojson`]
+    const transportLayers = [];
+    city.publicTransport.forEach(publicTransport => {
+      transportLayers.push(`${city.name.toLowerCase()}/geojson/lines-${publicTransport}`);
+      transportLayers.push(`${city.name.toLowerCase()}/geojson/stations-${publicTransport}`);
+    });
+
+    this.results = transportLayers;
+    this.hexResults = [`${city.name.toLowerCase()}/geojson/isochrones-15`]
     this.hexBoundingBox = city.boundingBox;
     this.flyToBoundingBox = city.boundingBox;
   }
