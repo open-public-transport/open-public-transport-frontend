@@ -30,6 +30,7 @@ import {UUID} from '../model/uuid.model';
 import {GeocoderResult} from "../model/geocoder-result";
 import RBush from 'rbush';
 import {debounceTime} from "rxjs/operators";
+import {HexScaleModeEnum} from "../model/hex-scale-mode.enum";
 
 /**
  * Displays a map box
@@ -125,8 +126,8 @@ export class MapComponent implements OnChanges, AfterViewInit {
   @Input() hexBinLimit = 0;
   /** Value of a point that must exceeded to be counted for hexagon */
   @Input() hexBinThreshold = 0;
-  /** Whether or not each layer should have an individual scale */
-  @Input() individualScale = false;
+  /** Hexagon scale mode */
+  @Input() hexScaleMode = HexScaleModeEnum.FIXED;
 
   /** Whether legend is enabled or not */
   @Input() legendEnabled = false;
@@ -157,8 +158,6 @@ export class MapComponent implements OnChanges, AfterViewInit {
   @Output() public geocodingResultEventEmitter = new EventEmitter<GeocoderResult>();
   /** Event emitter indicating a changed zoom value */
   zoomChangedEventEmitter = new EventEmitter<number>();
-  /** Debouncer for zoom events */
-  zoomDebouncer: Subject<number> = new Subject<number>();
 
   /** Map Box object */
   private map: mapboxgl.Map;
@@ -515,11 +514,6 @@ export class MapComponent implements OnChanges, AfterViewInit {
       const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
-        // filter: (result) => {
-        //   console.log(`result ${JSON.stringify(result)}`);
-        //   return result.place_name.toLowerCase().includes("berlin, deutschland")
-        // },
-        // bbox: BoundingBox.BERLIN
         limit: 100,
         filter: (result) => {
           return result != null && this.geocoderFilter.some(items =>
@@ -537,7 +531,7 @@ export class MapComponent implements OnChanges, AfterViewInit {
       geocoder.on("result", result => {
         this.geocodingResultEventEmitter.emit(result.result as GeocoderResult);
       });
-      geocoder.on("clear", result => {
+      geocoder.on("clear", _ => {
         this.geocodingResultEventEmitter.emit(null);
       });
       geocoder.on("error", error => {
@@ -660,18 +654,12 @@ export class MapComponent implements OnChanges, AfterViewInit {
       // Base URL for results
       const baseUrl = environment.github.resultsUrl;
 
-      // Initialize scale
-      let aggregatePropertyMin = 10_000;
-      let aggregatePropertyMax = -10_000;
-      let aggregatePropertyStep = 1;
-
       results.forEach(name => {
 
         if (!this.resultsMap.has(name)) {
 
           // Download geojson for result
           this.http.get(baseUrl + name, {responseType: 'text' as 'json'}).subscribe((geojsonData: any) => {
-            console.log(`FOO downloaded ${name}`);
             this.resultsMap.set(name, geojsonData);
             this.initializeHexLayers(this.resultsMap);
           });
@@ -679,84 +667,122 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
         this.initializeHexLayers(this.resultsMap);
       });
-
-      // // Check if individual scale should be applied
-      // if (this.individualScale) {
-      //
-      //   const aggregatePropertyValues = processedGeojson.features.map(f => {
-      //     return f['properties']['avg'];
-      //   });
-      //   aggregatePropertyMin = Math.min(...aggregatePropertyValues);
-      //   aggregatePropertyMax = Math.max(...aggregatePropertyValues);
-      //   aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
-      //
-      //   // Just draw this layer with its individual scale
-      //   this.initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep);
-      // } else {
-      //   // Re-calculate scale
-      //   resultsMap.forEach((p, _) => {
-      //     const aggegatePropertyValues = p.features.map(f => {
-      //       return f['properties']['avg'];
-      //     });
-      //     const layerAggregatePropertyMin = Math.min(...aggegatePropertyValues);
-      //     const layerAggregatePropertyMax = Math.max(...aggegatePropertyValues);
-      //
-      //     if (layerAggregatePropertyMin < aggregatePropertyMin) {
-      //       aggregatePropertyMin = layerAggregatePropertyMin;
-      //     }
-      //     if (layerAggregatePropertyMax > aggregatePropertyMax) {
-      //       aggregatePropertyMax = layerAggregatePropertyMax;
-      //     }
-      //   });
-      //
-      //   // Scale min and max values
-      //   aggregatePropertyMax /= 4.5;
-      //   aggregatePropertyMin *= 1.5;
-      //
-      //   // Re-calculate step
-      //   aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
-      //
-      //   // Re-draw each layer with unified scale
-      //   resultsMap.forEach((_, n) => {
-      //     this.initializeHexLayer(n, aggregatePropertyMin, aggregatePropertyStep);
-      //   });
-      // }
-
     }
   }
 
+  /**
+   * Initializes hex layers
+   * @param resultsMap results map
+   */
   private initializeHexLayers(resultsMap: Map<string, string>) {
-    resultsMap.forEach((geojsonData, name) => {
-      const processedGeojson = this.preprocessHexagonData(JSON.parse(geojsonData), this.hexBoundingBox,
-        this.hexAggregateProperty, this.hexCellSize, this.hexBinLimit, this.hexBinThreshold);
 
-      // Clean existing layer
-      if (this.map.getLayer(name + "-layer")) {
-        this.map.removeLayer(name + "-layer");
+      switch (this.hexScaleMode) {
+        case HexScaleModeEnum.FIXED: {
+          resultsMap.forEach((geojsonData, name) => {
+            const processedGeojson = this.preprocessHexagonData(JSON.parse(geojsonData), this.hexBoundingBox,
+              this.hexAggregateProperty, this.hexCellSize, this.hexBinLimit, this.hexBinThreshold);
+
+            this.initializeHexSource(name, processedGeojson);
+
+            // Scale min and max values
+            const aggregatePropertyMax = 10_500;
+            const aggregatePropertyMin = 1_500;
+            const aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
+
+            this.initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep);
+          });
+          break;
+        }
+        case HexScaleModeEnum.DYNAMIC_INDIVIDUAL: {
+          // Initialize scale
+          let aggregatePropertyMin = 25_000;
+          let aggregatePropertyMax = -10_000;
+          let aggregatePropertyStep = 1;
+
+          resultsMap.forEach((geojsonData, name) => {
+            const processedGeojson = this.preprocessHexagonData(JSON.parse(geojsonData), this.hexBoundingBox,
+              this.hexAggregateProperty, this.hexCellSize, this.hexBinLimit, this.hexBinThreshold);
+
+            this.initializeHexSource(name, processedGeojson);
+
+            const aggregatePropertyValues = processedGeojson.features.map(f => {
+              return f['properties']['avg'];
+            });
+            aggregatePropertyMin = Math.min(...aggregatePropertyValues);
+            aggregatePropertyMax = Math.max(...aggregatePropertyValues);
+            aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
+
+            // Just draw this layer with its individual scale
+            this.initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep);
+          });
+          break;
+        }
+        case HexScaleModeEnum.DYNAMIC_OVERALL: {
+          // Initialize scale
+          let aggregatePropertyMin = 25_000;
+          let aggregatePropertyMax = -10_000;
+          let aggregatePropertyStep = 1;
+
+          resultsMap.forEach((geojsonData, name) => {
+            const processedGeojson = this.preprocessHexagonData(JSON.parse(geojsonData), this.hexBoundingBox,
+              this.hexAggregateProperty, this.hexCellSize, this.hexBinLimit, this.hexBinThreshold);
+
+            this.initializeHexSource(name, processedGeojson);
+
+            const aggegatePropertyValues = processedGeojson.features.map(f => {
+              return f['properties']['avg'];
+            });
+            const layerAggregatePropertyMin = Math.min(...aggegatePropertyValues);
+            const layerAggregatePropertyMax = Math.max(...aggegatePropertyValues);
+
+            if (layerAggregatePropertyMin < aggregatePropertyMin) {
+              aggregatePropertyMin = layerAggregatePropertyMin;
+            }
+            if (layerAggregatePropertyMax > aggregatePropertyMax) {
+              aggregatePropertyMax = layerAggregatePropertyMax;
+            }
+          });
+
+          // Scale min and max values
+          // aggregatePropertyMax /= 4.5;
+          // aggregatePropertyMin *= 1.5;
+
+          // Re-calculate step
+          aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
+
+          // Re-draw each layer with unified scale
+          resultsMap.forEach((_, name) => {
+            this.initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep);
+          });
+          break;
+        }
       }
+  }
 
-      // Clean existing source
-      if (this.map.getSource(name)) {
-        this.map.removeSource(name);
-      }
+  /**
+   * Initializes hex source
+   * @param name name
+   * @param processedGeojson geojson
+   */
+  private initializeHexSource(name: string, processedGeojson: any) {
+    // Clean existing layer
+    if (this.map.getLayer(name + "-layer")) {
+      this.map.removeLayer(name + "-layer");
+    }
 
-      // Add source
-      if (!this.map.getSource(name)) {
-        this.map.addSource(name, {
-            type: 'geojson',
-            data: processedGeojson
-          }
-        );
-      }
+    // Clean existing source
+    if (this.map.getSource(name)) {
+      this.map.removeSource(name);
+    }
 
-      // Scale min and max values
-      const aggregatePropertyMax = 5_500;
-      const aggregatePropertyMin = 1_500;
-      const aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
-
-      this.initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep);
-    });
-
+    // Add source
+    if (!this.map.getSource(name)) {
+      this.map.addSource(name, {
+          type: 'geojson',
+          data: processedGeojson
+        }
+      );
+    }
   }
 
   /**
@@ -766,8 +792,6 @@ export class MapComponent implements OnChanges, AfterViewInit {
    * @param aggregatePropertyStep step size
    */
   private initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep) {
-    console.log(`FOO initializeHexLayer name ${name}`);
-
     // Link layer to source
     const layer = {
       id: '',
@@ -854,9 +878,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
     }
 
     // Subscribe zoom events with a debounce time of 0.5 seconds (time between events received)
-    this.zoomChangedEventEmitter.pipe(debounceTime(500)).subscribe(zoom => {
+    this.zoomChangedEventEmitter.pipe(debounceTime(250)).subscribe(zoom => {
       // Zoom factor influences how small hexagons get when zoomed in (baseline is that zoom 10 results in hex size 1)
-      const hexCellZoomFactor = 6;
+      const hexCellZoomFactor = 8;
       // Calculate new hex size with one decimal
       const hexCellSize = +(Math.pow(10, hexCellZoomFactor) / Math.pow(zoom, hexCellZoomFactor)).toFixed(1);
 
@@ -992,9 +1016,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
    *
    * @return a geoJSON that represents polygons for each hexbin
    */
-  private preprocessHexagonData(data: any, boundingBox: number[], aggregateProperty: string, cellSize: number, hexBinLimit: number, hexBinThreshold: number): any {
-    console.log(`FOO preprocessHexagonData cellSize ${cellSize}`);
-
+  private preprocessHexagonData(data: any, boundingBox: number[], aggregateProperty: string, cellSize: number,
+                                hexBinLimit: number, hexBinThreshold: number
+  ): any {
     // @ts-ignore
     const hexGrid = turf.hexGrid(boundingBox, cellSize);
 
