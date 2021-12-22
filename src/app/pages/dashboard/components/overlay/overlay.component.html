@@ -3,11 +3,11 @@
   </div>
   <div class="city-container">
     <span *ngFor="let city of cities">
-      <button *ngIf="city.name != selectedCity.name" mat-stroked-button color="primary" class="city-button"
+      <button *ngIf="selectedCity == null || city.name != selectedCity.name" mat-stroked-button color="primary" class="city-button"
               (click)="onCityButtonClicked(city)">
         {{ city.name }}
       </button>
-      <button *ngIf="city.name == selectedCity.name" mat-flat-button color="primary" class="city-button"
+      <button *ngIf="selectedCity != null && city.name == selectedCity.name" mat-flat-button color="primary" class="city-button"
               (click)="onCityButtonClicked(city)">
         {{ city.name }}
       </button>

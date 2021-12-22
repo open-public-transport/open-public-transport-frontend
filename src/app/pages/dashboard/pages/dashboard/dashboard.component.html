@@ -16,5 +16,6 @@
 <div class="overlay-container">
   <app-overlay [selectedCity]="selectedCity"
                [selectedTransport]="selectedTransport"
-               (citySelectionEventEmitter)="onCitySelected($event)"></app-overlay>
+               (citySelectionEventEmitter)="onCitySelected($event)"
+               (transportSelectionEventEmitter)="onTransportSelected($event)" ></app-overlay>
 </div>

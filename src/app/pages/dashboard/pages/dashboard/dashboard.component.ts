@@ -4,7 +4,6 @@ import {Place} from '../../../../core/mapbox/model/place.model';
 import {BoundingBox} from "../../../../ui/map/model/bounding-box.model";
 import {City} from "../../model/city";
 import {ColorRamp} from "../../../../ui/map/model/color-ramp.model";
-import {environment} from "../../../../../environments/environment";
 
 /**
  * Displays a dashboard
@@ -41,14 +40,18 @@ export class DashboardComponent {
   results = [];
 
   /** Isochrone results */
-  hexResults = ["berlin/geojson/isochrones-15"];
+  hexResults = [];
+  // hexResults = ["berlin/geojson/isochrones-15"];
   /** Hexagon bounding box */
   hexBoundingBox = BoundingBox.BERLIN;
 
   /** Selected city */
-  selectedCity = environment.dashboard.cities[0] as City;
+  selectedCity;
+  // selectedCity = environment.dashboard.cities[0] as City;
   /** Selected transport */
   selectedTransport = new Map<string, boolean>();
+
+  transportLayers = new Map<string, string>();
 
   //
   // Lifecycle hooks
@@ -75,15 +78,40 @@ export class DashboardComponent {
   onCitySelected(city: City) {
     this.selectedCity = city;
 
-    const transportLayers = [];
     city.publicTransport.forEach(publicTransport => {
-      transportLayers.push(`${city.name.toLowerCase()}/geojson/lines-${publicTransport}`);
-      transportLayers.push(`${city.name.toLowerCase()}/geojson/stations-${publicTransport}`);
+      this.transportLayers.set(`${city.name.toLowerCase()}/geojson/lines-${publicTransport}`, publicTransport);
+      this.transportLayers.set(`${city.name.toLowerCase()}/geojson/stations-${publicTransport}`, publicTransport);
     });
 
-    this.results = transportLayers;
     this.hexResults = [`${city.name.toLowerCase()}/geojson/isochrones-15`]
     this.hexBoundingBox = city.boundingBox;
     this.flyToBoundingBox = city.boundingBox;
+
+    this.filterTransportLayers();
+  }
+
+  /**
+   * Handles selection of transport
+   * @param transport transport
+   */
+  onTransportSelected(transport: Map<string, boolean>) {
+    this.selectedTransport = transport;
+
+    this.filterTransportLayers();
+  }
+
+  //
+  // Helpers
+  //
+
+  /**
+   * Filters results
+   */
+  private filterTransportLayers() {
+    this.results = Array.from(this.transportLayers.entries()).filter(entry => {
+      return this.selectedTransport.get(entry[1]);
+    }).map(entry => {
+      return entry[0];
+    });
   }
 }
