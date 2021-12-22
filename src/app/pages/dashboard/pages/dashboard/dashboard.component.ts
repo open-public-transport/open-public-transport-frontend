@@ -38,6 +38,9 @@ export class DashboardComponent {
 
   /** Overlay results */
   results = [];
+  /** Opacities */
+  opacities = new Map<string, number>();
+
 
   /** Isochrone results */
   hexResults = [];
@@ -109,7 +112,10 @@ export class DashboardComponent {
    */
   private filterTransportLayers() {
     this.results = Array.from(this.transportLayers.entries()).filter(entry => {
-      return this.selectedTransport.get(entry[1]);
+      const selected = this.selectedTransport.get(entry[1]);
+      this.opacities.set(entry[0], selected ? 100 : 0);
+
+      return selected;
     }).map(entry => {
       return entry[0];
     });
