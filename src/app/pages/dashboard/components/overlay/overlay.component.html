@@ -15,8 +15,9 @@
   </div>
   <div class="transport-container" *ngIf="selectedCity != null">
     <span *ngFor="let transport of selectedCity.publicTransport">
-      <button mat-button>
-        <img [src]=getTransportLogo(transport) mat-ripple class="transport-button" alt=""/>
+      <button mat-button (click)="onTransportButtonClicked(transport, !selectedTransport.get(transport))">
+        <img class="transport-button" alt=""
+             [src]=getTransportLogo(transport) [class.grey]="!selectedTransport.get(transport)" />
       </button>
     </span>
   </div>

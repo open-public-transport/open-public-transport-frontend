@@ -14,8 +14,12 @@ export class OverlayComponent implements OnInit {
 
   /** Selected city */
   @Input() selectedCity: City;
+  /** Selected transport */
+  @Input() selectedTransport = new Map<string, boolean>();
   /** Event emitter indicating a new geocoder results */
   @Output() public citySelectionEventEmitter = new EventEmitter<City>();
+  /** Event emitter indicating transport selection */
+  @Output() public transportSelectionEventEmitter = new EventEmitter<Map<string, boolean>>();
 
   /** List of supported cities */
   cities = [];
@@ -41,6 +45,16 @@ export class OverlayComponent implements OnInit {
    */
   onCityButtonClicked(city: City) {
     this.citySelectionEventEmitter.emit(city);
+  }
+
+  /**
+   * Handles click on transport button
+   * @param transport transport
+   * @param value value
+   */
+  onTransportButtonClicked(transport: string, value: boolean) {
+    this.selectedTransport.set(transport, value);
+    this.transportSelectionEventEmitter.emit(this.selectedTransport);
   }
 
   //

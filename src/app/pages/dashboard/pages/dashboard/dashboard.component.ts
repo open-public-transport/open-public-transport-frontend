@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {MapBoxStyle} from '../../../../core/mapbox/model/map-box-style.enum';
 import {Place} from '../../../../core/mapbox/model/place.model';
 import {BoundingBox} from "../../../../ui/map/model/bounding-box.model";
@@ -38,12 +38,7 @@ export class DashboardComponent {
   ];
 
   /** Overlay results */
-  results = [
-    "berlin/geojson/lines-bus", "berlin/geojson/stations-bus",
-    "berlin/geojson/lines-light_rail", "berlin/geojson/stations-light_rail",
-    "berlin/geojson/lines-subway", "berlin/geojson/stations-subway",
-    "berlin/geojson/lines-tram", "berlin/geojson/stations-tram"
-  ];
+  results = [];
 
   /** Isochrone results */
   hexResults = ["berlin/geojson/isochrones-15"];
@@ -52,6 +47,22 @@ export class DashboardComponent {
 
   /** Selected city */
   selectedCity = environment.dashboard.cities[0] as City;
+  /** Selected transport */
+  selectedTransport = new Map<string, boolean>();
+
+  //
+  // Lifecycle hooks
+  //
+
+  /**
+   * Handles on-init phase
+   */
+  ngOnInit() {
+    this.selectedTransport.set("bus", false);
+    this.selectedTransport.set("light_rail", false);
+    this.selectedTransport.set("subway", false);
+    this.selectedTransport.set("tram", false);
+  }
 
   //
   // Actions
