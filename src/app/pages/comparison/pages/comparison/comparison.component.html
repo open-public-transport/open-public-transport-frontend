@@ -1,17 +1,40 @@
-<div class="button-container">
-  <button mat-fab color="primary" class="vs-button">
-    VS
-  </button>
-</div>
-<div class="flexcontainer selection-container">
-  <app-place-selection class="place-selection"
-                       [mapId]="'left'"
-                       [placeMetrics]="placeMetricsLeft"
-                       (geocodingResultEventEmitter)="onGeocodingResultLeftChanged($event)"></app-place-selection>
-  <div class="flexbox"></div>
-  <app-place-selection class="place-selection"
-                       [mapId]="'right'"
-                       [placeMetrics]="placeMetricsRight"
-                       (geocodingResultEventEmitter)="onGeocodingResultRightChanged($event)"></app-place-selection>
+<div class="selection-outer-container">
+  <div class="button-container">
+    <button mat-fab color="primary" class="vs-button">
+      VS
+    </button>
+  </div>
+  <div class="flexcontainer selection-container">
+    <app-place-selection class="place-selection"
+                         [mapId]="'selection-left'"
+                         [placeMetrics]="placeMetricsLeft"
+                         (geocodingResultEventEmitter)="onGeocodingResultLeftChanged($event)"></app-place-selection>
+    <div class="flexbox"></div>
+    <app-place-selection class="place-selection"
+                         [mapId]="'selection-right'"
+                         [placeMetrics]="placeMetricsRight"
+                         (geocodingResultEventEmitter)="onGeocodingResultRightChanged($event)"></app-place-selection>
+  </div>
 </div>
 
+<div class="flexcontainer" *ngIf="geocoderResultLeft != null && geocoderResultRight != null">
+  <div class="flexbox"></div>
+  <h2>Sieh dir die Ergebnisse an</h2>
+  <div class="flexbox"></div>
+</div>
+
+<div class="stations-outer-container" *ngIf="geocoderResultLeft != null && geocoderResultRight != null">
+  <h2 class="container-headline">Fußläufig erreichbare Haltestellen</h2>
+
+  <div class="flexcontainer stations-container">
+    <app-place-stations class="place-stations"
+                        [mapId]="'stations-left'"
+                        [geocoderResult]="geocoderResultLeft"
+                        [placeMetrics]="placeMetricsLeft"></app-place-stations>
+    <div class="flexbox"></div>
+    <app-place-stations class="place-stations"
+                        [mapId]="'stations-right'"
+                        [geocoderResult]="geocoderResultRight"
+                        [placeMetrics]="placeMetricsRight"></app-place-stations>
+  </div>
+</div>

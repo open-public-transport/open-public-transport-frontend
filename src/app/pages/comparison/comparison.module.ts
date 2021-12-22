@@ -5,11 +5,12 @@ import {ComparisonRoutingModule} from './comparison-routing.module';
 import {PlaceSelectionComponent} from './components/place-selection/place-selection.component';
 import {MapModule} from "../../ui/map/map.module";
 import {MatCardModule} from "@angular/material/card";
-import { SpiderDiagramComponent } from './components/spider-diagram/spider-diagram.component';
+import {SpiderDiagramComponent} from './components/spider-diagram/spider-diagram.component';
 import {MatButtonModule} from "@angular/material/button";
+import {PlaceStationsComponent} from './components/place-stations/place-stations.component';
 
 @NgModule({
-  declarations: [ComparisonComponent, PlaceSelectionComponent, SpiderDiagramComponent],
+  declarations: [ComparisonComponent, PlaceSelectionComponent, SpiderDiagramComponent, PlaceStationsComponent],
   imports: [
     CommonModule,
     ComparisonRoutingModule,

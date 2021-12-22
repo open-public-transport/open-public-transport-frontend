@@ -1,25 +1,46 @@
 @import '../../../../../flex';
 
-.selection-container, .button-container {
-  position: absolute;
+.selection-outer-container {
+  height: calc(90vh - 64px);
 
-  width: 100%;
-  height: 60vh;
-}
+  .selection-container, .button-container {
+    position: absolute;
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    height: 60vh;
+  }
 
-  .vs-button {
-    font-size: 2em;
-    font-weight: 600;
-    width: 84px;
-    height: 84px;
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .vs-button {
+      font-size: 2em;
+      font-weight: 600;
+      width: 84px;
+      height: 84px;
+    }
+  }
+
+  .place-selection {
+    width: 50vw;
   }
 }
 
-.place-selection {
-  width: 50vw;
+.stations-outer-container {
+  height: 90vh;
+
+  .stations-container {
+    width: 100%;
+    height: 60vh;
+  }
+
+  .container-headline {
+    margin: 26px;
+  }
+
+  .place-stations {
+    width: 50vw;
+  }
 }
