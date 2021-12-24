@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, isDevMode} from '@angular/core';
 import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
 import {PlaceService} from "../../services/place.service";
 import {PlaceMetrics} from "../../model/place-metrics";
@@ -22,6 +22,8 @@ export class ComparisonComponent {
   placeMetricsLeft: PlaceMetrics;
   /** Place metrics of right geocoder result */
   placeMetricsRight: PlaceMetrics;
+
+  isDev = isDevMode();
 
   /**
    * Constructor

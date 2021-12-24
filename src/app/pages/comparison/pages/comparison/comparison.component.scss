@@ -29,7 +29,7 @@
 }
 
 .stations-outer-container {
-  height: 90vh;
+  height: calc(90vh - 64px);
 
   .stations-container {
     width: 100%;

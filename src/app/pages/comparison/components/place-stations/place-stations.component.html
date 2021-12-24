@@ -4,6 +4,26 @@
            [style]="mapBoxStyleEnum.LIGHT_V10"
            [zoom]="11.5"
            [flyToLocation]="center"
+           [results]="results"
            [interactiveEnabled]=false>
   </app-map>
+</div>
+<div *ngIf="placeMetrics != null" class="card-container">
+  <div class="metrics-card flexcontainer" *ngFor="let transport of publicTransport">
+    <ng-container *ngIf="getStationInformation(transport) != null || getLineInformation(transport) != null">
+      <button mat-button>
+        <img class="transport-button" alt="" [src]="getTransportLogo(transport)"/>
+      </button>
+      <mat-card-title>
+      <span *ngIf="getStationInformation(transport) != null">
+        {{ getStationInformation(transport).absolute_stations_count.raw_value }}
+        Haltestellen
+      </span>
+        <span *ngIf="getLineInformation(transport) != null">
+          , {{ getLineInformation(transport).absolute_line_count.raw_value }}
+          Linien
+      </span>
+      </mat-card-title>
+    </ng-container>
+  </div>
 </div>
