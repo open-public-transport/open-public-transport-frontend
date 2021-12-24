@@ -17,13 +17,13 @@
   </div>
 </div>
 
-<div class="flexcontainer" *ngIf="isDev || (geocoderResultLeft != null && geocoderResultRight != null)">
+<div class="flexcontainer" *ngIf="geocoderResultLeft != null && geocoderResultRight != null">
   <div class="flexbox"></div>
   <h2>Sieh dir die Ergebnisse an</h2>
   <div class="flexbox"></div>
 </div>
 
-<div class="stations-outer-container" *ngIf="isDev || (geocoderResultLeft != null && geocoderResultRight != null)">
+<div class="stations-outer-container" *ngIf="geocoderResultLeft != null && geocoderResultRight != null">
   <h2 class="container-headline">Fußläufig erreichbare Haltestellen</h2>
 
   <div class="flexcontainer stations-container">

@@ -22,6 +22,8 @@ export class PlaceStationsComponent implements OnChanges {
   /** Place metrics */
   @Input() placeMetrics: PlaceMetrics;
 
+  /** List of markers to be displayed */
+  markers: Location[] = [];
   /** Overlay results */
   results = [];
   /** Center to focus */
@@ -36,6 +38,7 @@ export class PlaceStationsComponent implements OnChanges {
   /** List of available public transport */
   publicTransport = [];
 
+
   //
   // Lifecycle hooks
   //
@@ -45,6 +48,7 @@ export class PlaceStationsComponent implements OnChanges {
    */
   ngOnChanges(changes: SimpleChanges) {
     this.initializeCenter();
+    this.initializeMarkers();
     this.initializeOverlays();
 
     this.initializePublicTransport();
@@ -62,6 +66,13 @@ export class PlaceStationsComponent implements OnChanges {
       this.center = new Location("name", "description", this.geocoderResult.center[0], this.geocoderResult.center[1], 12.5);
     } else {
       this.center = Place.BRANDENBURG_GATE;
+    }
+  }
+
+  private initializeMarkers() {
+    if (this.geocoderResult != null) {
+      this.center = new Location("name", "description", this.geocoderResult.center[0], this.geocoderResult.center[1], 12.5);
+      this.markers.push(this.center);
     }
   }
 
@@ -129,7 +140,7 @@ export class PlaceStationsComponent implements OnChanges {
   }
 
   /**
-   * Returns line information based in means of transport
+   * Returns station information based in means of transport
    * @param transport means of transport
    */
   getLineInformation(transport: string): LineInformation {

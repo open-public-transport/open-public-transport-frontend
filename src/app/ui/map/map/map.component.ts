@@ -191,6 +191,10 @@ export class MapComponent implements OnChanges, AfterViewInit {
    * @param changes changes
    */
   ngOnChanges(changes: SimpleChanges) {
+
+    // Initialize markers
+    this.initializeMarkers(this.markers);
+
     if (this.opacities != null) {
       this.opacities.forEach((value: number, name: string) => {
         this.opacitySubject.next({name, value});
@@ -208,6 +212,11 @@ export class MapComponent implements OnChanges, AfterViewInit {
       this.flyableBoundingBoxSubject.next(this.flyToBoundingBox);
     }
 
+    // Initialize markers
+    this.initializeMarkers(this.markers);
+    this.initializeClickableMarkers(this.clickableMarkers);
+    this.initializePopupMarkers(this.popupMarkers);
+
     // Display overlays
     this.initializeResultOverlays(this.results);
     this.initializeHexResultOverlays(this.hexResults);
@@ -218,11 +227,6 @@ export class MapComponent implements OnChanges, AfterViewInit {
    */
   ngAfterViewInit() {
     this.initializeMapBox();
-
-    // Initialize markers
-    this.initializeMarkers(this.markers);
-    this.initializeClickableMarkers(this.clickableMarkers);
-    this.initializePopupMarkers(this.popupMarkers);
 
     // Initialize controls
     this.initializeNavigationControl(this.navigationControlEnabled);
@@ -241,8 +245,13 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
     this.initializeGeocoder();
 
-    // Display overlays
     this.map.on('load', () => {
+      // Initialize markers
+      this.initializeMarkers(this.markers);
+      this.initializeClickableMarkers(this.clickableMarkers);
+      this.initializePopupMarkers(this.popupMarkers);
+
+      // Display overlays
       this.initializeResultOverlays(this.results);
       this.initializeHexResultOverlays(this.hexResults);
     });
@@ -308,61 +317,76 @@ export class MapComponent implements OnChanges, AfterViewInit {
    * @param clickableMarkers clickable markers
    */
   private initializeClickableMarkers(clickableMarkers: Location[]) {
-    this.map.on('load', () => {
-      this.map.loadImage(
-        'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-        (error, image) => {
-          if (error) {
-            throw error;
-          }
-          this.map.addImage('custom-marker', image);
-          this.map.addSource('points', {
-            type: 'geojson',
-            data: {
-              type: 'FeatureCollection',
-              features: clickableMarkers.map(marker => {
-                return {
-                  type: 'Feature',
-                  properties: {},
-                  geometry: {
-                    type: 'Point',
-                    coordinates: [
-                      marker.longitude,
-                      marker.latitude
-                    ]
-                  }
-                };
-              })
+    if (this.map != null) {
+      if (!this.map.hasImage('custom-marker')) {
+        this.map.loadImage(
+          'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+          (error, image) => {
+            if (error) {
+              throw error;
             }
-          });
-          this.map.addLayer({
-            id: 'symbols',
-            type: 'symbol',
-            source: 'points',
-            layout: {
-              'icon-image': 'custom-marker'
-            }
-          });
 
-          // Handle click event
-          this.map.on('click', 'symbols', e => {
-            this.map.flyTo({
-              // @ts-ignore
-              center: e.features[0].geometry.coordinates
-            });
+            this.map.addImage('custom-marker', image);
           });
+      }
 
-          // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.
-          this.map.on('mouseenter', 'symbols', () => {
-            this.map.getCanvas().style.cursor = 'pointer';
-          });
+      // Clean existing layer
+      if (this.map.getLayer('symbols')) {
+        this.map.removeLayer('symbols');
+      }
 
-          // Change it back to a pointer when it leaves.
-          this.map.on('mouseleave', 'symbols', () => {
-            this.map.getCanvas().style.cursor = '';
-          });
+      // Clean existing source
+      if (this.map.getSource('points')) {
+        this.map.removeSource('points');
+      }
+
+      this.map.addSource('points', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: clickableMarkers.map(marker => {
+            return {
+              type: 'Feature',
+              properties: {},
+              geometry: {
+                type: 'Point',
+                coordinates: [
+                  marker.longitude,
+                  marker.latitude
+                ]
+              }
+            };
+          })
+        }
+      });
+      this.map.addLayer({
+        id: 'symbols',
+        type: 'symbol',
+        source: 'points',
+        layout: {
+          'icon-image': 'custom-marker'
+        }
+      });
+
+      // Handle click event
+      this.map.on('click', 'symbols', e => {
+        this.map.flyTo({
+          // @ts-ignore
+          center: e.features[0].geometry.coordinates
         });
-    });
+      });
+
+      // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.
+      this.map.on('mouseenter', 'symbols', () => {
+        this.map.getCanvas().style.cursor = 'pointer';
+      });
+
+      // Change it back to a pointer when it leaves.
+      this.map.on('mouseleave', 'symbols', () => {
+        this.map.getCanvas().style.cursor = '';
+      });
+
+    }
   }
 
   /**
