@@ -74,6 +74,7 @@ export class PlaceStationsComponent implements OnChanges {
   private initializeMarkers() {
     if (this.geocoderResult != null) {
       this.center = new Location("name", "description", this.geocoderResult.center[0], this.geocoderResult.center[1], 12.5);
+      this.markers = [];
       this.markers.push(this.center);
     }
   }
