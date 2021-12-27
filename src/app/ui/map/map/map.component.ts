@@ -307,8 +307,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
     });
 
     markers.forEach(marker => {
-      const m = new mapboxgl.Marker()
-        .setLngLat([marker.longitude, marker.latitude])
+      const m = new mapboxgl.Marker({
+        color: this.geocoderMarkerColor
+      }).setLngLat([marker.longitude, marker.latitude])
         .addTo(this.map);
       this.currentMarkers.push(m);
     });

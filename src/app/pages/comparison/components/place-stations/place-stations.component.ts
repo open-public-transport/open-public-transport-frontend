@@ -22,6 +22,9 @@ export class PlaceStationsComponent implements OnChanges {
   /** Place metrics */
   @Input() placeMetrics: PlaceMetrics;
 
+  /** Geocoder marker color */
+  @Input() geocoderMarkerColor;
+
   /** List of markers to be displayed */
   markers: Location[] = [];
   /** Overlay results */

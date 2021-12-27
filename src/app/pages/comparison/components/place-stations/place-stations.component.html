@@ -6,16 +6,17 @@
            [flyToLocation]="center"
            [markers]="markers"
            [results]="results"
+           [geocoderMarkerColor]="geocoderMarkerColor"
            [interactiveEnabled]=false>
   </app-map>
 </div>
 <div *ngIf="placeMetrics != null" class="card-container">
   <div class="metrics-card flexcontainer" *ngFor="let transport of publicTransport">
-    <ng-container *ngIf="getStationInformation(transport) != null || getLineInformation(transport) != null">
+    <div *ngIf="getStationInformation(transport) != null || getLineInformation(transport) != null" class="metrics">
       <button mat-button>
         <img class="transport-button" alt="" [src]="getTransportLogo(transport)"/>
       </button>
-      <mat-card-title>
+      <h3>
       <span *ngIf="getStationInformation(transport) != null">
         {{ getStationInformation(transport).absolute_stations_count.raw_value }}
         Haltestellen
@@ -24,7 +25,7 @@
           , {{ getLineInformation(transport).absolute_line_count.raw_value }}
           Linien
       </span>
-      </mat-card-title>
-    </ng-container>
+      </h3>
+    </div>
   </div>
 </div>

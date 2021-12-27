@@ -7,6 +7,15 @@
 
 .metrics-card {
   margin: 0 26px 4px;
+
+  .metrics {
+    display: inline-flex;
+
+    h3 {
+      text-decoration: none;
+      margin: 0.55em 0 0.5em !important;
+    }
+  }
 }
 
 .transport-button {

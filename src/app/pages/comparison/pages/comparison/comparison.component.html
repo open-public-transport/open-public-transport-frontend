@@ -38,11 +38,13 @@
     <app-place-stations class="place-stations"
                         [mapId]="'stations-left'"
                         [geocoderResult]="geocoderResultLeft"
-                        [placeMetrics]="placeMetricsLeft"></app-place-stations>
+                        [placeMetrics]="placeMetricsLeft"
+                        [geocoderMarkerColor]="borderColorLeft"></app-place-stations>
     <div class="flexbox"></div>
     <app-place-stations class="place-stations"
                         [mapId]="'stations-right'"
                         [geocoderResult]="geocoderResultRight"
-                        [placeMetrics]="placeMetricsRight"></app-place-stations>
+                        [placeMetrics]="placeMetricsRight"
+                        [geocoderMarkerColor]="borderColorRight"></app-place-stations>
   </div>
 </div>
