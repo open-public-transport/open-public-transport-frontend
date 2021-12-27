@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {SpiderDiagramComponent} from './spider-diagram.component';
+import {RaderChartComponent} from './rader-chart.component';
 
 describe('SpiderDiagramComponent', () => {
-  let component: SpiderDiagramComponent;
-  let fixture: ComponentFixture<SpiderDiagramComponent>;
+  let component: RaderChartComponent;
+  let fixture: ComponentFixture<RaderChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SpiderDiagramComponent]
+      declarations: [RaderChartComponent]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpiderDiagramComponent);
+    fixture = TestBed.createComponent(RaderChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

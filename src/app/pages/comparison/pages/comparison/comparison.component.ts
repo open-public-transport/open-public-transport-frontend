@@ -23,6 +23,16 @@ export class ComparisonComponent {
   /** Place metrics of right geocoder result */
   placeMetricsRight: PlaceMetrics;
 
+  /** Background color for left geocoder result */
+  radarChartBackgroundColorLeft = "hsl(172, 38%, 65%)";
+  /** Background color for right geocoder result */
+  radarChartBackgroundColorRight = "hsl(92, 44%, 66%)";
+
+  /** Border color for left geocoder result */
+  radarChartBorderColorLeft = "hsl(172, 38%, 45%)";
+  /** Border color for right geocoder result */
+  radarChartBorderColorRight = "hsl(92, 44%, 46%)";
+
   /**
    * Constructor
    * @param placeService metrics service

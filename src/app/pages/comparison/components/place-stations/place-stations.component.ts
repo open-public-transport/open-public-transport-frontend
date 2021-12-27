@@ -38,7 +38,6 @@ export class PlaceStationsComponent implements OnChanges {
   /** List of available public transport */
   publicTransport = [];
 
-
   //
   // Lifecycle hooks
   //
@@ -91,6 +90,9 @@ export class PlaceStationsComponent implements OnChanges {
     }
   }
 
+  /**
+   * Initializes list of public transport
+   */
   private initializePublicTransport() {
     if (this.geocoderResult != null) {
       const cityName = this.geocoderResult.context[2].text;
@@ -106,8 +108,7 @@ export class PlaceStationsComponent implements OnChanges {
 
   /**
    * Returns a city by a given name
-   * @param name
-   * @private
+   * @param name name
    */
   private getCityByName(name: string) {
     const cities = environment.dashboard.cities.filter(city => {

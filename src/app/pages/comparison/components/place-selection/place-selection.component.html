@@ -12,7 +12,10 @@
   <div *ngIf="geocoderResult != null" class="card-container">
     <mat-card>
       <div class="flexcontainer">
-        <app-spider-diagram class="spider-diagram"></app-spider-diagram>
+        <app-rader-chart *ngIf="radarChartLabels.length > 1"
+                         class="radar-chart"
+                         [radarChartLabels]="radarChartLabels"
+                         [radarChartData]="radarChartData"></app-rader-chart>
         <div>
           <mat-card-title>{{ placeNames[0] }}</mat-card-title>
           <mat-card-subtitle>{{ placeNames[1] }}<br/>{{ placeNames[2] }}<br/>{{ placeNames[3] }}</mat-card-subtitle>
