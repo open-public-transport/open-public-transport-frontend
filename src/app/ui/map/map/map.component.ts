@@ -103,6 +103,8 @@ export class MapComponent implements OnChanges, AfterViewInit {
   @Input() geocoderEnabled = false;
   /** Places to use for geocoder filter */
   @Input() geocoderFilter = []
+  /** Geocoder marker color */
+  @Input() geocoderMarkerColor;
 
   /** Whether reset map position and zoom is enabled */
   @Input() resetEnabled = false;
@@ -539,6 +541,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
       const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
+        marker: {
+          color: this.geocoderMarkerColor
+        },
         mapboxgl: mapboxgl,
         limit: 100,
         filter: (result) => {

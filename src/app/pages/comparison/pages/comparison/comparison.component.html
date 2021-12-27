@@ -8,17 +8,19 @@
     <app-place-selection class="place-selection"
                          [mapId]="'selection-left'"
                          [placeMetrics]="placeMetricsLeft"
-                         [radarChartBackgroundColor]="radarChartBackgroundColorLeft"
-                         [radarChartBorderColor]="radarChartBorderColorLeft"
-                         [radarChartPointBackgroundColor]="radarChartBorderColorLeft"
+                         [radarChartBackgroundColor]="backgroundColorLeft"
+                         [radarChartBorderColor]="borderColorLeft"
+                         [radarChartPointBackgroundColor]="borderColorLeft"
+                         [geocoderMarkerColor]="borderColorLeft"
                          (geocodingResultEventEmitter)="onGeocodingResultLeftChanged($event)"></app-place-selection>
     <div class="flexbox"></div>
     <app-place-selection class="place-selection"
                          [mapId]="'selection-right'"
                          [placeMetrics]="placeMetricsRight"
-                         [radarChartBackgroundColor]="radarChartBackgroundColorRight"
-                         [radarChartBorderColor]="radarChartBorderColorRight"
-                         [radarChartPointBackgroundColor]="radarChartBorderColorRight"
+                         [radarChartBackgroundColor]="backgroundColorRight"
+                         [radarChartBorderColor]="borderColorRight"
+                         [radarChartPointBackgroundColor]="borderColorRight"
+                         [geocoderMarkerColor]="borderColorRight"
                          (geocodingResultEventEmitter)="onGeocodingResultRightChanged($event)"></app-place-selection>
   </div>
 </div>

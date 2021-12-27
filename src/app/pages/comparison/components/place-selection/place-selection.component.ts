@@ -27,6 +27,9 @@ export class PlaceSelectionComponent implements OnChanges {
   /** Radar chart point background color */
   @Input() radarChartPointBackgroundColor;
 
+  /** Geocoder marker color */
+  @Input() geocoderMarkerColor;
+
   /** Event emitter indicating a new geocoder results */
   @Output() public geocodingResultEventEmitter = new EventEmitter<GeocoderResult>();
 
