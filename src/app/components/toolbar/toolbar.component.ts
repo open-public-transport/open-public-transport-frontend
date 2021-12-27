@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
 
+/**
+ * Displays toolbar
+ */
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -8,11 +11,22 @@ import {environment} from "../../../environments/environment";
 })
 export class ToolbarComponent implements OnInit {
 
+  /** Environment */
   env = environment;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  /**
+   * Constructor
+   */
+  constructor() {
   }
 
+  //
+  // Lifecycle hooks
+  //
+
+  /**
+   * Handles on-init phase
+   */
+  ngOnInit() {
+  }
 }

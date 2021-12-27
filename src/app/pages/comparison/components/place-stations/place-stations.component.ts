@@ -8,6 +8,9 @@ import {environment} from "../../../../../environments/environment";
 import {StationInformation} from "../../model/station-information";
 import {LineInformation} from "../../model/line-information";
 
+/**
+ * Displays nearby stations of a given place
+ */
 @Component({
   selector: 'app-place-stations',
   templateUrl: './place-stations.component.html',
@@ -71,6 +74,9 @@ export class PlaceStationsComponent implements OnChanges {
     }
   }
 
+  /**
+   * Initializes markers
+   */
   private initializeMarkers() {
     if (this.geocoderResult != null) {
       this.center = new Location("name", "description", this.geocoderResult.center[0], this.geocoderResult.center[1], 12.5);

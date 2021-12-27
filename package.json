@@ -8,7 +8,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "build:ci": "npm run clean && npm run build",
-    "test": "ng test"
+    "test": "ng test",
+    "compodoc": "compodoc src/app -p tsconfig.json --output reports/documentation/"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +43,7 @@
     "@angular-devkit/build-angular": "~12.1.1",
     "@angular/cli": "~12.1.1",
     "@angular/compiler-cli": "~12.1.1",
+    "@compodoc/compodoc": "^1.1.16",
     "@types/d3": "^7.1.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",

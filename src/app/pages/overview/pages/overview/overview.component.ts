@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 
+/**
+ * Displays city overview
+ */
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
@@ -7,10 +10,19 @@ import {Component, OnInit} from '@angular/core';
 })
 export class OverviewComponent implements OnInit {
 
+  /**
+   * Constructor
+   */
   constructor() {
   }
 
-  ngOnInit(): void {
-  }
+  //
+  // Lifecycle hooks
+  //
 
+  /**
+   * Handles on-init phase
+   */
+  ngOnInit() {
+  }
 }

@@ -164,6 +164,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
   /** Map Box object */
   private map: mapboxgl.Map;
 
+  /** Map of results **/
+  resultsMap: Map<string, any> = new Map();
+
   /** Internal subject that publishes opacity events */
   private opacitySubject = new Subject<{ name: string, value: number }>();
   /** Internal subject that publishes flyable location events */
@@ -677,9 +680,6 @@ export class MapComponent implements OnChanges, AfterViewInit {
       });
     }
   }
-
-  // Map of results
-  resultsMap: Map<string, any> = new Map();
 
   /**
    * Initializes hex results overlays

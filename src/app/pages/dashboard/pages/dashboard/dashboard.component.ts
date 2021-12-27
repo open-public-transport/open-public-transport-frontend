@@ -25,6 +25,7 @@ export class DashboardComponent {
   /** Enum representing color ramp */
   colorRampEnum = ColorRamp;
 
+  /** Bounding box to fly to */
   flyToBoundingBox;
 
   /** Geocoder filter */
@@ -44,16 +45,14 @@ export class DashboardComponent {
 
   /** Isochrone results */
   hexResults = [];
-  // hexResults = ["berlin/geojson/isochrones-15"];
   /** Hexagon bounding box */
   hexBoundingBox = BoundingBox.BERLIN;
 
   /** Selected city */
   selectedCity;
-  // selectedCity = environment.dashboard.cities[0] as City;
   /** Selected transport */
   selectedTransport = new Map<string, boolean>();
-
+  /** Transport layers */
   transportLayers = new Map<string, string>();
 
   //
