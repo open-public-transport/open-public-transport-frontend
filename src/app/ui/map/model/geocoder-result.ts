@@ -43,7 +43,7 @@ class GeocoderResultProperties {
   /** Wikidata */
   wikidata = "";
   /** Landmark */
-  landmark = "";
+  landmark = false;
   /** Category */
   category = "";
   /** Maki */

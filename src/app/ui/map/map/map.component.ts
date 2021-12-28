@@ -197,34 +197,32 @@ export class MapComponent implements OnChanges, AfterViewInit {
    */
   ngOnChanges(changes: SimpleChanges) {
 
-    // Initialize markers
-    this.initializeMarkers(this.markers);
+    if (this.map != null) {
 
-    if (this.opacities != null) {
-      this.opacities.forEach((value: number, name: string) => {
-        this.opacitySubject.next({name, value});
-      });
-    }
+      // Initialize markers
+      this.initializeMarkers(this.markers);
 
-    if (this.map != null && this.popupMarkers != null) {
+      if (this.opacities != null) {
+        this.opacities.forEach((value: number, name: string) => {
+          this.opacitySubject.next({name, value});
+        });
+      }
+
+
       this.initializePopupMarkers(this.popupMarkers);
-    }
 
-    if (this.flyToLocation != null) {
       this.flyableLocationSubject.next(this.flyToLocation);
-    }
-    if (this.flyToBoundingBox != null) {
       this.flyableBoundingBoxSubject.next(this.flyToBoundingBox);
+
+      // Initialize markers
+      this.initializeMarkers(this.markers);
+      this.initializeClickableMarkers(this.clickableMarkers);
+      this.initializePopupMarkers(this.popupMarkers);
+
+      // Display overlays
+      this.initializeResultOverlays(this.results);
+      this.initializeHexResultOverlays(this.hexResults);
     }
-
-    // Initialize markers
-    this.initializeMarkers(this.markers);
-    this.initializeClickableMarkers(this.clickableMarkers);
-    this.initializePopupMarkers(this.popupMarkers);
-
-    // Display overlays
-    this.initializeResultOverlays(this.results);
-    this.initializeHexResultOverlays(this.hexResults);
   }
 
   /**
@@ -309,13 +307,15 @@ export class MapComponent implements OnChanges, AfterViewInit {
       marker.remove();
     });
 
-    markers.forEach(marker => {
-      const m = new mapboxgl.Marker({
-        color: this.geocoderMarkerColor
-      }).setLngLat([marker.longitude, marker.latitude])
-        .addTo(this.map);
-      this.currentMarkers.push(m);
-    });
+    if (markers != null) {
+      markers.forEach(marker => {
+        const m = new mapboxgl.Marker({
+          color: this.geocoderMarkerColor
+        }).setLngLat([marker.longitude, marker.latitude])
+          .addTo(this.map);
+        this.currentMarkers.push(m);
+      });
+    }
   }
 
   /**
@@ -401,27 +401,29 @@ export class MapComponent implements OnChanges, AfterViewInit {
    */
   private initializePopupMarkers(popupMarkers: Location[]) {
 
-    this.currentPopUpMarkers.forEach(marker => {
-      marker.remove();
-    });
+    if (this.popupMarkers != null) {
+      this.currentPopUpMarkers.forEach(marker => {
+        marker.remove();
+      });
 
-    popupMarkers.forEach(marker => {
-      // Create the popup
-      const popup = new mapboxgl.Popup({offset: 25}).setText(
-        marker.description
-      );
+      popupMarkers.forEach(marker => {
+        // Create the popup
+        const popup = new mapboxgl.Popup({offset: 25}).setText(
+          marker.description
+        );
 
-      // Create DOM element for the marker
-      const el = document.createElement('div');
-      el.id = `marker-${marker.name.toLowerCase()}`;
+        // Create DOM element for the marker
+        const el = document.createElement('div');
+        el.id = `marker-${marker.name.toLowerCase()}`;
 
-      // Create the marker
-      const m = new mapboxgl.Marker(el)
-        .setLngLat([marker.longitude, marker.latitude])
-        .setPopup(popup)
-        .addTo(this.map);
-      this.currentPopUpMarkers.push(m);
-    });
+        // Create the marker
+        const m = new mapboxgl.Marker(el)
+          .setLngLat([marker.longitude, marker.latitude])
+          .setPopup(popup)
+          .addTo(this.map);
+        this.currentPopUpMarkers.push(m);
+      });
+    }
   }
 
   /**
@@ -521,19 +523,23 @@ export class MapComponent implements OnChanges, AfterViewInit {
   private initializeFlyTo() {
     // Subscribe flyable locations subject
     this.flyableLocationSubject.subscribe((location: Location) => {
-      this.map.flyTo({
-        center: [location.longitude, location.latitude],
-        zoom: location.zoom ? location.zoom : this.zoom,
-        pitch: 0,
-        bearing: 0,
-        essential: true
-      });
+      if (location != null) {
+        this.map.flyTo({
+          center: [location.longitude, location.latitude],
+          zoom: location.zoom ? location.zoom : this.zoom,
+          pitch: 0,
+          bearing: 0,
+          essential: true
+        });
+      }
     });
 
     // Subscribe flyable locations subject
     this.flyableBoundingBoxSubject.subscribe((boundingBox: BoundingBox) => {
-      // @ts-ignore
-      this.map.fitBounds(boundingBox);
+      if (boundingBox != null) {
+        // @ts-ignore
+        this.map.fitBounds(boundingBox);
+      }
     });
   }
 
