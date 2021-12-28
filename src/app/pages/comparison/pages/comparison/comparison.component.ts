@@ -24,14 +24,14 @@ export class ComparisonComponent {
   placeMetricsRight: PlaceMetrics;
 
   /** Background color for left geocoder result */
-  backgroundColorLeft = "rgba(114, 169, 66, 0.5)";
+  backgroundColorLeft = "rgba(115, 171, 66, 0.5)";
   /** Border color for left geocoder result */
-  borderColorLeft = "rgb(114, 169, 66)";
+  borderColorLeft = "rgb(115, 171, 66)";
 
   /** Background color for right geocoder result */
-  backgroundColorRight = "rgba(132, 200, 191, 0.5)";
+  backgroundColorRight = "rgba(71, 158, 146, 0.5)";
   /** Border color for right geocoder result */
-  borderColorRight = "rgb(132, 200, 191)";
+  borderColorRight = "rgb(71, 158, 146)";
 
   /**
    * Constructor

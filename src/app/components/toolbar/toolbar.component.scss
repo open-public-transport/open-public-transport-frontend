@@ -25,9 +25,8 @@
 }
 
 .toolbar-menu-item-active {
-  color: mat.get-color-from-palette($transport-primary, 600) !important;;
-  background-color: mat.get-color-from-palette($transport-primary, 50) !important;;
-  //border-bottom: 2px solid mat.get-color-from-palette($transport-primary, 700) !important;;
+  color: mat.get-color-from-palette($transport-primary, 600) !important;
+  background-color: mat.get-color-from-palette($transport-primary, 50) !important;
 }
 
 .toolbar-block {

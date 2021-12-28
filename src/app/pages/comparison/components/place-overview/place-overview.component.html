@@ -5,15 +5,18 @@
                      [radarChartLabels]="radarChartLabels"
                      [radarChartData]="radarChartData"></app-rader-chart>
     <div class="tabs-container">
-      <mat-tab-group mat-align-tabs="end">
-        <mat-tab *ngIf="placeNameLeft != null" [label]="placeNameLeft">
+      <mat-tab-group mat-stretch-tabs mat-align-tabs="end"
+                     [ngClass]="{'tab-active-left': activeTabIndex === 0, 'tab-active-right' : activeTabIndex === 1 }"
+                     (selectedTabChange)="onTabChanged($event)">
+        <mat-tab *ngIf="placeNameLeft != null" [label]="placeNameLeft" [class.tab-active-left]="activeTabIndex === 0">
           <div class="tab-container">
             <app-place-details [geocoderResult]="geocoderResultLeft"
                                [placeName]="placeNameLeft"
                                [placeMetrics]="placeMetricsLeft"></app-place-details>
           </div>
         </mat-tab>
-        <mat-tab *ngIf="placeNameRight != null" [label]="placeNameRight">
+        <mat-tab *ngIf="placeNameRight != null" [label]="placeNameRight"
+                 [class.tab-active-right]="activeTabIndex === 1">
           <div class="tab-container">
             <app-place-details [geocoderResult]="geocoderResultRight"
                                [placeName]="placeNameRight"

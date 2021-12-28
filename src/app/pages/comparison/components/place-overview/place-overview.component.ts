@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
 import {PlaceMetrics} from "../../model/place-metrics";
 import {environment} from "../../../../../environments/environment";
+import {MatTabChangeEvent} from "@angular/material/tabs";
 
 /**
  * Displays place overview
@@ -46,6 +47,9 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
   /** List of available public transport */
   publicTransport = [];
 
+  /** Active tab index */
+  activeTabIndex = 0
+
   //
   // Lifecycle hooks
   //
@@ -54,7 +58,6 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
    * Handles on-init phase
    */
   ngOnInit() {
-
   }
 
   /**
@@ -150,6 +153,19 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
     if (this.geocoderResultRight != null) {
       this.placeNameRight = this.geocoderResultRight.place_name.split(",")[0];
     }
+  }
+
+  //
+  // Actions
+  //
+
+  /**
+   * Handles tab-changed event
+   * @param event event
+   */
+  onTabChanged(event: MatTabChangeEvent) {
+    this.activeTabIndex = event.index;
+    console.log(`FOO ${event.index}`);
   }
 
   //
