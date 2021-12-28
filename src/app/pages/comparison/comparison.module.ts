@@ -9,15 +9,19 @@ import {RaderChartComponent} from './components/radar-chart/rader-chart.componen
 import {MatButtonModule} from "@angular/material/button";
 import {PlaceStationsComponent} from './components/place-stations/place-stations.component';
 import {ChartsModule} from "ng2-charts";
+import {PlaceOverviewComponent} from './components/place-overview/place-overview.component';
+import {MatTabsModule} from "@angular/material/tabs";
+import {PlaceDetailsComponent} from "./components/place-details/place-details.component";
 
 @NgModule({
-  declarations: [ComparisonComponent, PlaceSelectionComponent, RaderChartComponent, PlaceStationsComponent],
+  declarations: [ComparisonComponent, PlaceSelectionComponent, RaderChartComponent, PlaceStationsComponent, PlaceOverviewComponent, PlaceDetailsComponent],
   imports: [
     CommonModule,
     ComparisonRoutingModule,
     MapModule,
     MatButtonModule,
     MatCardModule,
+    MatTabsModule,
     ChartsModule
   ]
 })
