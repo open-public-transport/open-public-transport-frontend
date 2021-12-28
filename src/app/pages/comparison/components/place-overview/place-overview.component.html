@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="flexcontainer">
+    <app-rader-chart *ngIf="radarChartLabels.length > 1"
+                     class="radar-chart"
+                     [radarChartLabels]="radarChartLabels"
+                     [radarChartData]="radarChartData"></app-rader-chart>
+    <div class="tabs-container">
+      <mat-tab-group mat-align-tabs="end">
+        <mat-tab *ngIf="placeNameLeft != null" [label]="placeNameLeft">
+          <div class="tab-container">
+            <app-place-details [geocoderResult]="geocoderResultLeft"
+                               [placeName]="placeNameLeft"
+                               [placeMetrics]="placeMetricsLeft"></app-place-details>
+          </div>
+        </mat-tab>
+        <mat-tab *ngIf="placeNameRight != null" [label]="placeNameRight">
+          <div class="tab-container">
+            <app-place-details [geocoderResult]="geocoderResultRight"
+                               [placeName]="placeNameRight"
+                               [placeMetrics]="placeMetricsRight"></app-place-details>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
