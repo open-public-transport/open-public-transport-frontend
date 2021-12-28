@@ -138,9 +138,6 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
       pointBackgroundColor: this.radarChartBorderColorRight
     }];
     this.radarChartLabels = ["Fahrrad"].concat(this.publicTransport);
-
-    console.log(`FOO radarChartData ${JSON.stringify(this.radarChartData)}`);
-    console.log(`FOO radarChartLabels ${JSON.stringify(this.radarChartLabels)}`);
   }
 
   /**
@@ -165,7 +162,6 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
    */
   onTabChanged(event: MatTabChangeEvent) {
     this.activeTabIndex = event.index;
-    console.log(`FOO ${event.index}`);
   }
 
   //
