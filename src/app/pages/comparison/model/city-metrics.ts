@@ -7,7 +7,7 @@ import {CityBasicInformation} from "./city-basic-information";
  */
 export class CityMetrics {
   /** City basic information */
-  city_basic_information: CityBasicInformation[];
+  city_basic_information: CityBasicInformation;
   /** Station information */
   station_information: StationInformation[];
   /** Travel distance information */

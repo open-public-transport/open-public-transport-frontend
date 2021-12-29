@@ -3,6 +3,8 @@
  */
 export class CityBasicInformation {
   /** City name */
+  id = "";
+  /** City name */
   city_name = "";
   /** Federal state name */
   federal_state_name = "";
