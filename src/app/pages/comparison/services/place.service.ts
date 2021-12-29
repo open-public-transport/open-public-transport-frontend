@@ -21,14 +21,15 @@ export class PlaceService {
 
   /**
    * Retrieves place information based on given latitude and longitude
+   * @param city city
    * @param lat latitude
    * @param lon longitude
    */
-  getPlace(lat: string, lon: string): Observable<PlaceMetrics> {
+  getPlace(city: string, lat: string, lon: string): Observable<PlaceMetrics> {
     if (environment.endpoint.place != null) {
       return this.http.get<PlaceMetrics>(
         environment.endpoint.place, {
-          params: {"lat": lat, "lon": lon},
+          params: {"city_id": city, "lat": lat, "lon": lon},
           headers: new HttpHeaders({
             'Access-Control-Allow-Origin': '*'
           })

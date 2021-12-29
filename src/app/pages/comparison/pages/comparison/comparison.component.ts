@@ -52,10 +52,11 @@ export class ComparisonComponent {
     this.geocoderResultLeft = geocoderResult;
 
     if (geocoderResult != null) {
-      const lat = geocoderResult.center[0];
-      const lon = geocoderResult.center[1];
+      const city = geocoderResult.context[2].text;
+      const lat = geocoderResult.center[1];
+      const lon = geocoderResult.center[0];
 
-      this.placeService.getPlace(lat, lon).subscribe((place: PlaceMetrics) => {
+      this.placeService.getPlace(city, lat, lon).subscribe((place: PlaceMetrics) => {
         this.placeMetricsLeft = place;
       }, () => {
         this.placeMetricsLeft = null;
@@ -71,10 +72,11 @@ export class ComparisonComponent {
     this.geocoderResultRight = geocoderResult;
 
     if (geocoderResult != null) {
-      const lat = geocoderResult.center[0];
-      const lon = geocoderResult.center[1];
+      const city = geocoderResult.context[2].text;
+      const lat = geocoderResult.center[1];
+      const lon = geocoderResult.center[0];
 
-      this.placeService.getPlace(lat, lon).subscribe((place: PlaceMetrics) => {
+      this.placeService.getPlace(city, lat, lon).subscribe((place: PlaceMetrics) => {
         this.placeMetricsRight = place;
       }, () => {
         this.placeMetricsRight = null;
