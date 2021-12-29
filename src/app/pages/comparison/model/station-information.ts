@@ -10,10 +10,10 @@ export class StationInformation {
   absolute_stations_count: RankedValue;
   /** Absolute stations accessibility count */
   absolute_stations_accessibility_count: RankedValue;
-  /** Absolute stations accessibility percentage */
-  absolute_stations_accessibility_percentage: RankedValue;
-  /** Absolute stations per sqkm */
-  absolute_stations_per_sqkm: RankedValue;
-  /** Absolute stations per inhabitants */
-  absolute_stations_per_inhabitant: RankedValue;
+  /** Relative stations accessibility percentage */
+  relative_stations_accessibility_percentage: RankedValue;
+  /** Relative stations per sqkm */
+  relative_stations_per_sqkm: RankedValue;
+  /** Relative stations per inhabitants */
+  relative_stations_per_inhabitant: RankedValue;
 }
