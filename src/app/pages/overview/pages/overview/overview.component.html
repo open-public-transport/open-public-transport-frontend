@@ -1,1 +1,59 @@
-<p>overview works!</p>
+<div class="table-container">
+  <mat-form-field appearance="fill">
+    <input matInput placeholder="Suche" (keyup)="onFilterApplied($event)">
+  </mat-form-field>
+
+  <table
+    class="fixed-layout-table"
+    cdk-table
+    matSort
+    matSortActive="city"
+    matSortDirection="desc"
+    [dataSource]="datasource">
+
+    <ng-container cdkColumnDef="city">
+      <th cdk-header-cell *cdkHeaderCellDef>Stadt</th>
+      <td cdk-cell *cdkCellDef="let row">{{ row.cityName }}</td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="federal_state">
+      <th cdk-header-cell *cdkHeaderCellDef>Bundesland</th>
+      <td cdk-cell *cdkCellDef="let row">{{ row.federalStateName }}</td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="inhabitants">
+      <th cdk-header-cell mat-sort-header *cdkHeaderCellDef>Einwohner</th>
+      <td cdk-cell *cdkCellDef="let row">{{ row.inhabitants }}</td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="stations_per_inhabitant">
+      <th cdk-header-cell mat-sort-header *cdkHeaderCellDef>Haltestellen pro 1000 Einwohner</th>
+      <td cdk-cell *cdkCellDef="let row">{{ row.stationsPerInhabitant }}</td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="stations_per_sqkm">
+      <th cdk-header-cell mat-sort-header *cdkHeaderCellDef>Haltestellen pro qkm</th>
+      <td cdk-cell *cdkCellDef="let row">{{ row.stationsPerSqkm }}</td>
+    </ng-container>
+
+    <tr cdk-header-row *cdkHeaderRowDef="columnNames; sticky: true"></tr>
+
+    <tr cdk-row class="clickable"
+        *cdkRowDef="let row; columns: columnNames"
+        [hidden]="isFetchActive()"></tr>
+
+    <tr cdk-row *cdkFooterRowDef="['fetchActiveLoader']"></tr>
+
+    <ng-container cdkColumnDef="fetchActiveLoader">
+      <td cdk-footer-cell
+          colspan="2"
+          class="fetch-active-loader"
+          *cdkFooterCellDef
+          [hidden]="!isFetchActive()">
+      </td>
+    </ng-container>
+  </table>
+
+</div>
+
+<mat-paginator [pageSize]="50"></mat-paginator>

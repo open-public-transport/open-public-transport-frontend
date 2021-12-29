@@ -1,4 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
+import {Subscription} from "rxjs";
+import {CityService} from "../../services/city.service";
+import {CityMetrics} from "../../../comparison/model/city-metrics";
 
 /**
  * Displays city overview
@@ -8,12 +14,26 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  /** Paginator */
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  /** Sort */
+  @ViewChild(MatSort) sort: MatSort;
+
+  /** Datasource */
+  datasource = new MatTableDataSource([]);
+  /** Column names */
+  columnNames = ['city', 'federal_state', 'inhabitants', 'stations_per_inhabitant', 'stations_per_sqkm'];
+
+  /** Fetch subscription */
+  private fetchSubscriptions: Subscription[] = [];
 
   /**
    * Constructor
+   * @param cityService city service
    */
-  constructor() {
+  constructor(private cityService: CityService) {
   }
 
   //
@@ -90,8 +110,6 @@ export class OverviewComponent implements OnInit {
   private buildDatasource(res: CityMetrics[]) {
     return res.map(cityMetrics => {
 
-      console.log(`FOO cityMetrics ${JSON.stringify(cityMetrics)}`);
-
       const cityName = cityMetrics.city_basic_information.city_name;
       const federalStateName = cityMetrics.city_basic_information.federal_state_name;
       const inhabitants = cityMetrics.city_basic_information.inhabitants;
@@ -101,13 +119,17 @@ export class OverviewComponent implements OnInit {
       const stationsPerInhabitant = Math.round(cityMetrics.station_information.filter(information => {
         return information.public_transport_type == "all";
       })[0].relative_stations_per_inhabitant.raw_value * 10_000) / 10;
+      const stationsPerSqkm = Math.round(cityMetrics.station_information.filter(information => {
+        return information.public_transport_type == "all";
+      })[0].relative_stations_per_sqkm.raw_value * 10_000) / 10;
 
       return {
         "cityName": cityName,
         "federalStateName": federalStateName,
         "inhabitants": inhabitants,
         "stations": stations,
-        "stationsPerInhabitant": +stationsPerInhabitant
+        "stationsPerInhabitant": Number(stationsPerInhabitant),
+        "stationsPerSqkm": Number(stationsPerSqkm)
       }
     });
   }
