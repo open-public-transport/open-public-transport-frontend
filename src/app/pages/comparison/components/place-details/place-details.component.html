@@ -1,16 +1,16 @@
 <div>
   In 15 Minuten erreicht man von {{ placeName }} zu Fuß
   <ul class="list">
-    <li *ngFor="let transport of publicTransport">
+    <li *ngFor="let publicTransportType of publicTransportTypes">
       <button mat-button>
-        <img class="transport-button" alt="" [src]="getTransportLogo(transport)"/>
+        <img class="transport-button" alt="" [src]="getTransportLogo(publicTransportType)"/>
       </button>
-      <span *ngIf="getStationInformation(transport) != null">
-        {{ getStationInformation(transport).absolute_stations_count.raw_value }}
+      <span *ngIf="getStationInformation(publicTransportType) != null">
+        {{ getStationInformation(publicTransportType).absolute_stations_count.raw_value }}
         Haltestellen
       </span>
-      <span *ngIf="getLineInformation(transport) != null">
-          , {{ getLineInformation(transport).absolute_line_count.raw_value }}
+      <span *ngIf="getLineInformation(publicTransportType) != null">
+          , {{ getLineInformation(publicTransportType).absolute_line_count.raw_value }}
         Linien
       </span>
     </li>

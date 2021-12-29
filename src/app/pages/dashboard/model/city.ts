@@ -6,6 +6,6 @@ export class City {
   name: string;
   /** City bounding box */
   boundingBox = [];
-  /** List of available public transport */
-  publicTransport = []
+  /** List of available public transport types */
+  publicTransportTypes = []
 }

@@ -80,9 +80,9 @@ export class DashboardComponent {
   onCitySelected(city: City) {
     this.selectedCity = city;
 
-    city.publicTransport.forEach(publicTransport => {
-      this.transportLayers.set(`${city.name.toLowerCase()}/geojson/lines-${publicTransport}`, publicTransport);
-      this.transportLayers.set(`${city.name.toLowerCase()}/geojson/stations-${publicTransport}`, publicTransport);
+    city.publicTransportTypes.forEach(publicTransportType => {
+      this.transportLayers.set(`${city.name.toLowerCase()}/geojson/lines-${publicTransportType}`, publicTransportType);
+      this.transportLayers.set(`${city.name.toLowerCase()}/geojson/stations-${publicTransportType}`, publicTransportType);
     });
 
     this.hexResults = [`${city.name.toLowerCase()}/geojson/isochrones-15`]

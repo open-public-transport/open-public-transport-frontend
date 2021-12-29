@@ -41,8 +41,8 @@ export class PlaceStationsComponent implements OnChanges {
   /** Enum representing map box style */
   mapBoxStyleEnum = MapBoxStyle;
 
-  /** List of available public transport */
-  publicTransport = [];
+  /** List of available public transport types */
+  publicTransportTypes = [];
 
   //
   // Lifecycle hooks
@@ -56,7 +56,7 @@ export class PlaceStationsComponent implements OnChanges {
     this.initializeMarkers();
     this.initializeOverlays();
 
-    this.initializePublicTransport();
+    this.initializePublicTransportTypes();
   }
 
   //
@@ -93,22 +93,22 @@ export class PlaceStationsComponent implements OnChanges {
       const cityName = this.geocoderResult.context[2].text;
       const city = this.getCityByName(cityName);
 
-      city.publicTransport.forEach(publicTransport => {
-        this.results.push(`${city.name.toLowerCase()}/geojson/lines-${publicTransport}`);
-        this.results.push(`${city.name.toLowerCase()}/geojson/stations-${publicTransport}`);
+      city.publicTransportTypes.forEach(publicTransportType => {
+        this.results.push(`${city.name.toLowerCase()}/geojson/lines-${publicTransportType}`);
+        this.results.push(`${city.name.toLowerCase()}/geojson/stations-${publicTransportType}`);
       });
     }
   }
 
   /**
-   * Initializes list of public transport
+   * Initializes list of public transport types
    */
-  private initializePublicTransport() {
+  private initializePublicTransportTypes() {
     if (this.geocoderResult != null) {
       const cityName = this.geocoderResult.context[2].text;
       const city = this.getCityByName(cityName);
 
-      this.publicTransport = city.publicTransport;
+      this.publicTransportTypes = city.publicTransportTypes;
     }
   }
 
@@ -143,7 +143,7 @@ export class PlaceStationsComponent implements OnChanges {
   getStationInformation(transport: string): StationInformation {
     if (this.placeMetrics != null && this.placeMetrics.station_information != null) {
       return this.placeMetrics.station_information.filter(information => {
-        return information.transport_type == transport;
+        return information.public_transport_type == transport;
       })[0];
     } else {
       return null;
@@ -157,7 +157,7 @@ export class PlaceStationsComponent implements OnChanges {
   getLineInformation(transport: string): LineInformation {
     if (this.placeMetrics != null && this.placeMetrics.line_information != null) {
       return this.placeMetrics.line_information.filter(information => {
-        return information.transport_type == transport;
+        return information.public_transport_type == transport;
       })[0];
     } else {
       return null;

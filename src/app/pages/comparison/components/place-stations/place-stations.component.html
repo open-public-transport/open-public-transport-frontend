@@ -11,18 +11,18 @@
   </app-map>
 </div>
 <div *ngIf="placeMetrics != null" class="card-container">
-  <div class="metrics-card flexcontainer" *ngFor="let transport of publicTransport">
-    <div *ngIf="getStationInformation(transport) != null || getLineInformation(transport) != null" class="metrics">
+  <div class="metrics-card flexcontainer" *ngFor="let publicTransportType of publicTransportTypes">
+    <div *ngIf="getStationInformation(publicTransportType) != null || getLineInformation(publicTransportType) != null" class="metrics">
       <button mat-button>
-        <img class="transport-button" alt="" [src]="getTransportLogo(transport)"/>
+        <img class="transport-button" alt="" [src]="getTransportLogo(publicTransportType)"/>
       </button>
       <h3>
-      <span *ngIf="getStationInformation(transport) != null">
-        {{ getStationInformation(transport).absolute_stations_count.raw_value }}
+      <span *ngIf="getStationInformation(publicTransportType) != null">
+        {{ getStationInformation(publicTransportType).absolute_stations_count.raw_value }}
         Haltestellen
       </span>
-        <span *ngIf="getLineInformation(transport) != null">
-          , {{ getLineInformation(transport).absolute_line_count.raw_value }}
+        <span *ngIf="getLineInformation(publicTransportType) != null">
+          , {{ getLineInformation(publicTransportType).absolute_line_count.raw_value }}
           Linien
       </span>
       </h3>

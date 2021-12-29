@@ -4,8 +4,8 @@ import {RankedValue} from "./ranked-value";
  * Represents station information
  */
 export class StationInformation {
-  /** Transport type */
-  transport_type = "";
+  /** Public transport type */
+  public_transport_type = "";
   /** Absolute stations count */
   absolute_stations_count: RankedValue;
   /** Absolute stations accessibility count */

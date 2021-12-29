@@ -44,8 +44,8 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
   /** Place name right */
   placeNameRight;
 
-  /** List of available public transport */
-  publicTransport = [];
+  /** List of available public transport types */
+  publicTransportTypes = [];
 
   /** Active tab index */
   activeTabIndex = 0
@@ -64,7 +64,7 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
    * Handles on-changes phase
    */
   ngOnChanges(changes: SimpleChanges) {
-    this.initializePublicTransport();
+    this.initializePublicTransportTypes();
     this.initializeRadarChartData();
     this.initializeTabLabels();
   }
@@ -74,17 +74,17 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
   //
 
   /**
-   * Initializes list of public transport
+   * Initializes list of public transport types
    */
-  private initializePublicTransport() {
-    const publicTransportMap = new Map<string, string>();
+  private initializePublicTransportTypes() {
+    const publicTransportTypeMap = new Map<string, string>();
 
     if (this.geocoderResultLeft != null) {
       const cityName = this.geocoderResultLeft.context[2].text;
       const city = this.getCityByName(cityName);
 
-      city.publicTransport.forEach(publicTransport => {
-        publicTransportMap.set(publicTransport, publicTransport);
+      city.publicTransportTypes.forEach(publicTransportType => {
+        publicTransportTypeMap.set(publicTransportType, publicTransportType);
       });
     }
 
@@ -92,12 +92,12 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
       const cityName = this.geocoderResultRight.context[2].text;
       const city = this.getCityByName(cityName);
 
-      city.publicTransport.forEach(publicTransport => {
-        publicTransportMap.set(publicTransport, publicTransport);
+      city.publicTransportTypes.forEach(publicTransportType => {
+        publicTransportTypeMap.set(publicTransportType, publicTransportType);
       });
     }
 
-    this.publicTransport = Array.from(publicTransportMap.values());
+    this.publicTransportTypes = Array.from(publicTransportTypeMap.values());
   }
 
   /**
@@ -105,10 +105,10 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
    */
   private initializeRadarChartData() {
     const bikeMetricLeft = 0;
-    const publicTransportMetricsLeft = this.publicTransport.map(transport => {
+    const publicTransportMetricsLeft = this.publicTransportTypes.map(publicTransportType => {
       if (this.placeMetricsLeft != null && this.placeMetricsLeft.station_information != null) {
         return this.placeMetricsLeft.station_information.filter(information => {
-          return information.transport_type == transport;
+          return information.public_transport_type == publicTransportType;
         })[0].absolute_stations_count.raw_value;
       } else {
         return null;
@@ -116,10 +116,10 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
     });
 
     const bikeMetricRight = 0;
-    const publicTransportMetricsRight = this.publicTransport.map(transport => {
+    const publicTransportMetricsRight = this.publicTransportTypes.map(publicTransportType => {
       if (this.placeMetricsRight != null && this.placeMetricsRight.station_information != null) {
         return this.placeMetricsRight.station_information.filter(information => {
-          return information.transport_type == transport;
+          return information.public_transport_type == publicTransportType;
         })[0].absolute_stations_count.raw_value;
       } else {
         return null;
@@ -137,7 +137,7 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
       borderColor: this.radarChartBorderColorRight,
       pointBackgroundColor: this.radarChartBorderColorRight
     }];
-    this.radarChartLabels = ["Fahrrad"].concat(this.publicTransport);
+    this.radarChartLabels = ["Fahrrad"].concat(this.publicTransportTypes);
   }
 
   /**

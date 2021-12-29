@@ -55,8 +55,8 @@ export class PlaceSelectionComponent implements OnChanges {
   /** Radar chart data */
   radarChartData = [];
 
-  /** List of available public transport */
-  publicTransport = [];
+  /** List of available public transport types */
+  publicTransportTypes = [];
 
   //
   // Lifecycle hooks
@@ -78,10 +78,10 @@ export class PlaceSelectionComponent implements OnChanges {
    */
   private initializeRadarChartData() {
     const bikeMetric = 0;
-    const publicTransportMetrics = this.publicTransport.map(transport => {
+    const publicTransportMetrics = this.publicTransportTypes.map(publicTransportType => {
       if (this.placeMetrics != null && this.placeMetrics.station_information != null) {
         return this.placeMetrics.station_information.filter(information => {
-          return information.transport_type == transport;
+          return information.public_transport_type == publicTransportType;
         })[0].absolute_stations_count.raw_value;
       } else {
         return null;
@@ -115,10 +115,10 @@ export class PlaceSelectionComponent implements OnChanges {
       const cityName = this.geocoderResult.context[2].text;
       const city = this.getCityByName(cityName);
 
-      this.publicTransport = city.publicTransport;
+      this.publicTransportTypes = city.publicTransportTypes;
     } else {
       this.placeNames = [];
-      this.publicTransport = [];
+      this.publicTransportTypes = [];
     }
     this.geocodingResultEventEmitter.emit(geocoderResult);
   }

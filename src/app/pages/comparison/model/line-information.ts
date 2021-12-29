@@ -4,8 +4,8 @@ import {RankedValue} from "./ranked-value";
  * Represents line information
  */
 export class LineInformation {
-  /** Transport type */
-  transport_type = "";
+  /** Public transport type */
+  public_transport_type = "";
   /** Absolute lines count */
   absolute_line_count: RankedValue;
   /** Absolute lines accessibility count */

@@ -22,8 +22,8 @@ export class PlaceDetailsComponent implements OnInit, OnChanges {
   /** Place metrics of geocoder result */
   @Input() placeMetrics: PlaceMetrics;
 
-  /** List of available public transport */
-  publicTransport = [];
+  /** List of available public transport types */
+  publicTransportTypes = [];
 
   //
   // Lifecycle hooks
@@ -39,7 +39,7 @@ export class PlaceDetailsComponent implements OnInit, OnChanges {
    * Handles on-changes phase
    */
   ngOnChanges(changes: SimpleChanges) {
-    this.initializePublicTransport();
+    this.initializePublicTransportTypes();
   }
 
   //
@@ -47,14 +47,14 @@ export class PlaceDetailsComponent implements OnInit, OnChanges {
   //
 
   /**
-   * Initializes list of public transport
+   * Initializes list of public transport types
    */
-  private initializePublicTransport() {
+  private initializePublicTransportTypes() {
     if (this.geocoderResult != null) {
       const cityName = this.geocoderResult.context[2].text;
       const city = this.getCityByName(cityName);
 
-      this.publicTransport = city.publicTransport;
+      this.publicTransportTypes = city.publicTransportTypes;
     }
   }
 
@@ -89,7 +89,7 @@ export class PlaceDetailsComponent implements OnInit, OnChanges {
   getStationInformation(transport: string): StationInformation {
     if (this.placeMetrics != null && this.placeMetrics.station_information != null) {
       return this.placeMetrics.station_information.filter(information => {
-        return information.transport_type == transport;
+        return information.public_transport_type == transport;
       })[0];
     } else {
       return null;
@@ -103,7 +103,7 @@ export class PlaceDetailsComponent implements OnInit, OnChanges {
   getLineInformation(transport: string): LineInformation {
     if (this.placeMetrics != null && this.placeMetrics.line_information != null) {
       return this.placeMetrics.line_information.filter(information => {
-        return information.transport_type == transport;
+        return information.public_transport_type == transport;
       })[0];
     } else {
       return null;
