@@ -3,13 +3,7 @@
     <input matInput placeholder="Suche" (keyup)="onFilterApplied($event)">
   </mat-form-field>
 
-  <table
-    class="fixed-layout-table"
-    cdk-table
-    matSort
-    matSortActive="city"
-    matSortDirection="desc"
-    [dataSource]="datasource">
+  <table class="fixed-layout-table" cdk-table matSort [dataSource]="datasource">
 
     <ng-container cdkColumnDef="city">
       <th cdk-header-cell *cdkHeaderCellDef>Stadt</th>
@@ -26,12 +20,12 @@
       <td cdk-cell *cdkCellDef="let row">{{ row.inhabitants }}</td>
     </ng-container>
 
-    <ng-container cdkColumnDef="stations_per_inhabitant">
+    <ng-container cdkColumnDef="stationsPerInhabitant">
       <th cdk-header-cell mat-sort-header *cdkHeaderCellDef>Haltestellen pro 1000 Einwohner</th>
       <td cdk-cell *cdkCellDef="let row">{{ row.stationsPerInhabitant }}</td>
     </ng-container>
 
-    <ng-container cdkColumnDef="stations_per_sqkm">
+    <ng-container cdkColumnDef="stationsPerSqkm">
       <th cdk-header-cell mat-sort-header *cdkHeaderCellDef>Haltestellen pro qkm</th>
       <td cdk-cell *cdkCellDef="let row">{{ row.stationsPerSqkm }}</td>
     </ng-container>

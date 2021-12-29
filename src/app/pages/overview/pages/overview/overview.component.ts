@@ -24,7 +24,7 @@ export class OverviewComponent implements OnInit, AfterViewInit, OnDestroy {
   /** Datasource */
   datasource = new MatTableDataSource([]);
   /** Column names */
-  columnNames = ['city', 'federal_state', 'inhabitants', 'stations_per_inhabitant', 'stations_per_sqkm'];
+  columnNames = ['city', 'federal_state', 'inhabitants', 'stationsPerInhabitant', 'stationsPerSqkm'];
 
   /** Fetch subscription */
   private fetchSubscriptions: Subscription[] = [];
