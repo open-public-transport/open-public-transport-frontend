@@ -42,6 +42,6 @@ export const environment = {
   feature: {
     dashboard: true,
     comparison: true,
-    overview: false
+    overview: true
   }
 };
