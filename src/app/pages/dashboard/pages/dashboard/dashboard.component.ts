@@ -4,6 +4,7 @@ import {Place} from '../../../../core/mapbox/model/place.model';
 import {BoundingBox} from "../../../../ui/map/model/bounding-box.model";
 import {City} from "../../model/city";
 import {ColorRamp} from "../../../../ui/map/model/color-ramp.model";
+import {environment} from "../../../../../environments/environment";
 
 /**
  * Displays a dashboard
@@ -29,13 +30,7 @@ export class DashboardComponent {
   flyToBoundingBox;
 
   /** Geocoder filter */
-  geocoderFilter = [
-    ["Deutschland", "Berlin"],
-    ["Deutschland", "Cottbus"],
-    ["Deutschland", "Frankfurt (Oder)"],
-    ["Deutschland", "Hamburg"],
-    ["Deutschland", "Potsdam"]
-  ];
+  geocoderFilter = [];
 
   /** Overlay results */
   results = [];
@@ -63,6 +58,27 @@ export class DashboardComponent {
    * Handles on-init phase
    */
   ngOnInit() {
+    this.initializeGeocoderFilter();
+    this.initializeSelectedTransport();
+  }
+
+  //
+  // Initialization
+  //
+
+  /**
+   * Initializes geocoder filter
+   */
+  private initializeGeocoderFilter() {
+    this.geocoderFilter = environment.dashboard.cities.map(city => {
+      return ["Deutschland", city.name];
+    });
+  }
+
+  /**
+   * Initializes selected transport
+   */
+  private initializeSelectedTransport() {
     this.selectedTransport.set("bus", false);
     this.selectedTransport.set("light_rail", false);
     this.selectedTransport.set("subway", false);

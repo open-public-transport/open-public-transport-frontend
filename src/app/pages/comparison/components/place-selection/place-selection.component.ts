@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Place} from "../../../../core/mapbox/model/place.model";
 import {MapBoxStyle} from "../../../../core/mapbox/model/map-box-style.enum";
 import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
@@ -13,7 +13,7 @@ import {environment} from "../../../../../environments/environment";
   templateUrl: './place-selection.component.html',
   styleUrls: ['./place-selection.component.scss']
 })
-export class PlaceSelectionComponent implements OnChanges {
+export class PlaceSelectionComponent implements OnInit, OnChanges {
 
   /** Map ID */
   @Input() mapId = "map";
@@ -41,10 +41,7 @@ export class PlaceSelectionComponent implements OnChanges {
   /** Enum representing map box style */
   mapBoxStyleEnum = MapBoxStyle;
   /** Geocoder filter */
-  geocoderFilter = [
-    ["Deutschland", "Berlin"],
-    ["Deutschland", "Hamburg"]
-  ];
+  geocoderFilter = [];
 
   /** Selected geocoder result */
   geocoderResult: GeocoderResult;
@@ -63,6 +60,13 @@ export class PlaceSelectionComponent implements OnChanges {
   //
 
   /**
+   * Handles on-init phase
+   */
+  ngOnInit() {
+    this.initializeGeocoderFilter();
+  }
+
+  /**
    * Handles on-changes phase
    */
   ngOnChanges(changes: SimpleChanges) {
@@ -72,6 +76,15 @@ export class PlaceSelectionComponent implements OnChanges {
   //
   // Initialization
   //
+
+  /**
+   * Initializes geocoder filter
+   */
+  private initializeGeocoderFilter() {
+    this.geocoderFilter = environment.dashboard.cities.map(city => {
+      return ["Deutschland", city.name];
+    });
+  }
 
   /**
    * Initializes radar chart data
