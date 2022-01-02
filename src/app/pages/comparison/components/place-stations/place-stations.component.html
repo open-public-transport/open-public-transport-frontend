@@ -17,11 +17,11 @@
         <img class="transport-button" alt="" [src]="getTransportLogo(publicTransportType)"/>
       </button>
       <h3>
-      <span *ngIf="getStationInformation(publicTransportType) != null">
+      <span *ngIf="getStationInformation(publicTransportType) != null && getStationInformation(publicTransportType).absolute_stations_count.raw_value != null">
         {{ getStationInformation(publicTransportType).absolute_stations_count.raw_value }}
         Haltestellen
       </span>
-        <span *ngIf="getLineInformation(publicTransportType) != null">
+        <span *ngIf="getLineInformation(publicTransportType) != null && getLineInformation(publicTransportType).absolute_line_count.raw_value != null">
           , {{ getLineInformation(publicTransportType).absolute_line_count.raw_value }}
           Linien
       </span>
