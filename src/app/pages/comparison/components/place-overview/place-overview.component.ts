@@ -109,7 +109,7 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
       if (this.placeMetricsLeft != null && this.placeMetricsLeft.station_information != null) {
         return this.placeMetricsLeft.station_information.filter(information => {
           return information.public_transport_type == publicTransportType;
-        })[0].absolute_stations_count.raw_value;
+        })[0].absolute_station_count.raw_value;
       } else {
         return null;
       }
@@ -120,7 +120,7 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
       if (this.placeMetricsRight != null && this.placeMetricsRight.station_information != null) {
         return this.placeMetricsRight.station_information.filter(information => {
           return information.public_transport_type == publicTransportType;
-        })[0].absolute_stations_count.raw_value;
+        })[0].absolute_station_count.raw_value;
       } else {
         return null;
       }

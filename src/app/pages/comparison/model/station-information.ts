@@ -6,14 +6,14 @@ import {RankedValue} from "./ranked-value";
 export class StationInformation {
   /** Public transport type */
   public_transport_type = "";
-  /** Absolute stations count */
-  absolute_stations_count: RankedValue;
-  /** Absolute stations accessibility count */
-  absolute_stations_accessibility_count: RankedValue;
-  /** Relative stations accessibility percentage */
-  relative_stations_accessibility_percentage: RankedValue;
-  /** Relative stations per sqkm */
-  relative_stations_per_sqkm: RankedValue;
-  /** Relative stations per inhabitants */
-  relative_stations_per_inhabitant: RankedValue;
+  /** Absolute station count */
+  absolute_station_count: RankedValue;
+  /** Absolute station accessibility count */
+  absolute_station_accessibility_count: RankedValue;
+  /** Relative station accessibility percentage */
+  relative_station_accessibility_percentage: RankedValue;
+  /** Relative station per sqkm */
+  relative_station_per_sqkm: RankedValue;
+  /** Relative station per inhabitants */
+  relative_station_per_inhabitant: RankedValue;
 }

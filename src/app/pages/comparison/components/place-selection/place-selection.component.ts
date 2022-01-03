@@ -95,7 +95,7 @@ export class PlaceSelectionComponent implements OnInit, OnChanges {
       if (this.placeMetrics != null && this.placeMetrics.station_information != null) {
         return this.placeMetrics.station_information.filter(information => {
           return information.public_transport_type == publicTransportType;
-        })[0].absolute_stations_count.raw_value;
+        })[0].absolute_station_count.raw_value;
       } else {
         return null;
       }
