@@ -8,6 +8,7 @@
            [geocoderFilter]=geocoderFilter
            [geocoderMarkerColor]="geocoderMarkerColor"
            [interactiveEnabled]=false
+           [navigationControlEnabled]=true
            (geocodingResultEventEmitter)="onGeocodingResultChanged($event)">
   </app-map>
   <div *ngIf="geocoderResult != null" class="card-container">

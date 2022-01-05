@@ -37,7 +37,6 @@ export class DashboardComponent {
   /** Opacities */
   opacities = new Map<string, number>();
 
-
   /** Isochrone results */
   hexResults = [];
   /** Hexagon bounding box */
