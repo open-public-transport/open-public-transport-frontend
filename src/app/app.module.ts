@@ -12,6 +12,11 @@ import {ToolbarComponent} from "./components/toolbar/toolbar.component";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 
+import {TRANSLOCO_CONFIG, TRANSLOCO_MISSING_HANDLER, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
+import {environment} from '../environments/environment';
+import {TranslocoUndefMissingHandler} from './transloco-missing-handler';
+import {translocoLoader} from './transloco.loader';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,9 +38,27 @@ import {MatButtonModule} from "@angular/material/button";
     MatToolbarModule,
     MatCardModule,
 
+    TranslocoModule,
+
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: TRANSLOCO_CONFIG,
+      useValue: {
+        availableLangs: ['de', 'en'],
+        listenToLangChange: false,
+        defaultLang: 'de',
+        fallbackLang: 'en',
+        prodMode: environment.production
+      } as TranslocoConfig
+    },
+    {
+      provide: TRANSLOCO_MISSING_HANDLER,
+      useClass: TranslocoUndefMissingHandler
+    },
+    translocoLoader
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
