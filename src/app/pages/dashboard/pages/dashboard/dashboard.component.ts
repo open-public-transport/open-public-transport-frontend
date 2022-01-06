@@ -21,6 +21,8 @@ export class DashboardComponent {
 
   /** Enum representing places */
   placeEnum = Place;
+  /** Enum representing bounding box */
+  boundingBoxEnum = BoundingBox;
   /** Enum representing map box style */
   mapBoxStyleEnum = MapBoxStyle;
   /** Enum representing color ramp */
