@@ -6,6 +6,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatButtonModule} from "@angular/material/button";
+import {TranslocoModule} from "@ngneat/transloco";
 
 
 @NgModule({
@@ -16,7 +17,10 @@ import {MatButtonModule} from "@angular/material/button";
     MatIconModule,
     MatToolbarModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
+
+    // Translation
+    TranslocoModule
   ]
 })
 export class ContactModule {

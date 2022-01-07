@@ -7,6 +7,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import { OverlayComponent } from './components/overlay/overlay.component';
+import {TranslocoModule} from "@ngneat/transloco";
 
 @NgModule({
   declarations: [DashboardComponent, OverlayComponent],
@@ -16,7 +17,10 @@ import { OverlayComponent } from './components/overlay/overlay.component';
     MapModule,
     MatIconModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
+
+    // Translation
+    TranslocoModule
   ]
 })
 

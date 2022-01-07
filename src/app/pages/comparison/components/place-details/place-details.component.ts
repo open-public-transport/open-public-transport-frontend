@@ -4,6 +4,7 @@ import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
 import {environment} from "../../../../../environments/environment";
 import {StationInformation} from "../../model/station-information";
 import {LineInformation} from "../../model/line-information";
+import {getBrowserLang} from "@ngneat/transloco";
 
 /**
  * Displays place details
@@ -24,6 +25,9 @@ export class PlaceDetailsComponent implements OnInit, OnChanges {
 
   /** List of available public transport types */
   publicTransportTypes = [];
+
+  /** Language */
+  lang = getBrowserLang();
 
   //
   // Lifecycle hooks

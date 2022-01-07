@@ -1,3 +1,60 @@
 {
-  "app-title": "Open Public Transport"
+  "app-title": "Open Public Transport",
+  "germany": "Deutschland",
+  "pages": {
+    "dashboard": {
+      "title": "Mobilitätsdashboard"
+    },
+    "comparison": {
+      "title": "Ortsvergleich",
+      "labels": {
+        "watch-results": "Sieh dir die Ergebnisse an",
+        "overview": "Übersicht",
+        "stations-within-walking-distance": "Fußläufig erreichbare Haltestellen",
+        "in-15-min-you-will-reach": "In 15 Minuten erreicht man von {{ placeName }} zu Fuß",
+        "stations": "Haltestellen",
+        "lines": "Linien",
+        "streets-suitable-for-biking": "{{ bike_infrastructure_percentage }}% der Straßen im Umkreis von {{ placeName }} sind mit Fahrradinfrastruktur ausgestattet.",
+        "mobility-index": "Mobilitätsindex"
+      }
+    },
+    "overview": {
+      "title": "Verkehr in meiner Stadt",
+      "labels": {
+        "search": "Suche"
+      },
+      "columns": {
+        "city": "Stadt",
+        "federal-state": "Bundesland",
+        "inhabitants": "Einwohner",
+        "stations-per-1000-inhabitants": "Haltestellen pro 1000 Einwohner",
+        "stations-per-sqkm": "Haltestellen pro sqkm"
+      }
+    },
+    "contact": {
+      "title": "Kontakt",
+      "labels": {
+        "team": "Team",
+        "data-scientist": "Data Scientist",
+        "consultant": "Consultant",
+        "fullstack-developer": "Fullstack Developer",
+        "machine-learning-enthusiast": "Machine Learning Enthusiast",
+        "agile-coach": "Agile Coach"
+      }
+    },
+    "about": {
+      "title": "Über",
+      "problem-statement-title": "Problemstellung",
+      "problem-statement-text-1": "Städte stehen vor der Herausforderung, die Verkehrswende erfolgreich zu gestalten. Dies kann nur durch die gezielte Stärkung des ÖPNV gelingen. Die hohe Komplexität des ÖPNV erschwert dabei die erfolgreiche Planung, Durchführung und Kommunikation notwendiger Infrastrukturprojekte. Unser Projekt adressiert zwei zentrale Herausforderungen bei der Neugestaltung der urbanen Mobilität.",
+      "problem-statement-text-2": "Ein straßengenauer Erreichbarkeitsindex ermöglicht es Politiker*innen und Städteplaner*innen, die Planung von Infrastrukturprojekten durch die Nutzung von Daten zu verbessern. Die Aufbereitung der Analyseergebnisse als interaktive und öffentlich zugängliche Web-App ermöglicht es Bürger*innen die Notwendigkeit von Infrastrukturprojekten besser nachvollziehen zu können.",
+      "problem-statement-text-3": "Die Web-App ermöglicht es Bürger*innen zudem Vorschläge für Infrastrukturprojekte in der eigenen Stadt zu machen, sodass Politik und Bürger*innen bei der Gestaltung der Verkehrswende kooperieren können. So kann der Kritik hinsichtlich unzureichender Planung und Interaktion mit Bürger*innen, die im Zuge der Umsetzung des Berliner Mobilitätsgesetztes zu beobachten ist, entgegengewirkt werden.",
+      "approach-title": "Ansatz",
+      "approach-text-1": "Das Projekt wird entlang des Cross Industry Standard Process for Data Mining (CRISP) umgesetzt. Während der Phasen Business Understanding und Data Understanding werden mehrere, frei verfügbare Datenquellen (beispielsweise DB/Flinkster, Uber, OpenStreetMap, mCloud) aggregiert und analysiert. Diese Daten werden im Zuge der Data Preparation aufbereitet und angereichert. In der Modellierungsphase wird die Datenbasis genutzt, um einen Erreichbarkeitsindex auf Basis der relativen Erreichbarkeit zufällig ausgewählter Punkte zu entwickeln. Die Modellentwicklung erfolgt in Python.",
+      "approach-text-2": "Während der Evaluation werden die Analyseergebnisse mit für Bürger*innen relevanten Orten abgeglichen, um wichtige Schwachstellen im ÖPNV-Netz zu identifizieren und zu clustern. Die Ergebnisse werden mithilfe einer Web-App interaktiv zugänglich gemacht.",
+      "audience-title": "Adressaten",
+      "audience-text-1": "Das Projekt adressiert Bürger*innen sowie politische Entscheider*innen, die für die Gestaltung der Verkehrswende in deutschen Städten verantwortlich sind. Durch die Entwicklung weiterer Analyseansätze und Planungsfunktionalitäten sollen auch Stadtplaner*innen und Forscher*innen im Bereich der urbanen Mobilität angesprochen werden.",
+      "funding-title": "Förderung",
+      "funding-text-1": "Die intensive Arbeit an Open Public Transport ist nur möglich, weil wir durch den <a href=\"https://prototypefund.de/\">Prototype Fund</a> gefördert wurden. Open Public Transport wird mit Mitteln des <a href=\"https://www.bmbf.de/\">Bundesministeriums für Bildung und Forschung</a> unter dem Förderkennzeichen 01IS21S44 gefördert. Die Verantwortung für den Inhalt dieser Veröffentlichung liegt bei den Autoren."
+    }
+  }
 }

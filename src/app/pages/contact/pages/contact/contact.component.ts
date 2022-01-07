@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {getBrowserLang} from "@ngneat/transloco";
 
 /**
  * Displays a contact
@@ -9,6 +10,9 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
+
+  /** Language */
+  lang = getBrowserLang();
 
   //
   // Lifecycle hooks

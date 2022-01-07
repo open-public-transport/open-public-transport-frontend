@@ -5,6 +5,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {Subscription} from "rxjs";
 import {CityService} from "../../services/city.service";
 import {CityMetrics} from "../../../comparison/model/city-metrics";
+import {getBrowserLang} from "@ngneat/transloco";
 
 /**
  * Displays city overview
@@ -28,6 +29,9 @@ export class OverviewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /** Fetch subscription */
   private fetchSubscriptions: Subscription[] = [];
+
+  /** Language */
+  lang = getBrowserLang();
 
   /**
    * Constructor

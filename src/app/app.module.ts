@@ -49,7 +49,7 @@ import {translocoLoader} from './transloco.loader';
         availableLangs: ['de', 'en'],
         listenToLangChange: false,
         defaultLang: 'de',
-        fallbackLang: 'en',
+        fallbackLang: ['de', 'en'],
         prodMode: environment.production
       } as TranslocoConfig
     },

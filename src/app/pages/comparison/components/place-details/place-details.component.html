@@ -1,22 +1,28 @@
-<div>
-  In 15 Minuten erreicht man von {{ placeName }} zu Fuß
-  <ul class="list">
-    <li *ngFor="let publicTransportType of publicTransportTypes">
-      <button mat-button>
-        <img class="transport-button" alt="" [src]="getTransportLogo(publicTransportType)"/>
-      </button>
-      <span *ngIf="getStationInformation(publicTransportType) != null && getStationInformation(publicTransportType).absolute_station_count.raw_value != null">
+<ng-container *transloco="let t, lang: lang; read: 'pages.comparison'">
+  <div>
+    {{ t('labels.in-15-min-you-will-reach', {placeName: placeName}) }}
+    <ul class="list">
+      <li *ngFor="let publicTransportType of publicTransportTypes">
+        <button mat-button>
+          <img class="transport-button" alt="" [src]="getTransportLogo(publicTransportType)"/>
+        </button>
+        <span
+          *ngIf="getStationInformation(publicTransportType) != null && getStationInformation(publicTransportType).absolute_station_count.raw_value != null">
         {{ getStationInformation(publicTransportType).absolute_station_count.raw_value }}
-        Haltestellen
+          {{ t('labels.stations') }}}
       </span>
-      <span *ngIf="getLineInformation(publicTransportType) != null && getLineInformation(publicTransportType).absolute_line_count.raw_value != null">
+        <span
+          *ngIf="getLineInformation(publicTransportType) != null && getLineInformation(publicTransportType).absolute_line_count.raw_value != null">
           , {{ getLineInformation(publicTransportType).absolute_line_count.raw_value }}
-        Linien
+          {{ t('labels.lines') }}}
       </span>
-    </li>
-  </ul>
-  <span *ngIf="getBikeInformation() != null">
-  {{ getBikeInformation().bike_infrastructure_percentage }}% der Straßen im Umkreis von {{ placeName }} sind mit
-  Fahrradinfrastruktur ausgestattet.
+      </li>
+    </ul>
+    <span *ngIf="getBikeInformation() != null">
+      {{ t('labels.streets-suitable-for-biking', {
+      bike_infrastructure_percentage: getBikeInformation().bike_infrastructure_percentage,
+      placeName: placeName
+    }) }}
   </span>
-</div>
+  </div>
+</ng-container>

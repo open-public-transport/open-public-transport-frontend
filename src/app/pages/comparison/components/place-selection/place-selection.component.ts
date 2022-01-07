@@ -4,6 +4,7 @@ import {MapBoxStyle} from "../../../../core/mapbox/model/map-box-style.enum";
 import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
 import {PlaceMetrics} from "../../model/place-metrics";
 import {environment} from "../../../../../environments/environment";
+import {getBrowserLang, TranslocoService} from "@ngneat/transloco";
 
 /**
  * Displays place selection component
@@ -55,6 +56,15 @@ export class PlaceSelectionComponent implements OnInit, OnChanges {
   /** List of available public transport types */
   publicTransportTypes = [];
 
+  /** Language */
+  lang = getBrowserLang();
+
+  /**
+   * Constructor transloco service
+   */
+  constructor(private translocoService: TranslocoService) {
+  }
+
   //
   // Lifecycle hooks
   //
@@ -81,8 +91,11 @@ export class PlaceSelectionComponent implements OnInit, OnChanges {
    * Initializes geocoder filter
    */
   private initializeGeocoderFilter() {
-    this.geocoderFilter = environment.dashboard.cities.map(city => {
-      return ["Deutschland", city.name];
+    this.translocoService.selectTranslate("germany", {}, this.lang).subscribe(value => {
+      console.log(value);
+      this.geocoderFilter = environment.dashboard.cities.map(city => {
+        return [value, city.name];
+      });
     });
   }
 

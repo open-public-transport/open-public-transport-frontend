@@ -5,6 +5,7 @@ import {AboutRoutingModule} from './about-routing.module';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatButtonModule} from '@angular/material/button';
+import {TranslocoModule} from "@ngneat/transloco";
 
 @NgModule({
   declarations: [AboutComponent],
@@ -13,7 +14,10 @@ import {MatButtonModule} from '@angular/material/button';
     AboutRoutingModule,
     MatIconModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
+
+    // Translation
+    TranslocoModule
   ]
 })
 export class AboutModule {

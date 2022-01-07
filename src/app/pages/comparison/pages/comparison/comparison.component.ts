@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
 import {PlaceService} from "../../services/place.service";
 import {PlaceMetrics} from "../../model/place-metrics";
+import {getBrowserLang} from "@ngneat/transloco";
 
 /**
  * Displays comparison page
@@ -32,6 +33,9 @@ export class ComparisonComponent {
   backgroundColorRight = "rgba(71, 158, 146, 0.5)";
   /** Border color for right geocoder result */
   borderColorRight = "rgb(71, 158, 146)";
+
+  /** Language */
+  lang = getBrowserLang();
 
   /**
    * Constructor

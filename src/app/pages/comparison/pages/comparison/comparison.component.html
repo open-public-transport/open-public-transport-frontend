@@ -1,66 +1,68 @@
-<div class="selection-outer-container">
-  <div class="button-container">
-    <button mat-fab color="primary" class="vs-button">
-      VS
-    </button>
-  </div>
-  <div class="flexcontainer selection-container">
-    <app-place-selection class="place-selection"
-                         [mapId]="'selection-left'"
-                         [placeMetrics]="placeMetricsLeft"
-                         [radarChartBackgroundColor]="backgroundColorLeft"
-                         [radarChartBorderColor]="borderColorLeft"
-                         [radarChartPointBackgroundColor]="borderColorLeft"
-                         [geocoderMarkerColor]="borderColorLeft"
-                         (geocodingResultEventEmitter)="onGeocodingResultLeftChanged($event)"></app-place-selection>
-    <div class="flexbox"></div>
-    <app-place-selection class="place-selection"
-                         [mapId]="'selection-right'"
-                         [placeMetrics]="placeMetricsRight"
-                         [radarChartBackgroundColor]="backgroundColorRight"
-                         [radarChartBorderColor]="borderColorRight"
-                         [radarChartPointBackgroundColor]="borderColorRight"
-                         [geocoderMarkerColor]="borderColorRight"
-                         (geocodingResultEventEmitter)="onGeocodingResultRightChanged($event)"></app-place-selection>
-  </div>
-</div>
-
-<ng-container *ngIf="geocoderResultLeft != null && geocoderResultRight != null">
-  <div class="flexcontainer">
-    <div class="flexbox"></div>
-    <h2>Sieh dir die Ergebnisse an</h2>
-    <div class="flexbox"></div>
-  </div>
-
-  <div class="overview-outer-container">
-    <h2 class="container-headline">Überblick</h2>
-
-    <app-place-overview [geocoderResultLeft]="geocoderResultLeft"
-                        [geocoderResultRight]="geocoderResultRight"
-                        [placeMetricsLeft]="placeMetricsLeft"
-                        [placeMetricsRight]="placeMetricsRight"
-                        [radarChartBackgroundColorLeft]="backgroundColorLeft"
-                        [radarChartBorderColorLeft]="borderColorLeft"
-                        [radarChartBackgroundColorRight]="backgroundColorRight"
-                        [radarChartBorderColorRight]="borderColorRight"
-    ></app-place-overview>
-  </div>
-
-  <div class="stations-outer-container">
-    <h2 class="container-headline">Fußläufig erreichbare Haltestellen</h2>
-
-    <div class="flexcontainer stations-container">
-      <app-place-stations class="place-stations"
-                          [mapId]="'stations-left'"
-                          [geocoderResult]="geocoderResultLeft"
-                          [placeMetrics]="placeMetricsLeft"
-                          [geocoderMarkerColor]="borderColorLeft"></app-place-stations>
+<ng-container *transloco="let t, lang: lang; read: 'pages.comparison'">
+  <div class="selection-outer-container">
+    <div class="button-container">
+      <button mat-fab color="primary" class="vs-button">
+        VS
+      </button>
+    </div>
+    <div class="flexcontainer selection-container">
+      <app-place-selection class="place-selection"
+                           [mapId]="'selection-left'"
+                           [placeMetrics]="placeMetricsLeft"
+                           [radarChartBackgroundColor]="backgroundColorLeft"
+                           [radarChartBorderColor]="borderColorLeft"
+                           [radarChartPointBackgroundColor]="borderColorLeft"
+                           [geocoderMarkerColor]="borderColorLeft"
+                           (geocodingResultEventEmitter)="onGeocodingResultLeftChanged($event)"></app-place-selection>
       <div class="flexbox"></div>
-      <app-place-stations class="place-stations"
-                          [mapId]="'stations-right'"
-                          [geocoderResult]="geocoderResultRight"
-                          [placeMetrics]="placeMetricsRight"
-                          [geocoderMarkerColor]="borderColorRight"></app-place-stations>
+      <app-place-selection class="place-selection"
+                           [mapId]="'selection-right'"
+                           [placeMetrics]="placeMetricsRight"
+                           [radarChartBackgroundColor]="backgroundColorRight"
+                           [radarChartBorderColor]="borderColorRight"
+                           [radarChartPointBackgroundColor]="borderColorRight"
+                           [geocoderMarkerColor]="borderColorRight"
+                           (geocodingResultEventEmitter)="onGeocodingResultRightChanged($event)"></app-place-selection>
     </div>
   </div>
+
+  <ng-container *ngIf="geocoderResultLeft != null && geocoderResultRight != null">
+    <div class="flexcontainer">
+      <div class="flexbox"></div>
+      <h2>{{ t('labels.watch-results') }}</h2>
+      <div class="flexbox"></div>
+    </div>
+
+    <div class="overview-outer-container">
+      <h2 class="container-headline">{{ t('labels.overview') }}</h2>
+
+      <app-place-overview [geocoderResultLeft]="geocoderResultLeft"
+                          [geocoderResultRight]="geocoderResultRight"
+                          [placeMetricsLeft]="placeMetricsLeft"
+                          [placeMetricsRight]="placeMetricsRight"
+                          [radarChartBackgroundColorLeft]="backgroundColorLeft"
+                          [radarChartBorderColorLeft]="borderColorLeft"
+                          [radarChartBackgroundColorRight]="backgroundColorRight"
+                          [radarChartBorderColorRight]="borderColorRight"
+      ></app-place-overview>
+    </div>
+
+    <div class="stations-outer-container">
+      <h2 class="container-headline">{{ t('labels.stations-within-walking-distance') }}</h2>
+
+      <div class="flexcontainer stations-container">
+        <app-place-stations class="place-stations"
+                            [mapId]="'stations-left'"
+                            [geocoderResult]="geocoderResultLeft"
+                            [placeMetrics]="placeMetricsLeft"
+                            [geocoderMarkerColor]="borderColorLeft"></app-place-stations>
+        <div class="flexbox"></div>
+        <app-place-stations class="place-stations"
+                            [mapId]="'stations-right'"
+                            [geocoderResult]="geocoderResultRight"
+                            [placeMetrics]="placeMetricsRight"
+                            [geocoderMarkerColor]="borderColorRight"></app-place-stations>
+      </div>
+    </div>
+  </ng-container>
 </ng-container>

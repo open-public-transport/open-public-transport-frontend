@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
+import {getBrowserLang} from "@ngneat/transloco";
 
 /**
  * Displays toolbar
@@ -13,6 +14,9 @@ export class ToolbarComponent implements OnInit {
 
   /** Environment */
   env = environment;
+
+  /** Language */
+  lang = getBrowserLang();
 
   /**
    * Constructor

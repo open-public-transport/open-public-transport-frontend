@@ -1,36 +1,38 @@
-<div class="map-container">
-  <app-map [id]=mapId
-           [height]="mapHeight"
-           [style]="mapBoxStyleEnum.LIGHT_V10"
-           [zoom]="11.5"
-           [center]="placeEnum.BRANDENBURG_GATE"
-           [geocoderEnabled]="true"
-           [geocoderFilter]=geocoderFilter
-           [geocoderMarkerColor]="geocoderMarkerColor"
-           [interactiveEnabled]=false
-           [navigationControlEnabled]=true
-           (geocodingResultEventEmitter)="onGeocodingResultChanged($event)">
-  </app-map>
-  <div *ngIf="geocoderResult != null" class="card-container">
-    <mat-card>
-      <div class="flexcontainer">
-        <app-rader-chart *ngIf="radarChartLabels.length > 1"
-                         class="radar-chart"
-                         [radarChartLabels]="radarChartLabels"
-                         [radarChartData]="radarChartData"></app-rader-chart>
-        <div>
-          <mat-card-title>{{ placeNames[0] }}</mat-card-title>
-          <mat-card-subtitle>{{ placeNames[1] }}<br/>{{ placeNames[2] }}<br/>{{ placeNames[3] }}</mat-card-subtitle>
-        </div>
-        <div class="flexbox"></div>
-        <div>
-          Mobilitätsindex
-          <div class="mobility-index">
-            <span *ngIf="placeMetrics != null">{{ placeMetrics.mobility_index }}</span>
-            <span *ngIf="placeMetrics == null">-</span>
+<ng-container *transloco="let t, lang: lang; read: 'pages.comparison'">
+  <div class="map-container">
+    <app-map [id]=mapId
+             [height]="mapHeight"
+             [style]="mapBoxStyleEnum.LIGHT_V10"
+             [zoom]="11.5"
+             [center]="placeEnum.BRANDENBURG_GATE"
+             [geocoderEnabled]="true"
+             [geocoderFilter]=geocoderFilter
+             [geocoderMarkerColor]="geocoderMarkerColor"
+             [interactiveEnabled]=false
+             [navigationControlEnabled]=true
+             (geocodingResultEventEmitter)="onGeocodingResultChanged($event)">
+    </app-map>
+    <div *ngIf="geocoderResult != null" class="card-container">
+      <mat-card>
+        <div class="flexcontainer">
+          <app-rader-chart *ngIf="radarChartLabels.length > 1"
+                           class="radar-chart"
+                           [radarChartLabels]="radarChartLabels"
+                           [radarChartData]="radarChartData"></app-rader-chart>
+          <div>
+            <mat-card-title>{{ placeNames[0] }}</mat-card-title>
+            <mat-card-subtitle>{{ placeNames[1] }}<br/>{{ placeNames[2] }}<br/>{{ placeNames[3] }}</mat-card-subtitle>
+          </div>
+          <div class="flexbox"></div>
+          <div>
+            {{ t('labels.mobility-index') }}
+            <div class="mobility-index">
+              <span *ngIf="placeMetrics != null">{{ placeMetrics.mobility_index }}</span>
+              <span *ngIf="placeMetrics == null">-</span>
+            </div>
           </div>
         </div>
-      </div>
-    </mat-card>
+      </mat-card>
+    </div>
   </div>
-</div>
+</ng-container>

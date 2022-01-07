@@ -7,6 +7,7 @@ import {Location} from "../../../../core/mapbox/model/location.model";
 import {environment} from "../../../../../environments/environment";
 import {StationInformation} from "../../model/station-information";
 import {LineInformation} from "../../model/line-information";
+import {getBrowserLang} from "@ngneat/transloco";
 
 /**
  * Displays nearby stations of a given place
@@ -43,6 +44,9 @@ export class PlaceStationsComponent implements OnChanges {
 
   /** List of available public transport types */
   publicTransportTypes = [];
+
+  /** Language */
+  lang = getBrowserLang();
 
   //
   // Lifecycle hooks

@@ -9,6 +9,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {ReactiveFormsModule} from "@angular/forms";
+import {TranslocoModule} from "@ngneat/transloco";
 
 @NgModule({
   declarations: [OverviewComponent],
@@ -23,6 +24,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatSortModule,
     MatTableModule,
     ReactiveFormsModule,
+
+    // Translation
+    TranslocoModule
   ]
 })
 export class OverviewModule {

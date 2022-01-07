@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {getBrowserLang} from "@ngneat/transloco";
 
 /**
  * Displays about component
@@ -9,6 +10,9 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
+
+  /** Language */
+  lang = getBrowserLang();
 
   /**
    * Constructor

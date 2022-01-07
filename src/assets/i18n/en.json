@@ -1,3 +1,60 @@
 {
-  "app-title": "Open Public Transport"
+  "app-title": "Open Public Transport",
+  "germany": "Germany",
+  "pages": {
+    "dashboard": {
+      "title": "Mobility Dashboard"
+    },
+    "comparison": {
+      "title": "Site comparison",
+      "labels": {
+        "watch-results": "Look at the results",
+        "overview": "Overview",
+        "stations-within-walking-distance": "stations within walking distance",
+        "in-15-min-you-will-reach": "in 15 minutes walking distance from {{ placeName }} you can reach",
+        "stations": "stations",
+        "lines": "lines",
+        "streets-suitable-for-biking": "{{ bike_infrastructure_percentage }}% of streets around {{ placeName }} are equipped with bicycle infrastructure.",
+        "mobility-index": "mobility index"
+      }
+    },
+    "overview": {
+      "title": "Traffic in my city",
+      "labels": {
+        "search": "Search"
+      },
+      "columns": {
+        "city": "city",
+        "federal-state": "federal state",
+        "inhabitants": "inhabitants",
+        "stations-per-1000-inhabitants": "stations per 1000 inhabitants",
+        "stations-per-sqkm": "stations per sqkm"
+      }
+    },
+    "contact": {
+      "title": "Contact",
+      "labels": {
+        "team": "Team",
+        "data-scientist": "data scientist",
+        "consultant": "Consultant",
+        "fullstack-developer": "fullstack developer",
+        "machine-learning-enthusiast": "machine learning enthusiast",
+        "agile-coach": "agile coach"
+      }
+    },
+    "about": {
+      "title": "About",
+      "problem-statement-title": "Problem Statement",
+      "problem-statement-text-1": "TODO",
+      "problem-statement-text-2": "TODO",
+      "problem-statement-text-3": "TODO",
+      "approach-title": "Approach",
+      "approach-text-1": "TODO",
+      "approach-text-2": "TODO",
+      "audience-title": "Addressees",
+      "audience-text-1": "TODO",
+      "funding-title": "Funding",
+      "funding-text-1": "TODO"
+    }
+  }
 }
