@@ -3,7 +3,7 @@
   "germany": "Germany",
   "pages": {
     "dashboard": {
-      "title": "Mobility Dashboard"
+      "title": "Public Transport Dashboard"
     },
     "comparison": {
       "title": "Site comparison",
@@ -19,7 +19,7 @@
       }
     },
     "overview": {
-      "title": "Traffic in my city",
+      "title": "Public Transport Leaderboard",
       "labels": {
         "search": "Search"
       },

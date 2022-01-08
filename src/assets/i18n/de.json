@@ -3,7 +3,7 @@
   "germany": "Deutschland",
   "pages": {
     "dashboard": {
-      "title": "Mobilitätsdashboard"
+      "title": "ÖPNV-Dashboard"
     },
     "comparison": {
       "title": "Ortsvergleich",
@@ -19,7 +19,7 @@
       }
     },
     "overview": {
-      "title": "Verkehr in meiner Stadt",
+      "title": "ÖPNV-Leaderboard",
       "labels": {
         "search": "Suche"
       },
