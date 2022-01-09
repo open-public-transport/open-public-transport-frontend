@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {environment} from "../../../../../environments/environment";
 import {City} from "../../model/city";
+import {getBrowserLang} from "@ngneat/transloco";
 
 /**
  * Displays overlay component
@@ -25,6 +26,9 @@ export class OverlayComponent implements OnInit {
   publicTransportTypes = ["bus", "light_rail", "subway", "tram"];
   /** List of supported cities */
   cities = [];
+
+  /** Language */
+  lang = getBrowserLang();
 
   //
   // Lifecycle hooks

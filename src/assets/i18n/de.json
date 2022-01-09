@@ -3,7 +3,11 @@
   "germany": "Deutschland",
   "pages": {
     "dashboard": {
-      "title": "ÖPNV-Dashboard"
+      "title": "ÖPNV-Dashboard",
+      "labels": {
+        "choose-your-city": "Wähle deine Stadt aus",
+        "display-public-transport": "Zeige ÖPNV-Verkehrsmittel"
+      }
     },
     "comparison": {
       "title": "Ortsvergleich",

@@ -1,8 +1,10 @@
-<div class="container">
-  <div class="toolbar-spacer">
-  </div>
-  <div class="city-container">
-    <span *ngFor="let city of cities">
+<ng-container *transloco="let t, lang: lang; read: 'pages.dashboard'">
+  <div class="container">
+    <div class="toolbar-spacer">
+    </div>
+    <div class="city-container">
+      <h2 class="container-label">{{ t('labels.choose-your-city') }}</h2>
+      <span *ngFor="let city of cities">
       <button *ngIf="selectedCity == null || city.name != selectedCity.name" mat-stroked-button color="primary"
               class="city-button"
               (click)="onCityButtonClicked(city)">
@@ -14,14 +16,16 @@
         {{ city.name }}
       </button>
     </span>
-  </div>
-  <div class="transport-container">
-    <span *ngFor="let transport of publicTransportTypes">
+    </div>
+
+    <div class="transport-container">
+      <h2 class="container-label">{{ t('labels.display-public-transport') }}</h2>
+      <span *ngFor="let transport of publicTransportTypes">
       <button mat-button disabled *ngIf="selectedCity == null || !selectedCity.publicTransportTypes.includes(transport)"
               class="transport-button"
               (click)="onTransportButtonClicked(transport, !selectedTransport.get(transport))">
         <img class="transport-icon light-grey" alt=""
-             [src]=getTransportLogo(transport) />
+             [src]=getTransportLogo(transport)/>
       </button>
       <button mat-stroked-button *ngIf="selectedCity != null && selectedCity.publicTransportTypes.includes(transport)"
               class="transport-button"
@@ -31,5 +35,6 @@
              [class.grey]="selectedCity != null && !selectedTransport.get(transport)"/>
       </button>
     </span>
+    </div>
   </div>
-</div>
+</ng-container>

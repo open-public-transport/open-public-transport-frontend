@@ -3,7 +3,11 @@
   "germany": "Germany",
   "pages": {
     "dashboard": {
-      "title": "Public Transport Dashboard"
+      "title": "Public Transport Dashboard",
+      "labels": {
+        "choose-your-city": "Choose your city",
+        "display-public-transport": "Display public transport"
+      }
     },
     "comparison": {
       "title": "Site comparison",
