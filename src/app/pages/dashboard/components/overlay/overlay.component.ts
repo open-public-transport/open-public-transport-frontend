@@ -21,6 +21,8 @@ export class OverlayComponent implements OnInit {
   /** Event emitter indicating transport selection */
   @Output() public transportSelectionEventEmitter = new EventEmitter<Map<string, boolean>>();
 
+  /** List of all transport types */
+  publicTransportTypes = ["bus", "light_rail", "subway", "tram"];
   /** List of supported cities */
   cities = [];
 

@@ -3,21 +3,32 @@
   </div>
   <div class="city-container">
     <span *ngFor="let city of cities">
-      <button *ngIf="selectedCity == null || city.name != selectedCity.name" mat-stroked-button color="primary" class="city-button"
+      <button *ngIf="selectedCity == null || city.name != selectedCity.name" mat-stroked-button color="primary"
+              class="city-button"
               (click)="onCityButtonClicked(city)">
         {{ city.name }}
       </button>
-      <button *ngIf="selectedCity != null && city.name == selectedCity.name" mat-flat-button color="primary" class="city-button"
+      <button *ngIf="selectedCity != null && city.name == selectedCity.name" mat-flat-button color="primary"
+              class="city-button"
               (click)="onCityButtonClicked(city)">
         {{ city.name }}
       </button>
     </span>
   </div>
-  <div class="transport-container" *ngIf="selectedCity != null">
-    <span *ngFor="let transport of selectedCity.publicTransportTypes">
-      <button mat-button (click)="onTransportButtonClicked(transport, !selectedTransport.get(transport))">
-        <img class="transport-button" alt=""
-             [src]=getTransportLogo(transport) [class.grey]="!selectedTransport.get(transport)" />
+  <div class="transport-container">
+    <span *ngFor="let transport of publicTransportTypes">
+      <button mat-button disabled *ngIf="selectedCity == null || !selectedCity.publicTransportTypes.includes(transport)"
+              class="transport-button"
+              (click)="onTransportButtonClicked(transport, !selectedTransport.get(transport))">
+        <img class="transport-icon light-grey" alt=""
+             [src]=getTransportLogo(transport) />
+      </button>
+      <button mat-stroked-button *ngIf="selectedCity != null && selectedCity.publicTransportTypes.includes(transport)"
+              class="transport-button"
+              (click)="onTransportButtonClicked(transport, !selectedTransport.get(transport))">
+        <img class="transport-icon" alt=""
+             [src]=getTransportLogo(transport)
+             [class.grey]="selectedCity != null && !selectedTransport.get(transport)"/>
       </button>
     </span>
   </div>
