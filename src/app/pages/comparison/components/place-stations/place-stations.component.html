@@ -4,12 +4,12 @@
              [height]="mapHeight"
              [style]="mapBoxStyleEnum.LIGHT_V10"
              [zoom]="11.5"
-             [flyToLocation]="center"
+             [center]="center"
              [markers]="markers"
              [results]="results"
              [geocoderMarkerColor]="geocoderMarkerColor"
              [interactiveEnabled]=false
-             [navigationControlEnabled]=true>
+             [navigationControlEnabled]=false>
     </app-map>
   </div>
   <div *ngIf="placeMetrics != null" class="card-container">
