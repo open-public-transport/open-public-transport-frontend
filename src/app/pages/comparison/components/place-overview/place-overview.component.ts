@@ -80,7 +80,8 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
     const publicTransportTypeMap = new Map<string, string>();
 
     if (this.geocoderResultLeft != null) {
-      const cityName = this.geocoderResultLeft.context[2].text;
+      const context = this.geocoderResultLeft.context;
+      const cityName = context[context.length - 2].text;
       const city = this.getCityByName(cityName);
 
       city.publicTransportTypes.forEach(publicTransportType => {
@@ -89,7 +90,8 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
     }
 
     if (this.geocoderResultRight != null) {
-      const cityName = this.geocoderResultRight.context[2].text;
+      const context = this.geocoderResultRight.context;
+      const cityName = context[context.length - 2].text;
       const city = this.getCityByName(cityName);
 
       city.publicTransportTypes.forEach(publicTransportType => {

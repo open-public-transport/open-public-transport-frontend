@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Place} from "../../../../core/mapbox/model/place.model";
 import {MapBoxStyle} from "../../../../core/mapbox/model/map-box-style.enum";
 import {PlaceMetrics} from "../../model/place-metrics";
@@ -17,7 +17,7 @@ import {getBrowserLang} from "@ngneat/transloco";
   templateUrl: './place-stations.component.html',
   styleUrls: ['./place-stations.component.scss']
 })
-export class PlaceStationsComponent implements OnChanges {
+export class PlaceStationsComponent implements OnInit, OnChanges {
 
   /** Map ID */
   @Input() mapId = "map";
@@ -51,6 +51,17 @@ export class PlaceStationsComponent implements OnChanges {
   //
   // Lifecycle hooks
   //
+
+  /**
+   * Handles on-init phase
+   */
+  ngOnInit() {
+    this.initializeCenter();
+    this.initializeMarkers();
+    this.initializeOverlays();
+
+    this.initializePublicTransportTypes();
+  }
 
   /**
    * Handles on-changes phase
@@ -94,7 +105,8 @@ export class PlaceStationsComponent implements OnChanges {
    */
   private initializeOverlays() {
     if (this.geocoderResult != null) {
-      const cityName = this.geocoderResult.context[2].text;
+      const context = this.geocoderResult.context;
+      const cityName = context[context.length - 2].text;
       const city = this.getCityByName(cityName);
 
       city.publicTransportTypes.forEach(publicTransportType => {
@@ -109,7 +121,8 @@ export class PlaceStationsComponent implements OnChanges {
    */
   private initializePublicTransportTypes() {
     if (this.geocoderResult != null) {
-      const cityName = this.geocoderResult.context[2].text;
+      const context = this.geocoderResult.context;
+      const cityName = context[context.length - 2].text;
       const city = this.getCityByName(cityName);
 
       this.publicTransportTypes = city.publicTransportTypes;

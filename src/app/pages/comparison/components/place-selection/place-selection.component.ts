@@ -92,7 +92,6 @@ export class PlaceSelectionComponent implements OnInit, OnChanges {
    */
   private initializeGeocoderFilter() {
     this.translocoService.selectTranslate("germany", {}, this.lang).subscribe(value => {
-      console.log(value);
       this.geocoderFilter = environment.dashboard.cities.map(city => {
         return [value, city.name];
       });
@@ -138,7 +137,8 @@ export class PlaceSelectionComponent implements OnInit, OnChanges {
     if (geocoderResult != null) {
       this.placeNames = geocoderResult.place_name.split(",");
 
-      const cityName = this.geocoderResult.context[2].text;
+      const context = this.geocoderResult.context;
+      const cityName = context[context.length - 2].text;
       const city = this.getCityByName(cityName);
 
       this.publicTransportTypes = city.publicTransportTypes;

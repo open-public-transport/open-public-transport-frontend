@@ -1,15 +1,15 @@
 <ng-container *transloco="let t, lang: lang; read: 'pages.comparison'">
   <div class="map-container">
-    <app-map [id]=mapId
+    <app-map [id]="mapId"
              [height]="mapHeight"
              [style]="mapBoxStyleEnum.LIGHT_V10"
              [zoom]="11.5"
              [center]="placeEnum.BRANDENBURG_GATE"
              [geocoderEnabled]="true"
-             [geocoderFilter]=geocoderFilter
+             [geocoderFilter]="geocoderFilter"
              [geocoderMarkerColor]="geocoderMarkerColor"
-             [interactiveEnabled]=false
-             [navigationControlEnabled]=true
+             [interactiveEnabled]="false"
+             [navigationControlEnabled]="false"
              (geocodingResultEventEmitter)="onGeocodingResultChanged($event)">
     </app-map>
     <div *ngIf="geocoderResult != null" class="card-container">

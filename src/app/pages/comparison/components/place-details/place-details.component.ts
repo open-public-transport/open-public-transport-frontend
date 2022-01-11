@@ -55,7 +55,8 @@ export class PlaceDetailsComponent implements OnInit, OnChanges {
    */
   private initializePublicTransportTypes() {
     if (this.geocoderResult != null) {
-      const cityName = this.geocoderResult.context[2].text;
+      const context = this.geocoderResult.context;
+      const cityName = context[context.length - 2].text;
       const city = this.getCityByName(cityName);
 
       this.publicTransportTypes = city.publicTransportTypes;
