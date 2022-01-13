@@ -3,6 +3,7 @@ import {GeocoderResult} from "../../../../ui/map/model/geocoder-result";
 import {PlaceMetrics} from "../../model/place-metrics";
 import {environment} from "../../../../../environments/environment";
 import {MatTabChangeEvent} from "@angular/material/tabs";
+import {getBrowserLang, TranslocoService} from "@ngneat/transloco";
 
 /**
  * Displays place overview
@@ -49,6 +50,17 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
 
   /** Active tab index */
   activeTabIndex = 0
+
+  /** Language */
+  lang = getBrowserLang();
+
+  /**
+   * Constructor
+   *
+   * @param translocoService transloco service
+   */
+  constructor(private translocoService: TranslocoService) {
+  }
 
   //
   // Lifecycle hooks
@@ -139,7 +151,13 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
       borderColor: this.radarChartBorderColorRight,
       pointBackgroundColor: this.radarChartBorderColorRight
     }];
-    this.radarChartLabels = ["Fahrrad"].concat(this.publicTransportTypes);
+
+    this.radarChartLabels = [];
+    ["bike"].concat(this.publicTransportTypes).forEach(transportType => {
+      this.translocoService.selectTranslate(`terms.${transportType}`, {}, this.lang).subscribe(value => {
+        this.radarChartLabels.push(value);
+      });
+    });
   }
 
   /**

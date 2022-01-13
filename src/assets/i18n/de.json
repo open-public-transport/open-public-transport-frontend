@@ -1,6 +1,13 @@
 {
   "app-title": "Open Public Transport",
-  "germany": "Deutschland",
+  "terms": {
+    "germany": "Deutschland",
+    "bike": "Fahrrad",
+    "bus": "Bus",
+    "light_rail": "S-Bahn",
+    "subway": "U-Bahn",
+    "tram": "Tram"
+  },
   "pages": {
     "dashboard": {
       "title": "ÖPNV-Dashboard",

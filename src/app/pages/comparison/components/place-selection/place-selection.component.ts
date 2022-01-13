@@ -60,7 +60,9 @@ export class PlaceSelectionComponent implements OnInit, OnChanges {
   lang = getBrowserLang();
 
   /**
-   * Constructor transloco service
+   * Constructor
+   *
+   * @param translocoService transloco service
    */
   constructor(private translocoService: TranslocoService) {
   }
@@ -91,7 +93,7 @@ export class PlaceSelectionComponent implements OnInit, OnChanges {
    * Initializes geocoder filter
    */
   private initializeGeocoderFilter() {
-    this.translocoService.selectTranslate("germany", {}, this.lang).subscribe(value => {
+    this.translocoService.selectTranslate("terms.germany", {}, this.lang).subscribe(value => {
       this.geocoderFilter = environment.dashboard.cities.map(city => {
         return [value, city.name];
       });
