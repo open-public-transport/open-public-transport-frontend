@@ -1,7 +1,23 @@
+@use '../../../../../../node_modules/@angular/material/index' as mat;
+@import '../../../../../flex';
+@import '../../../../../theme';
+
 .table-container {
   margin: 26px;
 }
 
 th {
   width: 250px;
+}
+
+tr {
+  height: 48px;
+}
+
+tr:nth-child(even){
+  background-color: mat.get-color-from-palette(mat.$grey-palette, 50);
+}
+
+tr:nth-child(odd){
+  background-color: transparent;
 }
