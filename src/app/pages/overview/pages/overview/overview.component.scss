@@ -21,3 +21,15 @@ tr:nth-child(even){
 tr:nth-child(odd){
   background-color: transparent;
 }
+
+.state-logo-wrapper {
+  display: inline-block;
+  width: 64px;
+}
+
+.state-logo {
+  display: block;
+  margin: 0 auto -8px;
+
+  height: 32px;
+}

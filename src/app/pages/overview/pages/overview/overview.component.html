@@ -13,7 +13,12 @@
 
       <ng-container cdkColumnDef="federal_state">
         <th cdk-header-cell *cdkHeaderCellDef>{{ t('columns.federal-state') }}</th>
-        <td cdk-cell *cdkCellDef="let row">{{ row.federalStateName }}</td>
+        <td cdk-cell *cdkCellDef="let row">
+          <span class="state-logo-wrapper">
+          <img class="state-logo" alt="" [src]="getFederalStateLogo(row.federalStateName)"/>
+          </span>
+          {{ row.federalStateName }}
+        </td>
       </ng-container>
 
       <ng-container cdkColumnDef="inhabitants">

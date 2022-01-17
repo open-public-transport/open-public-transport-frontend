@@ -157,4 +157,13 @@ export class OverviewComponent implements OnInit, AfterViewInit, OnDestroy {
   isFetchActive(): boolean {
     return this.fetchSubscriptions.length > 0;
   }
+
+  /**
+   * Retrieves logo of federal state
+   * @param federalStateName federal state name
+   */
+  getFederalStateLogo(federalStateName: string) {
+    // return `../../../../../assets/images/flag_${federalStateName.toLowerCase().replace('ü', 'u')}.png`;
+    return `../../../../../assets/images/coat_of_arms_${federalStateName.toLowerCase().replace('ü', 'u')}.png`;
+  }
 }
