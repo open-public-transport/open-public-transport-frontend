@@ -231,6 +231,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
   ngAfterViewInit() {
     this.initializeMapBox();
 
+    // Initialize geocoder
+    this.initializeGeocoder();
+
     // Initialize controls
     this.initializeNavigationControl(this.navigationControlEnabled);
     this.initializeFullScreenControl(this.fullScreenControlEnabled);
@@ -245,8 +248,6 @@ export class MapComponent implements OnChanges, AfterViewInit {
     this.initializeTouchZoomRotate(this.touchZoomRotateEnabled);
 
     this.initializeFlyTo();
-
-    this.initializeGeocoder();
 
     this.map.on('load', () => {
       // Initialize markers
