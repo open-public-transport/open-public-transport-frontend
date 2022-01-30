@@ -122,10 +122,10 @@ export class OverviewComponent implements OnInit, AfterViewInit, OnDestroy {
       })[0].absolute_station_count.raw_value;
       const stationsPerInhabitant = Math.round(cityMetrics.station_information.filter(information => {
         return information.public_transport_type == "all";
-      })[0].relative_station_per_inhabitant.raw_value * 10_000) / 10;
+      })[0].relative_stations_per_inhabitant.raw_value * 10_000) / 10;
       const stationsPerSqkm = Math.round(cityMetrics.station_information.filter(information => {
         return information.public_transport_type == "all";
-      })[0].relative_station_per_sqkm.raw_value * 10) / 10;
+      })[0].relative_stations_per_sqkm.raw_value * 10) / 10;
 
       return {
         "cityName": cityName,

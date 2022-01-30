@@ -13,7 +13,7 @@ export class StationInformation {
   /** Relative station accessibility percentage */
   relative_station_accessibility_percentage: RankedValue;
   /** Relative station per sqkm */
-  relative_station_per_sqkm: RankedValue;
+  relative_stations_per_sqkm: RankedValue;
   /** Relative station per inhabitants */
-  relative_station_per_inhabitant: RankedValue;
+  relative_stations_per_inhabitant: RankedValue;
 }

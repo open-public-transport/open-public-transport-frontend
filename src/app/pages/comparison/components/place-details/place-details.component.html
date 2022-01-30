@@ -9,12 +9,12 @@
         <span
           *ngIf="getStationInformation(publicTransportType) != null && getStationInformation(publicTransportType).absolute_station_count.raw_value != null">
         {{ getStationInformation(publicTransportType).absolute_station_count.raw_value }}
-          {{ t('labels.stations') }}}
+          {{ t('labels.stations') }}
       </span>
         <span
           *ngIf="getLineInformation(publicTransportType) != null && getLineInformation(publicTransportType).absolute_line_count.raw_value != null">
           , {{ getLineInformation(publicTransportType).absolute_line_count.raw_value }}
-          {{ t('labels.lines') }}}
+          {{ t('labels.lines') }}
       </span>
       </li>
     </ul>
