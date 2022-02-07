@@ -1,0 +1,47 @@
+<ng-container *transloco="let t, lang: lang; read: 'dialogs.information'">
+  <div class="container transport-theme">
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab [label]="t('dashboard.title')">
+        <h2>{{ t('dashboard.headline') }}</h2>
+        <p>{{ t('dashboard.text') }}</p>
+        <div class="city-container">
+          <span *ngFor="let city of cities">
+            <button mat-stroked-button color="primary" class="city-button" [mat-dialog-close]="true" (click)="onCityButtonClicked(city)">
+              {{ city.name }}
+            </button>
+          </span>
+        </div>
+      </mat-tab>
+      <mat-tab [label]="t('comparison.title')">
+        <h2>{{ t('comparison.headline') }}</h2>
+        <p>{{ t('comparison.text') }}</p>
+        <div class="flexcontainer">
+          <div class="flexbox"></div>
+          <button mat-flat-button
+                  color="primary"
+                  routerLink="/vergleich"
+                  [disabled]="!env.feature.comparison"
+                  [mat-dialog-close]="true">
+            {{ t('comparison.labels.open-comparison') }}
+          </button>
+          <div class="flexbox"></div>
+        </div>
+      </mat-tab>
+      <mat-tab [label]="t('overview.title')">
+        <h2>{{ t('overview.headline') }}</h2>
+        <p>{{ t('overview.text') }}</p>
+        <div class="flexcontainer">
+          <div class="flexbox"></div>
+          <button mat-flat-button
+                  color="primary"
+                  routerLink="/uebersicht"
+                  [disabled]="!env.feature.overview"
+                  [mat-dialog-close]="true">
+            {{ t('overview.labels.open-leaderboard') }}
+          </button>
+          <div class="flexbox"></div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</ng-container>

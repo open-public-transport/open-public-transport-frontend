@@ -1,0 +1,21 @@
+@use '../../../../../node_modules/@angular/material/index' as mat;
+@import '../../../../theme';
+@import '../../../../flex';
+@import '../../../../styles';
+
+.container {
+  max-width: 800px;
+}
+
+h2 {
+  color: mat.get-color-from-palette($mat-u8, 600);
+}
+
+.city-container {
+  padding: 16px;
+  width: 75%;
+}
+
+.city-button {
+  margin: 8px;
+}
