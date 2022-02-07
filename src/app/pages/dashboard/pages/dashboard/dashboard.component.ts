@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MapBoxStyle} from '../../../../core/mapbox/model/map-box-style.enum';
 import {Place} from '../../../../core/mapbox/model/place.model';
 import {BoundingBox} from "../../../../ui/map/model/bounding-box.model";
@@ -14,7 +14,7 @@ import {environment} from "../../../../../environments/environment";
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   /** Height of the map */
   mapHeight = 'calc(100vh - 64px)';
