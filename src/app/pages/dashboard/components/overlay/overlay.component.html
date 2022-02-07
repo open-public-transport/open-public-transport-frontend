@@ -3,23 +3,29 @@
     <div class="toolbar-spacer">
     </div>
     <div class="city-container">
-      <h2 class="container-label">{{ t('labels.choose-your-city') }}</h2>
+      <h2 class="container-label" matTooltipPosition="after" matTooltipClass="tooltip" [matTooltip]="t('tooltips.choose-your-city')">
+        {{ t('labels.choose-your-city') }}
+        <mat-icon svgIcon="help-circle-outline"></mat-icon>
+      </h2>
       <span *ngFor="let city of cities">
-      <button *ngIf="selectedCity == null || city.name != selectedCity.name" mat-stroked-button color="primary"
-              class="city-button"
-              (click)="onCityButtonClicked(city)">
-        {{ city.name }}
-      </button>
-      <button *ngIf="selectedCity != null && city.name == selectedCity.name" mat-flat-button color="primary"
-              class="city-button"
-              (click)="onCityButtonClicked(city)">
-        {{ city.name }}
-      </button>
-    </span>
+        <button *ngIf="selectedCity == null || city.name != selectedCity.name" mat-stroked-button color="primary"
+                class="city-button"
+                (click)="onCityButtonClicked(city)">
+          {{ city.name }}
+        </button>
+        <button *ngIf="selectedCity != null && city.name == selectedCity.name" mat-flat-button color="primary"
+                class="city-button"
+                (click)="onCityButtonClicked(city)">
+          {{ city.name }}
+        </button>
+      </span>
     </div>
 
     <div class="transport-container">
-      <h2 class="container-label">{{ t('labels.display-public-transport') }}</h2>
+      <h2 class="container-label" matTooltipPosition="after" matTooltipClass="tooltip" [matTooltip]="t('tooltips.display-public-transport')">
+        {{ t('labels.display-public-transport') }}
+        <mat-icon svgIcon="help-circle-outline"></mat-icon>
+      </h2>
       <span *ngFor="let transport of publicTransportTypes">
       <button mat-button disabled *ngIf="selectedCity == null || !selectedCity.publicTransportTypes.includes(transport)"
               class="transport-button"

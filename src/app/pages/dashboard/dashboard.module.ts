@@ -6,8 +6,9 @@ import {MapModule} from '../../ui/map/map.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
-import { OverlayComponent } from './components/overlay/overlay.component';
+import {OverlayComponent} from './components/overlay/overlay.component';
 import {TranslocoModule} from "@ngneat/transloco";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [DashboardComponent, OverlayComponent],
@@ -18,6 +19,7 @@ import {TranslocoModule} from "@ngneat/transloco";
     MatIconModule,
     MatSlideToggleModule,
     MatButtonModule,
+    MatTooltipModule,
 
     // Translation
     TranslocoModule
