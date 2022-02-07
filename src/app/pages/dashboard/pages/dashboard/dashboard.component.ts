@@ -122,8 +122,6 @@ export class DashboardComponent implements OnInit {
    * @param city city
    */
   onCitySelected(city: City) {
-    console.log("onCitySelected");
-    console.log(JSON.stringify(city));
     this.selectedCity = city;
 
     city.publicTransportTypes.forEach(publicTransportType => {
