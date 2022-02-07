@@ -3,5 +3,11 @@
   </app-toolbar>
   <div class="toolbar-spacer">
   </div>
+  <div class="fixed-information-button">
+    <button mat-fab color="primary" (click)="onInformationButtonClicked($event)" >
+      <mat-icon>info_outlined</mat-icon>
+    </button>
+  </div>
+
   <router-outlet></router-outlet>
 </div>

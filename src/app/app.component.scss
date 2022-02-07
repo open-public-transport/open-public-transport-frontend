@@ -1,8 +1,21 @@
+@use '../../node_modules/@angular/material/index' as mat;
+@import '../theme';
+
 .fixed {
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 999;
+}
+
+.fixed-information-button {
+  position: fixed;
+  right: 48px;
+  bottom: 48px;
+  z-index: 10000;
+
+  height: 48px;
+  width: 48px;
 }
 
 .toolbar-spacer {

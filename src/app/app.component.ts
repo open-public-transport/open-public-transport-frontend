@@ -1,7 +1,9 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {MatIconRegistry} from "@angular/material/icon";
 import {MaterialIconService} from "./core/ui/services/material-icon.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {MatDialog} from "@angular/material/dialog";
+import {InformationDialogComponent} from "./ui/information-dialog/information-dialog/information-dialog.component";
 
 /**
  * Displays app component
@@ -11,7 +13,7 @@ import {DomSanitizer} from "@angular/platform-browser";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
 
   /** Title */
   title = 'Open Public Transport';
@@ -21,10 +23,12 @@ export class AppComponent {
    * @param iconRegistry Material icon registry
    * @param materialIconService Material icon service
    * @param sanitizer DOM sanitizer
+   * @param dialog dialog
    */
   constructor(private iconRegistry: MatIconRegistry,
               private materialIconService: MaterialIconService,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,
+              public dialog: MatDialog) {
   }
 
   //
@@ -38,6 +42,13 @@ export class AppComponent {
     this.initializeMaterial();
   }
 
+  /**
+   * Handles after-view-init-phase
+   */
+  ngAfterViewInit() {
+    this.openInformationDialog();
+  }
+
   //
   // Initialization
   //
@@ -47,5 +58,29 @@ export class AppComponent {
    */
   private initializeMaterial() {
     this.materialIconService.initializeIcons(this.iconRegistry, this.sanitizer);
+  }
+
+  //
+  // Actions
+  //
+
+  /**
+   * Handles click on information button
+   * @param event event
+   */
+  onInformationButtonClicked(event: MouseEvent) {
+    this.openInformationDialog();
+  }
+
+  //
+  // Helper
+  //
+
+  /**
+   * Opens information dialog
+   * @private
+   */
+  private openInformationDialog() {
+    this.dialog.open(InformationDialogComponent);
   }
 }

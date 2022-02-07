@@ -16,6 +16,9 @@ import {TRANSLOCO_CONFIG, TRANSLOCO_MISSING_HANDLER, TranslocoConfig, TranslocoM
 import {environment} from '../environments/environment';
 import {TranslocoUndefMissingHandler} from './transloco-missing-handler';
 import {translocoLoader} from './transloco.loader';
+import {MatDialogModule} from "@angular/material/dialog";
+import {InformationDialogModule} from "./ui/information-dialog/information-dialog.module";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import {translocoLoader} from './transloco.loader';
 
     // UI modules
     MapModule,
+    InformationDialogModule,
 
     // Core modules
     MapboxModule,
@@ -37,6 +41,8 @@ import {translocoLoader} from './transloco.loader';
     MatButtonModule,
     MatToolbarModule,
     MatCardModule,
+    MatDialogModule,
+    MatIconModule,
 
     TranslocoModule,
 
