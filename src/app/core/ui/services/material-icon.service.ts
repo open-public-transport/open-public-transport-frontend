@@ -21,5 +21,7 @@ export class MaterialIconService {
     iconRegistry.addSvgIcon('github', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/github_24dp.svg'));
     iconRegistry.addSvgIcon('linkedin', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/linkedin_24dp.svg'));
     iconRegistry.addSvgIcon('twitter', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/twitter_24dp.svg'));
+    iconRegistry.addSvgIcon('help-circle-outline', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/help_circle_outline_24dp.svg'));
+    iconRegistry.addSvgIcon('information-outline', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/information_outline_24dp.svg'));
   }
 }
