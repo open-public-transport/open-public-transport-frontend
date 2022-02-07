@@ -11,7 +11,7 @@ import {getBrowserLang} from "@ngneat/transloco";
   templateUrl: './overlay.component.html',
   styleUrls: ['./overlay.component.scss']
 })
-export class OverlayComponent implements OnInit {
+export class OverlayComponent {
 
   /** Selected city */
   @Input() selectedCity: City;
@@ -25,21 +25,10 @@ export class OverlayComponent implements OnInit {
   /** List of all transport types */
   publicTransportTypes = ["bus", "light_rail", "subway", "tram"];
   /** List of supported cities */
-  cities = [];
+  cities = environment.dashboard.cities;
 
   /** Language */
   lang = getBrowserLang();
-
-  //
-  // Lifecycle hooks
-  //
-
-  /**
-   * Handles on-init phase
-   */
-  ngOnInit() {
-    this.cities = environment.dashboard.cities;
-  }
 
   //
   // Actions

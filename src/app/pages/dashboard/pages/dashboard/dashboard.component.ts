@@ -5,6 +5,7 @@ import {BoundingBox} from "../../../../ui/map/model/bounding-box.model";
 import {City} from "../../model/city";
 import {ColorRamp} from "../../../../ui/map/model/color-ramp.model";
 import {environment} from "../../../../../environments/environment";
+import {ActivatedRoute} from "@angular/router";
 
 /**
  * Displays a dashboard
@@ -51,6 +52,13 @@ export class DashboardComponent implements OnInit {
   /** Transport layers */
   transportLayers = new Map<string, string>();
 
+  /**
+   * Constructor
+   * @param route route
+   */
+  constructor(private route: ActivatedRoute) {
+  }
+
   //
   // Lifecycle hooks
   //
@@ -61,6 +69,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.initializeGeocoderFilter();
     this.initializeSelectedTransport();
+    this.initializeParameterSubscription();
   }
 
   //
@@ -86,6 +95,24 @@ export class DashboardComponent implements OnInit {
     this.selectedTransport.set("tram", false);
   }
 
+  /**
+   * Initializes parameter subscription
+   */
+  private initializeParameterSubscription() {
+    this.route.params.subscribe(
+      params => {
+        const cityName = params["city"];
+        const city = environment.dashboard.cities.filter(city => {
+          return city.name == cityName;
+        })[0];
+
+        if (city != null) {
+          this.onCitySelected(city);
+        }
+      }
+    );
+  }
+
   //
   // Actions
   //
@@ -95,6 +122,8 @@ export class DashboardComponent implements OnInit {
    * @param city city
    */
   onCitySelected(city: City) {
+    console.log("onCitySelected");
+    console.log(JSON.stringify(city));
     this.selectedCity = city;
 
     city.publicTransportTypes.forEach(publicTransportType => {
