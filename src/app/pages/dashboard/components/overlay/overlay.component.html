@@ -25,7 +25,7 @@
               class="transport-button"
               (click)="onTransportButtonClicked(transport, !selectedTransport.get(transport))">
         <img class="transport-icon light-grey" alt=""
-             [src]=getTransportLogo(transport)/>
+             [src]=getTransportLogo(transport) />
       </button>
       <button mat-stroked-button *ngIf="selectedCity != null && selectedCity.publicTransportTypes.includes(transport)"
               class="transport-button"
