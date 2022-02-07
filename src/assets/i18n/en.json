@@ -60,16 +60,16 @@
     "about": {
       "title": "About",
       "problem-statement-title": "Problem Statement",
-      "problem-statement-text-1": "TODO",
-      "problem-statement-text-2": "TODO",
-      "problem-statement-text-3": "TODO",
+      "problem-statement-text-1": "Cities are faced with the challenge of successfully shaping the transport revolution. This can only be achieved through the targeted strengthening of public transport. The high complexity of public transport makes it difficult to successfully plan, implement and communicate the necessary infrastructure projects. Our project addresses two central challenges in the redesign of urban mobility.",
+      "problem-statement-text-2": "A street-level accessibility index enables politicians and urban planners to improve the planning of infrastructure projects by using data. The preparation of the analysis results as an interactive and publicly accessible web app enables citizens to better understand the necessity of infrastructure projects.",
+      "problem-statement-text-3": "The web app also enables citizens to make suggestions for infrastructure projects in their own city, so that politicians and citizens can cooperate in shaping the transportation transition. In this way, the criticism regarding insufficient planning and interaction with citizens, which can be observed in the course of the implementation of the Berlin Mobility Act, can be counteracted.",
       "approach-title": "Approach",
-      "approach-text-1": "TODO",
-      "approach-text-2": "TODO",
+      "approach-text-1": "The project is implemented along the Cross Industry Standard Process for Data Mining (CRISP-DM). During the Business Understanding and Data Understanding phases, several freely available data sources (for example DB/Flinkster, Uber, OpenStreetMap, mCloud) are aggregated and analyzed. This data is prepared and enriched during the Data Preparation phase. In the modeling phase, the database is used to develop a reachability index based on the relative reachability of randomly selected points. The model development is done in Python.",
+      "approach-text-2": "During the evaluation, the results of the analysis are compared with locations relevant to citizens in order to identify and cluster important weak points in the public transport network. The results are made interactively accessible with the help of a web app.",
       "audience-title": "Addressees",
-      "audience-text-1": "TODO",
+      "audience-text-1": "The project addresses citizens and political decision-makers who are responsible for shaping the transportation transition in German cities. The development of further analysis approaches and planning functionalities will also address urban planners and researchers in the field of urban mobility.",
       "funding-title": "Funding",
-      "funding-text-1": "TODO"
+      "funding-text-1": "The intensive work on Open Public Transport is only possible because we were supported by the Prototype Fund. Open Public Transport is funded by the German Federal Ministry of Education and Research under grant number 01IS21S44. The responsibility for the content of this publication lies with the authors."
     },
     "dialogs": {
       "information": {
