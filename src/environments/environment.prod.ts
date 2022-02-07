@@ -30,7 +30,7 @@ export const environment = {
       {name: 'Frankfurt-Oder', boundingBox: [14.394834417176915, 52.25277200883128, 14.600891619659311, 52.39823335093446], publicTransportTypes: ["bus", "tram"]},
       {name: 'Hamburg', boundingBox: [9.73031519588174, 53.39507758854026, 10.325959157503767, 53.73808674380358], publicTransportTypes: ["bus", "subway", "light_rail"]},
       // {name: 'Hamm', boundingBox: [7.675536280292723, 51.57805231922079, 7.997528913639968, 51.744766475157476], publicTransportTypes: ["bus"]},
-      {name: 'Koeln', boundingBox: [6.772530403000076, 50.83044939600006, 7.162027995000074, 51.08497434000003], publicTransportTypes: ["bus", "subway", "light_rail", "tram"]},
+      // {name: 'Koeln', boundingBox: [6.772530403000076, 50.83044939600006, 7.162027995000074, 51.08497434000003], publicTransportTypes: ["bus", "subway", "light_rail", "tram"]},
       // {name: 'Leipzig', boundingBox: [12.236881307029405, 51.238535279757826, 12.542606999586994, 51.448066882712645], publicTransportTypes: ["bus", "tram"]},
       // {name: 'Muenchen', boundingBox: [11.36087720838895, 48.06223277978042, 11.723082533270206, 48.24814577602209], publicTransportTypes: ["bus", "subway", "tram"]},
       // {name: 'Muenster', boundingBox: [7.473962942770497, 51.840191151329854, 7.774221787742102, 52.060175509627584], publicTransportTypes: ["bus", "tram"]},
