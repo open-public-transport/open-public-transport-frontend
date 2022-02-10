@@ -3,6 +3,29 @@
      [style.height]="height"
      (mouseenter)="onMouseEnter()">
 </div>
+<ng-container *ngIf="filterHexResultsEnabled && filterHexResultsVisible">
+  <div class="legend_data">
+  <ul>
+    <li *ngFor="let stop of filterHexResultsIndicatorStops">{{ stop }}</li>
+  </ul>
+</div>
+<div class="legend_slider">
+<mat-slider id="upper"
+  [min]=0
+  [max]=100
+  [step]=1
+  [(value)]="filterHexResultsUpperLimit"
+  (input)="onFilterChanged($event)">
+</mat-slider>
+<mat-slider id="lower"
+  [(value)]="filterHexResultsLowerLimit"
+  [min]=0
+  [max]=100
+  [step]=1
+  (input)="onFilterChanged($event)">
+</mat-slider>
+</div>
+</ng-container>
 
 <app-legend *ngIf="legendEnabled"
             [displayName]="displayName"
@@ -12,6 +35,7 @@
             [legendContents]="legendContents"
             [multiLegendContents]="multiLegendContents"
             [opacities]="opacities"></app-legend>
+
 
 <ng-container *ngIf="parametrizeOpacityEnabled">
   <div *ngFor="let result of results">

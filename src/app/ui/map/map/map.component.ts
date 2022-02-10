@@ -99,6 +99,13 @@ export class MapComponent implements OnChanges, AfterViewInit {
   /** Fly-to bounding box */
   @Input() flyToBoundingBox: BoundingBox;
 
+  /** Wether filterHexResultsEnable can be filtered or not */
+  @Input() filterHexResultsEnabled = true;
+  @Input() filterHexResultsVisible = false;
+  @Input() filterHexResultsUpperLimit = 100;
+  @Input() filterHexResultsLowerLimit = 0;
+  @Input() filterHexResultsIndicatorStops: string[] = [];
+
   /** Whether geocoder is enabled or not */
   @Input() geocoderEnabled = false;
   /** Places to use for geocoder filter */
@@ -169,6 +176,8 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
   /** Internal subject that publishes opacity events */
   private opacitySubject = new Subject<{ name: string, value: number }>();
+  /** Internal subject that publishes filter events */
+  private filterSubject = new Subject<{lower: number, upper: number }>();
   /** Internal subject that publishes flyable location events */
   private flyableLocationSubject = new Subject<Location>();
   /** Internal subject that publishes flyable bounding box events */
@@ -721,6 +730,10 @@ export class MapComponent implements OnChanges, AfterViewInit {
    */
   private initializeHexLayers(resultsMap: Map<string, string>) {
 
+    let aggregatePropertyMax;
+    let aggregatePropertyMin;
+    let aggregatePropertyStep;
+
     switch (this.hexScaleMode) {
       case HexScaleModeEnum.FIXED: {
         resultsMap.forEach((geojsonData, name) => {
@@ -730,9 +743,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
           this.initializeHexSource(name, processedGeojson);
 
           // Scale min and max values
-          const aggregatePropertyMax = 10_500;
-          const aggregatePropertyMin = 1_500;
-          const aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
+          aggregatePropertyMax = 10_500;
+          aggregatePropertyMin = 1_500;
+          aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
 
           this.initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep);
         });
@@ -740,9 +753,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
       }
       case HexScaleModeEnum.DYNAMIC_INDIVIDUAL: {
         // Initialize scale
-        let aggregatePropertyMin = 25_000;
-        let aggregatePropertyMax = -10_000;
-        let aggregatePropertyStep = 1;
+        aggregatePropertyMin = 25_000;
+        aggregatePropertyMax = -10_000;
+        aggregatePropertyStep = 1;
 
         resultsMap.forEach((geojsonData, name) => {
           const processedGeojson = this.preprocessHexagonData(JSON.parse(geojsonData), this.hexBoundingBox,
@@ -764,9 +777,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
       }
       case HexScaleModeEnum.DYNAMIC_OVERALL: {
         // Initialize scale
-        let aggregatePropertyMin = 25_000;
-        let aggregatePropertyMax = -10_000;
-        let aggregatePropertyStep = 1;
+        aggregatePropertyMin = 25_000;
+        aggregatePropertyMax = -10_000;
+        aggregatePropertyStep = 1;
 
         resultsMap.forEach((geojsonData, name) => {
           const processedGeojson = this.preprocessHexagonData(JSON.parse(geojsonData), this.hexBoundingBox,
@@ -801,6 +814,18 @@ export class MapComponent implements OnChanges, AfterViewInit {
         });
         break;
       }
+    }
+
+    if(this.filterHexResultsEnabled){
+
+    this.filterHexResultsIndicatorStops = [
+      (aggregatePropertyMin/1000).toFixed(1)+" km",
+      ((aggregatePropertyMin+0.33*(aggregatePropertyMax-aggregatePropertyMin))/1000).toFixed(1)+" km",
+      ((aggregatePropertyMin+0.66*(aggregatePropertyMax-aggregatePropertyMin))/1000).toFixed(1)+" km",
+      (aggregatePropertyMax/1000).toFixed(1)+" km"
+    ]
+
+    if(aggregatePropertyMin/1000) this.filterHexResultsVisible = true;
     }
   }
 
@@ -839,18 +864,27 @@ export class MapComponent implements OnChanges, AfterViewInit {
   private initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep) {
     // Link layer to source
     const layer = {
-      id: '',
-      type: 'fill',
-      source: name,
-      paint: {
-        'fill-color': {
-          property: 'avg',
-          stops: this.hexColorRamp.map((d, i) =>
-            [aggregatePropertyMin + (i * aggregatePropertyStep), d])
-        },
-        'fill-opacity': 0.6
-      }
-    };
+        id: '',
+        type: 'fill',
+        source: name,
+        paint: {
+          'fill-color': {
+            property: 'avg',
+            stops: this.hexColorRamp.map((d, i) =>
+              [aggregatePropertyMin + (i * aggregatePropertyStep), d.replace(/, *[\d\.]*\)/g,(match) => {
+                if (!this.filterHexResultsEnabled || (i/this.hexColorRamp.length*100 >= this.filterHexResultsLowerLimit &&
+                  i/this.hexColorRamp.length*100 < this.filterHexResultsUpperLimit)) return match;
+                return ', 0)';
+              })]
+            )
+          },
+          'fill-opacity': 0.6
+        }
+      };
+
+
+
+
     layer['id'] = name + '-layer';
     layer['source'] = name;
 
@@ -898,6 +932,33 @@ export class MapComponent implements OnChanges, AfterViewInit {
         }
       }
     });
+
+
+
+
+
+
+    // Update Filter opacity
+    this.filterSubject.subscribe((e: {lower, upper }) => {
+
+        if (layer['paint'].hasOwnProperty('fill-color')) {
+          this.map.setPaintProperty(layer.id, 'fill-color', {
+            property: 'avg',
+            stops: this.hexColorRamp.map((d, i) =>
+              [aggregatePropertyMin + (i * aggregatePropertyStep), d.replace(/, *[\d\.]*\)/g,(match) => {
+                if (!this.filterHexResultsEnabled || (i/this.hexColorRamp.length*100 >= this.filterHexResultsLowerLimit &&
+                  i/this.hexColorRamp.length*100 < this.filterHexResultsUpperLimit)) return match;
+                return ', 0)';
+              })]
+            )
+          });
+        }
+    });
+
+
+
+
+
 
     // Check if debug mode is enabled
     if (this.debug) {
@@ -1027,6 +1088,31 @@ export class MapComponent implements OnChanges, AfterViewInit {
   onOpacityChanged(name: string, event: MatSliderChange) {
     if (this.parametrizeOpacityEnabled) {
       this.opacitySubject.next({name, value: event.value});
+    }
+  }
+
+  /**
+   * Handles filter changes
+   * @param event slider event
+   */
+  onFilterChanged(event: MatSliderChange) {
+    let minSliderDist = 8;
+    let initiator = event.source._elementRef.nativeElement.id
+    console.log(this.filterHexResultsUpperLimit)
+    if (this.filterHexResultsEnabled) {
+      switch (initiator) {
+        case 'upper':
+          if(this.filterHexResultsLowerLimit >= event.value - minSliderDist) this.filterHexResultsLowerLimit = event.value - minSliderDist;
+          this.filterSubject.next({lower: this.filterHexResultsLowerLimit, upper: event.value});
+          break;
+        case 'lower':
+          if(this.filterHexResultsUpperLimit <= event.value + minSliderDist) this.filterHexResultsUpperLimit = event.value + minSliderDist;
+          console.log(event.value + minSliderDist)
+          this.filterSubject.next({lower: event.value, upper: this.filterHexResultsUpperLimit});
+          break;
+        default:
+          break;
+      }
     }
   }
 
