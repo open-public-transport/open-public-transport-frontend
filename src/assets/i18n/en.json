@@ -70,29 +70,29 @@
       "audience-text-1": "The project addresses citizens and political decision-makers who are responsible for shaping the transportation transition in German cities. The development of further analysis approaches and planning functionalities will also address urban planners and researchers in the field of urban mobility.",
       "funding-title": "Funding",
       "funding-text-1": "The intensive work on Open Public Transport is only possible because we were supported by the Prototype Fund. Open Public Transport is funded by the German Federal Ministry of Education and Research under grant number 01IS21S44. The responsibility for the content of this publication lies with the authors."
-    },
-    "dialogs": {
-      "information": {
-        "dashboard": {
-          "title": "Public Transport Dashboard",
-          "headline": "The Public Transport Dashboard shows how well you can get around with public transport in your city",
-          "text": "In the Public Transport Dashboard, the speed of public transport is calculated on the basis of so-called isochrones and made visible with the help of colored hexagons. For this purpose, we have calculated how far one can get from any given location within 15 minutes using all available means of public transport. Areas with particularly high mobility are colored green on the map. Areas with low connectivity are visible in red.\n\nSelect a city now to learn more:"
-        },
-        "comparison": {
-          "title": "Site comparison",
-          "headline": "The location comparison enables the comparative analysis of the public transport connection of two locations",
-          "text": "The quality of public transport connections can vary greatly within a city and between cities. The public transport connection quality of a place can be determined by the stops and means of transport in walking distance. \n\nUse the location comparison to analyze any two locations in terms of their public transport connection quality. You can compare places within a city with each other as well as important places like main stations of different cities with each other.",
-          "labels": {
-            "open-comparison": "Open Site Comparison"
-          }
-        },
-        "overview": {
-          "title": "Public Transport Leaderboard",
-          "headline": "The public transport leaderboard provides an overview of important public transport KPIs for all cities.",
-          "text": "With the public transport leaderboard you can compare all cities already prepared for analysis with OpenPublicTransport at a glance. Some important public transport KPIs are available for this purpose. In the future, the public transport leaderboard can be used to track changes in public transport KPIs over time. In this way, progress made in the course of the transport turnaround will become visible. \n\nYou can sort the cities by their greenness and thus compare cities of similar size and sort the leaderboard by the density of stops in the urban area and the density of stops per inhabitant.",
-          "labels": {
-            "open-leaderboard": "Open Public Transport Leaderboard"
-          }
+    }
+  },
+  "dialogs": {
+    "information": {
+      "dashboard": {
+        "title": "Public Transport Dashboard",
+        "headline": "The Public Transport Dashboard shows how well you can get around with public transport in your city",
+        "text": "In the Public Transport Dashboard, the speed of public transport is calculated on the basis of so-called isochrones and made visible with the help of colored hexagons. For this purpose, we have calculated how far one can get from any given location within 15 minutes using all available means of public transport. Areas with particularly high mobility are colored green on the map. Areas with low connectivity are visible in red.\n\nSelect a city now to learn more:"
+      },
+      "comparison": {
+        "title": "Site comparison",
+        "headline": "The location comparison enables the comparative analysis of the public transport connection of two locations",
+        "text": "The quality of public transport connections can vary greatly within a city and between cities. The public transport connection quality of a place can be determined by the stops and means of transport in walking distance. \n\nUse the location comparison to analyze any two locations in terms of their public transport connection quality. You can compare places within a city with each other as well as important places like main stations of different cities with each other.",
+        "labels": {
+          "open-comparison": "Open Site Comparison"
+        }
+      },
+      "overview": {
+        "title": "Public Transport Leaderboard",
+        "headline": "The public transport leaderboard provides an overview of important public transport KPIs for all cities.",
+        "text": "With the public transport leaderboard you can compare all cities already prepared for analysis with OpenPublicTransport at a glance. Some important public transport KPIs are available for this purpose. In the future, the public transport leaderboard can be used to track changes in public transport KPIs over time. In this way, progress made in the course of the transport turnaround will become visible. \n\nYou can sort the cities by their greenness and thus compare cities of similar size and sort the leaderboard by the density of stops in the urban area and the density of stops per inhabitant.",
+        "labels": {
+          "open-leaderboard": "Open Public Transport Leaderboard"
         }
       }
     }
