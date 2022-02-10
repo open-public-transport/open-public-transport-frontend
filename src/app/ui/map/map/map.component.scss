@@ -119,10 +119,10 @@
   display: block;
   pointer-events: none;
   margin-left: auto;
-  margin-right: 20px;
+  margin-right: 30px;
   width: 20em;
   right: 2em;
-  transform: translateY(-70px);
+  transform: translateY(-170px);
   height: 0;
 }
 
@@ -161,13 +161,13 @@
 ::ng-deep .legend_slider{
   display: block;
   margin-left: auto;
-  margin-right: 20px;
+  margin-right: 30px;
   height: 0;
   width: 20em;
   right: 2em;
-  background: rgba(255,255,255,0.6);
-  box-shadow: 0 0 30px 30px rgba(255,255,255,0.6);
-  transform: translateY(-70px);
+  background: rgba(255,255,255,0.7);
+  box-shadow: 0 0 30px 30px rgba(255,255,255,0.7);
+  transform: translateY(-170px);
 }
 
 
@@ -179,7 +179,15 @@
   border-radius: 0.15em;
   transform: translateY(7px);
   display: block;
-  background: linear-gradient(90deg,rgb(150, 0, 132), rgb(236, 107, 11), rgb(246, 155, 31), rgb(249, 168, 37), rgb(199, 159, 51), rgb(137, 147, 69), rgb(125, 145, 72), rgb(12, 123, 104));
+  background: linear-gradient(90deg,
+    rgb(150, 0, 132) 0% 12.5%,
+    rgb(236, 107, 11) 12.5% 25%,
+    rgb(246, 155, 31) 25% 37.5%,
+    rgb(249, 168, 37) 37.5% 50%,
+    rgb(199, 159, 51) 50% 62.5%,
+    rgb(137, 147, 69) 62.5% 75%,
+    rgb(125, 145, 72) 75% 87.5%,
+    rgb(12, 123, 104) 87.5% 100%);
 }
 
 ::ng-deep .legend_slider>.mat-slider-horizontal{

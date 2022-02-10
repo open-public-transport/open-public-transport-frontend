@@ -1102,10 +1102,12 @@ export class MapComponent implements OnChanges, AfterViewInit {
     if (this.filterHexResultsEnabled) {
       switch (initiator) {
         case 'upper':
+          this.filterHexResultsUpperLimit = event.value;
           if(this.filterHexResultsLowerLimit >= event.value - minSliderDist) this.filterHexResultsLowerLimit = event.value - minSliderDist;
           this.filterSubject.next({lower: this.filterHexResultsLowerLimit, upper: event.value});
           break;
         case 'lower':
+          this.filterHexResultsLowerLimit = event.value;
           if(this.filterHexResultsUpperLimit <= event.value + minSliderDist) this.filterHexResultsUpperLimit = event.value + minSliderDist;
           console.log(event.value + minSliderDist)
           this.filterSubject.next({lower: event.value, upper: this.filterHexResultsUpperLimit});
