@@ -1,10 +1,5 @@
 <ng-container *transloco="let t, lang: lang; read: 'pages.comparison'">
   <div class="selection-outer-container">
-    <div class="button-container">
-      <button mat-fab color="primary" class="vs-button">
-        VS
-      </button>
-    </div>
     <div class="flexcontainer selection-container">
       <app-place-selection class="place-selection"
                            [mapId]="'selection-left'"
@@ -23,6 +18,11 @@
                            [radarChartPointBackgroundColor]="borderColorRight"
                            [geocoderMarkerColor]="borderColorRight"
                            (geocodingResultEventEmitter)="onGeocodingResultRightChanged($event)"></app-place-selection>
+    </div>
+    <div class="button-container">
+      <button mat-fab color="primary" class="vs-button">
+        VS
+      </button>
     </div>
   </div>
 
