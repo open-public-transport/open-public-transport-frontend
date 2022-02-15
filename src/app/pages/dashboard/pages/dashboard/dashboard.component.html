@@ -1,23 +1,32 @@
-<app-map [id]="'map'"
-         [height]="mapHeight"
-         [style]="mapBoxStyleEnum.LIGHT_V10"
-         [zoom]="10.0"
-         [boundingBox]="boundingBoxEnum.GERMANY"
-         [flyToBoundingBox]="flyToBoundingBox"
-         [geocoderEnabled]="true"
-         [geocoderFilter]=geocoderFilter
-         [interactiveEnabled]=true
-         [navigationControlEnabled]=true
-         [results]="results"
-         [opacities]="opacities"
-         [hexResults]="hexResults"
-         [hexBoundingBox]="hexBoundingBox"
-         [hexAggregateProperty]="'mean_spatial_distance_15min'"
-         [hexColorRamp]="colorRampEnum.LUFTDATEN_COLOR_RAMP_30">
-</app-map>
-<div class="overlay-container">
-  <app-overlay [selectedCity]="selectedCity"
-               [selectedTransport]="selectedTransport"
-               (citySelectionEventEmitter)="onCitySelected($event)"
-               (transportSelectionEventEmitter)="onTransportSelected($event)" ></app-overlay>
-</div>
+<ng-container *transloco="let t, lang: lang; read: 'pages.dashboard'">
+  <app-map [id]="'map'"
+           [height]="mapHeight"
+           [style]="mapBoxStyleEnum.LIGHT_V10"
+           [zoom]="10.0"
+           [boundingBox]="boundingBoxEnum.GERMANY"
+           [flyToBoundingBox]="flyToBoundingBox"
+           [geocoderEnabled]="true"
+           [geocoderFilter]=geocoderFilter
+           [interactiveEnabled]=true
+           [navigationControlEnabled]=true
+           [results]="results"
+           [opacities]="opacities"
+           [hexResults]="hexResults"
+           [hexBoundingBox]="hexBoundingBox"
+           [hexAggregateProperty]="'mean_spatial_distance_15min'"
+           [hexColorRamp]="colorRampEnum.LUFTDATEN_COLOR_RAMP_30"
+           [hexResultsFilterEnabled]="true"
+           [hexResultsFilterLowerLimit]="hexResultsFilterLowerLimit"
+           [hexResultsFilterUpperLimit]="hexResultsFilterUpperLimit"
+           (hexLayerAggregatePropertyEventEmitter)="onHexLayerAggregatePropertyChanged($event)">
+  </app-map>
+  <div class="overlay-container-left">
+    <app-overlay [selectedCity]="selectedCity"
+                 [selectedTransport]="selectedTransport"
+                 [aggregatePropertyMin]="aggregatePropertyMin"
+                 [aggregatePropertyMax]="aggregatePropertyMax"
+                 (citySelectionEventEmitter)="onCitySelected($event)"
+                 (transportSelectionEventEmitter)="onTransportSelected($event)"
+                 (filterSliderChangeEventEmitter)="onFilterSliderChanged($event)"></app-overlay>
+  </div>
+</ng-container>

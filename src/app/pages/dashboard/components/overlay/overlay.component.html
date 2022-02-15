@@ -3,7 +3,8 @@
     <div class="toolbar-spacer">
     </div>
     <div class="city-container">
-      <h2 class="container-label" matTooltipPosition="after" matTooltipClass="tooltip" [matTooltip]="t('tooltips.choose-your-city')">
+      <h2 class="container-label" matTooltipPosition="after" matTooltipClass="tooltip"
+          [matTooltip]="t('tooltips.choose-your-city')">
         {{ t('labels.choose-your-city') }}
         <mat-icon svgIcon="help-circle-outline"></mat-icon>
       </h2>
@@ -22,7 +23,8 @@
     </div>
 
     <div class="transport-container">
-      <h2 class="container-label" matTooltipPosition="after" matTooltipClass="tooltip" [matTooltip]="t('tooltips.display-public-transport')">
+      <h2 class="container-label" matTooltipPosition="after" matTooltipClass="tooltip"
+          [matTooltip]="t('tooltips.display-public-transport')">
         {{ t('labels.display-public-transport') }}
         <mat-icon svgIcon="help-circle-outline"></mat-icon>
       </h2>
@@ -41,6 +43,37 @@
              [class.grey]="selectedCity != null && !selectedTransport.get(transport)"/>
       </button>
     </span>
+    </div>
+
+    <div class="filter-container">
+      <h2 class="container-label" matTooltipPosition="after" matTooltipClass="tooltip"
+          [matTooltip]="t('tooltips.filter-results')">
+        {{ t('labels.filter-results') }}
+        <mat-icon svgIcon="help-circle-outline"></mat-icon>
+      </h2>
+      <div class="overlay-legend-data">
+        <ul>
+          <li *ngFor="let stop of filterHexResultsIndicatorStops">{{ stop }}</li>
+        </ul>
+      </div>
+      <div class="overlay-legend-slider">
+        <mat-slider id="upper"
+                    [disabled]="aggregatePropertyMin == null && aggregatePropertyMax == null"
+                    [min]=0
+                    [max]=100
+                    [step]=5
+                    [(value)]="filterHexResultsUpperLimit"
+                    (input)="onFilterChanged($event)">
+        </mat-slider>
+        <mat-slider id="lower"
+                    [disabled]="aggregatePropertyMin == null && aggregatePropertyMax == null"
+                    [min]=0
+                    [max]=100
+                    [step]=5
+                    [(value)]="filterHexResultsLowerLimit"
+                    (input)="onFilterChanged($event)">
+        </mat-slider>
+      </div>
     </div>
   </div>
 </ng-container>

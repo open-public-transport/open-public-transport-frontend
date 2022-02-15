@@ -13,11 +13,13 @@
       "title": "ÖPNV-Dashboard",
       "labels": {
         "choose-your-city": "Wähle deine Stadt aus",
-        "display-public-transport": "Zeige ÖPNV-Verkehrsmittel"
+        "display-public-transport": "Zeige ÖPNV-Verkehrsmittel",
+        "filter-results": "Filtere die anzeigten Ergebnisse"
       },
       "tooltips": {
         "choose-your-city": "Wähle eine Stadt aus, die du dir genauer anschauen willst",
-        "display-public-transport": "Wähle die ÖPNV-Infrastruktur aus, die angezeigt werden soll"
+        "display-public-transport": "Wähle die ÖPNV-Infrastruktur aus, die angezeigt werden soll",
+        "filter-results": "Filtere die Ergebnisse, indem du die Schieberegler bewegst"
       }
     },
     "comparison": {

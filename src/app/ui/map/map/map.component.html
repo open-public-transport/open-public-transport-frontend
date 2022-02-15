@@ -3,28 +3,28 @@
      [style.height]="height"
      (mouseenter)="onMouseEnter()">
 </div>
-<ng-container *ngIf="filterHexResultsEnabled && filterHexResultsVisible">
+<ng-container *ngIf="hexResultsFilterEnabled && hexResultsFilterVisible">
   <div class="legend-data">
-  <ul>
-    <li *ngFor="let stop of filterHexResultsIndicatorStops">{{ stop }}</li>
-  </ul>
-</div>
-<div class="legend-slider">
-<mat-slider id="upper"
-  [min]=0
-  [max]=100
-  [step]=5
-  [(value)]="filterHexResultsUpperLimit"
-  (input)="onFilterChanged($event)">
-</mat-slider>
-<mat-slider id="lower"
-  [min]=0
-  [max]=100
-  [step]=5
-  [(value)]="filterHexResultsLowerLimit"
-  (input)="onFilterChanged($event)">
-</mat-slider>
-</div>
+    <ul>
+      <li *ngFor="let stop of hexResultsFilterIndicatorStops">{{ stop }}</li>
+    </ul>
+  </div>
+  <div class="legend-slider">
+    <mat-slider id="upper"
+                [min]=0
+                [max]=100
+                [step]=5
+                [(value)]="hexResultsFilterUpperLimit"
+                (input)="onFilterChanged($event)">
+    </mat-slider>
+    <mat-slider id="lower"
+                [min]=0
+                [max]=100
+                [step]=5
+                [(value)]="hexResultsFilterLowerLimit"
+                (input)="onFilterChanged($event)">
+    </mat-slider>
+  </div>
 </ng-container>
 
 <app-legend *ngIf="legendEnabled"

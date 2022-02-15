@@ -1,5 +1,6 @@
 @use '../../../../../../node_modules/@angular/material/index' as mat;
 @import '../../../../../theme';
+@import '../../../../../flex';
 
 .container {
   background: rgb(255, 255, 255);
@@ -12,7 +13,7 @@
   height: 64px;
 }
 
-.city-container, .transport-container {
+.city-container, .transport-container, .filter-container {
   padding: 16px;
 
   width: 75%;
@@ -43,4 +44,112 @@
 
 .grey {
   filter: grayscale(100%);
+}
+
+//
+// Filter Results
+//
+
+::ng-deep .overlay-legend-data {
+  display: block;
+  pointer-events: none;
+  margin-left: auto;
+  margin-right: 30px;
+  width: 20em;
+  right: 2em;
+  height: 0;
+}
+
+::ng-deep .overlay-legend-data > ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+::ng-deep .overlay-legend-data li {
+  width: 10%;
+  display: block;
+  white-space: nowrap;
+}
+
+::ng-deep .overlay-legend-data li:last-child {
+  transform: translateX(-15px);
+}
+
+::ng-deep .overlay-legend-data li::before {
+  display: block;
+  margin: 4px auto 5px;
+  content: "";
+  width: 2px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+::ng-deep .overlay-legend-data li:last-child::before {
+  transform: translateX(15px);
+}
+
+::ng-deep .overlay-legend-slider {
+  display: block;
+  margin-left: auto;
+  margin-right: 30px;
+  height: 0;
+  width: 20em;
+  right: 2em;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 30px 30px rgba(255, 255, 255, 0.7);
+}
+
+::ng-deep .overlay-legend-slider:before {
+  content: "";
+  width: 90%;
+  margin: 0 5%;
+  height: 0.3em;
+  border-radius: 0.15em;
+  transform: translateY(7px);
+  display: block;
+  background: linear-gradient(90deg,
+    rgb(150, 0, 132) 0%,
+    rgb(150, 0, 132) 12.5%,
+    rgb(236, 107, 11) 25%,
+    rgb(246, 155, 31) 37.5%,
+    rgb(249, 168, 37) 50%,
+    rgb(199, 159, 51) 62.5%,
+    rgb(137, 147, 69) 75%,
+    rgb(125, 145, 72) 87.5%,
+    rgb(12, 123, 104) 100%);
+}
+
+::ng-deep .overlay-legend-slider > .mat-slider-horizontal {
+  width: 90%;
+  height: 0;
+  margin: 0 5%;
+  display: block;
+  margin-top: -19px;
+}
+
+::ng-deep .overlay-legend-slider > .mat-slider-horizontal .mat-slider-wrapper {
+  left: 0;
+  right: 0;
+  //pointer-events: none;
+}
+
+::ng-deep .overlay-legend-slider > .mat-slider {
+  padding: 0;
+}
+
+::ng-deep .overlay-legend-slider > .mat-slider-horizontal .mat-slider-track-wrapper {
+  opacity: 0;
+  pointer-events: none;
+}
+
+::ng-deep #lower .mat-slider-thumb {
+  background-color: mat.get-color-from-palette($transport-primary, 600) !important;
+}
+
+::ng-deep #upper .mat-slider-thumb {
+  background-color: mat.get-color-from-palette($transport-primary, 600) !important;
 }

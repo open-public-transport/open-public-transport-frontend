@@ -13,11 +13,13 @@
       "title": "Public Transport Dashboard",
       "labels": {
         "choose-your-city": "Choose your city",
-        "display-public-transport": "Display public transport"
+        "display-public-transport": "Display public transport",
+        "filter-results": "Filter the displayed results"
       },
       "tooltips": {
         "choose-your-city": "Choose a city you want to take a closer look at",
-        "display-public-transport": "Select the public transport infrastructure to be displayed"
+        "display-public-transport": "Select the public transport infrastructure to be displayed",
+        "filter-results": "Filter the results by moving the sliders"
       }
     },
     "comparison": {

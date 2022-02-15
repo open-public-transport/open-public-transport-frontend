@@ -6,6 +6,8 @@ import {City} from "../../model/city";
 import {ColorRamp} from "../../../../ui/map/model/color-ramp.model";
 import {environment} from "../../../../../environments/environment";
 import {ActivatedRoute} from "@angular/router";
+import {getBrowserLang} from "@ngneat/transloco";
+import {SliderValue} from "../../model/slider-value";
 
 /**
  * Displays a dashboard
@@ -45,12 +47,25 @@ export class DashboardComponent implements OnInit {
   /** Hexagon bounding box */
   hexBoundingBox = BoundingBox.BERLIN;
 
+  /** Results filter lower limit */
+  hexResultsFilterLowerLimit = 0;
+  /** Results filter upper limit */
+  hexResultsFilterUpperLimit = 100;
+
+  /** Hex layer aggregate property min */
+  aggregatePropertyMin = null;
+  /** Hex layer aggregate property max */
+  aggregatePropertyMax = null;
+
   /** Selected city */
   selectedCity;
   /** Selected transport */
   selectedTransport = new Map<string, boolean>();
   /** Transport layers */
   transportLayers = new Map<string, string>();
+
+  /** Language */
+  lang = getBrowserLang();
 
   /**
    * Constructor
@@ -144,6 +159,24 @@ export class DashboardComponent implements OnInit {
     this.selectedTransport = transport;
 
     this.filterTransportLayers();
+  }
+
+  /**
+   * Handles changes in filter slider
+   * @param sliderValue slider value
+   */
+  onFilterSliderChanged(sliderValue: SliderValue) {
+    this.hexResultsFilterLowerLimit = sliderValue.lower;
+    this.hexResultsFilterUpperLimit = sliderValue.upper;
+  }
+
+  /**
+   * Handles changes in hex layer aggregate property
+   * @param value value
+   */
+  onHexLayerAggregatePropertyChanged(value: { aggregatePropertyMin: number, aggregatePropertyMax: number }) {
+    this.aggregatePropertyMin = value.aggregatePropertyMin;
+    this.aggregatePropertyMax = value.aggregatePropertyMax;
   }
 
   //

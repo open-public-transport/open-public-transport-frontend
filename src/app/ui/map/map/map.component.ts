@@ -99,17 +99,6 @@ export class MapComponent implements OnChanges, AfterViewInit {
   /** Fly-to bounding box */
   @Input() flyToBoundingBox: BoundingBox;
 
-  /** Whether filterHexResultsEnable can be filtered or not */
-  @Input() filterHexResultsEnabled = true;
-  /** Whether filterHexResultsEnable can be visible or not */
-  @Input() filterHexResultsVisible = false;
-  /** Filter results upper limit */
-  @Input() filterHexResultsUpperLimit = 100;
-  /** Filter results lower limit */
-  @Input() filterHexResultsLowerLimit = 0;
-  /** Filter results indicator stops */
-  @Input() filterHexResultsIndicatorStops: string[] = [];
-
   /** Whether geocoder is enabled or not */
   @Input() geocoderEnabled = false;
   /** Places to use for geocoder filter */
@@ -142,6 +131,17 @@ export class MapComponent implements OnChanges, AfterViewInit {
   /** Hexagon scale mode */
   @Input() hexScaleMode = HexScaleModeEnum.FIXED;
 
+  /** Whether hex results filter is enabled or not */
+  @Input() hexResultsFilterEnabled = false;
+  /** Whether hex results filter is visible or not */
+  @Input() hexResultsFilterVisible = false;
+  /** Results filter lower limit */
+  @Input() hexResultsFilterLowerLimit = 0;
+  /** Results filter upper limit */
+  @Input() hexResultsFilterUpperLimit = 100;
+  /** Results filter indicator stops */
+  @Input() hexResultsFilterIndicatorStops: string[] = [];
+
   /** Whether legend is enabled or not */
   @Input() legendEnabled = false;
   /** Whether to a map legend should show as gradient or not */
@@ -169,6 +169,8 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
   /** Event emitter indicating a new geocoder results */
   @Output() public geocodingResultEventEmitter = new EventEmitter<GeocoderResult>();
+  /** Event emitter indicating changes in hex layer aggregate property */
+  @Output() public hexLayerAggregatePropertyEventEmitter = new EventEmitter<{ aggregatePropertyMin: number, aggregatePropertyMax: number }>();
   /** Event emitter indicating a changed zoom value */
   zoomChangedEventEmitter = new EventEmitter<number>();
 
@@ -181,7 +183,7 @@ export class MapComponent implements OnChanges, AfterViewInit {
   /** Internal subject that publishes opacity events */
   private opacitySubject = new Subject<{ name: string, value: number }>();
   /** Internal subject that publishes filter events */
-  private filterSubject = new Subject<{ lower: number, upper: number }>();
+  private hexResultsFilterSubject = new Subject<{ lower: number, upper: number }>();
   /** Internal subject that publishes flyable location events */
   private flyableLocationSubject = new Subject<Location>();
   /** Internal subject that publishes flyable bounding box events */
@@ -235,6 +237,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
       // Display overlays
       this.initializeResultOverlays(this.results);
       this.initializeHexResultOverlays(this.hexResults);
+
+      // Update hex results filters
+      this.initializeHexResultsFilter(this.hexResultsFilterLowerLimit, this.hexResultsFilterUpperLimit);
     }
   }
 
@@ -752,6 +757,10 @@ export class MapComponent implements OnChanges, AfterViewInit {
           aggregatePropertyStep = (aggregatePropertyMax - aggregatePropertyMin) / this.hexColorRamp.length;
 
           this.initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep);
+          this.hexLayerAggregatePropertyEventEmitter.emit({
+            aggregatePropertyMin: aggregatePropertyMin,
+            aggregatePropertyMax: aggregatePropertyMax
+          });
         });
         break;
       }
@@ -776,6 +785,10 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
           // Just draw this layer with its individual scale
           this.initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep);
+          this.hexLayerAggregatePropertyEventEmitter.emit({
+            aggregatePropertyMin: aggregatePropertyMin,
+            aggregatePropertyMax: aggregatePropertyMax
+          });
         });
         break;
       }
@@ -816,20 +829,21 @@ export class MapComponent implements OnChanges, AfterViewInit {
         resultsMap.forEach((_, name) => {
           this.initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep);
         });
+        this.hexLayerAggregatePropertyEventEmitter.emit({
+          aggregatePropertyMin: aggregatePropertyMin,
+          aggregatePropertyMax: aggregatePropertyMax
+        });
         break;
       }
     }
 
-    if (this.filterHexResultsEnabled) {
-
-      this.filterHexResultsIndicatorStops = [
+    if (this.hexResultsFilterEnabled) {
+      this.hexResultsFilterIndicatorStops = [
         (aggregatePropertyMin / 1000).toFixed(1) + " km",
         ((aggregatePropertyMin + 0.33 * (aggregatePropertyMax - aggregatePropertyMin)) / 1000).toFixed(1) + " km",
         ((aggregatePropertyMin + 0.66 * (aggregatePropertyMax - aggregatePropertyMin)) / 1000).toFixed(1) + " km",
         (aggregatePropertyMax / 1000).toFixed(1) + " km"
       ]
-
-      if (aggregatePropertyMin / 1000) this.filterHexResultsVisible = true;
     }
   }
 
@@ -876,8 +890,8 @@ export class MapComponent implements OnChanges, AfterViewInit {
           property: 'avg',
           stops: this.hexColorRamp.map((d, i) =>
             [aggregatePropertyMin + (i * aggregatePropertyStep), d.replace(/, *[\d\.]*\)/g, (match) => {
-              if (!this.filterHexResultsEnabled || (i / this.hexColorRamp.length * 100 >= this.filterHexResultsLowerLimit &&
-                i / this.hexColorRamp.length * 100 < this.filterHexResultsUpperLimit)) return match;
+              if (!this.hexResultsFilterEnabled || (i / this.hexColorRamp.length * 100 >= this.hexResultsFilterLowerLimit &&
+                i / this.hexColorRamp.length * 100 < this.hexResultsFilterUpperLimit)) return match;
               return ', 0)';
             })]
           )
@@ -937,15 +951,14 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
 
     // Update Filter opacity
-    this.filterSubject.subscribe((e: { lower, upper }) => {
-
+    this.hexResultsFilterSubject.subscribe((e: { lower, upper }) => {
       if (layer['paint'].hasOwnProperty('fill-color')) {
         this.map.setPaintProperty(layer.id, 'fill-color', {
           property: 'avg',
           stops: this.hexColorRamp.map((d, i) =>
             [aggregatePropertyMin + (i * aggregatePropertyStep), d.replace(/, *[\d\.]*\)/g, (match) => {
-              if (!this.filterHexResultsEnabled || (i / this.hexColorRamp.length * 100 >= this.filterHexResultsLowerLimit &&
-                i / this.hexColorRamp.length * 100 < this.filterHexResultsUpperLimit)) return match;
+              if (!this.hexResultsFilterEnabled || (i / this.hexColorRamp.length * 100 >= this.hexResultsFilterLowerLimit &&
+                i / this.hexColorRamp.length * 100 < this.hexResultsFilterUpperLimit)) return match;
               return ', 0)';
             })]
           )
@@ -964,6 +977,16 @@ export class MapComponent implements OnChanges, AfterViewInit {
           .addTo(this.map);
       });
     }
+  }
+
+  /**
+   * Initializes hex results filters
+   * @param hexResultsFilterLowerLimit hex results filter lower limit
+   * @param hexResultsFilterUpperLimit hex results filter upper limit
+   * @private
+   */
+  private initializeHexResultsFilter(hexResultsFilterLowerLimit, hexResultsFilterUpperLimit) {
+    this.hexResultsFilterSubject.next({lower: hexResultsFilterLowerLimit, upper: hexResultsFilterUpperLimit});
   }
 
   /**
@@ -1095,39 +1118,44 @@ export class MapComponent implements OnChanges, AfterViewInit {
     let minSliderDist = 8;
     let initiator = event.source._elementRef.nativeElement.id
 
-    if (this.filterHexResultsEnabled) {
+    if (this.hexResultsFilterEnabled) {
       switch (initiator) {
         case 'upper': {
-          this.filterHexResultsUpperLimit = event.value;
+          this.hexResultsFilterUpperLimit = event.value;
 
           // Prevent upper slider to be left of lower slider
-          if (this.filterHexResultsLowerLimit >= event.value - minSliderDist) {
-            this.filterHexResultsLowerLimit = event.value - minSliderDist;
+          if (this.hexResultsFilterLowerLimit >= event.value - minSliderDist) {
+            this.hexResultsFilterLowerLimit = event.value - minSliderDist;
           }
           // Prevent upper slide to overlap lower slider
           if (event.value < minSliderDist) {
             setTimeout(() => event.source.value = minSliderDist);
-            this.filterHexResultsUpperLimit = minSliderDist;
+            this.hexResultsFilterUpperLimit = minSliderDist;
           }
 
-          this.filterSubject.next({lower: this.filterHexResultsLowerLimit, upper: this.filterHexResultsUpperLimit});
+          this.hexResultsFilterSubject.next({
+            lower: this.hexResultsFilterLowerLimit,
+            upper: this.hexResultsFilterUpperLimit
+          });
           break;
         }
         case 'lower': {
-          this.filterHexResultsLowerLimit = event.value;
+          this.hexResultsFilterLowerLimit = event.value;
 
           // Prevent lower slider to be right of upper slider
-          if (this.filterHexResultsUpperLimit <= event.value + minSliderDist) {
-            this.filterHexResultsUpperLimit = event.value + minSliderDist;
+          if (this.hexResultsFilterUpperLimit <= event.value + minSliderDist) {
+            this.hexResultsFilterUpperLimit = event.value + minSliderDist;
           }
           // Prevent upper slide to overlap lower slider
           if (event.value > 100 - minSliderDist) {
             setTimeout(() => event.source.value = 100 - minSliderDist);
-            this.filterHexResultsLowerLimit = 100 - minSliderDist;
+            this.hexResultsFilterLowerLimit = 100 - minSliderDist;
           }
 
-
-          this.filterSubject.next({lower: this.filterHexResultsLowerLimit, upper: this.filterHexResultsUpperLimit});
+          this.hexResultsFilterSubject.next({
+            lower: this.hexResultsFilterLowerLimit,
+            upper: this.hexResultsFilterUpperLimit
+          });
           break;
         }
         default: {
