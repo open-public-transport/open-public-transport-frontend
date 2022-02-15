@@ -99,11 +99,15 @@ export class MapComponent implements OnChanges, AfterViewInit {
   /** Fly-to bounding box */
   @Input() flyToBoundingBox: BoundingBox;
 
-  /** Wether filterHexResultsEnable can be filtered or not */
+  /** Whether filterHexResultsEnable can be filtered or not */
   @Input() filterHexResultsEnabled = true;
+  /** Whether filterHexResultsEnable can be visible or not */
   @Input() filterHexResultsVisible = false;
+  /** Filter results upper limit */
   @Input() filterHexResultsUpperLimit = 100;
+  /** Filter results lower limit */
   @Input() filterHexResultsLowerLimit = 0;
+  /** Filter results indicator stops */
   @Input() filterHexResultsIndicatorStops: string[] = [];
 
   /** Whether geocoder is enabled or not */
@@ -177,7 +181,7 @@ export class MapComponent implements OnChanges, AfterViewInit {
   /** Internal subject that publishes opacity events */
   private opacitySubject = new Subject<{ name: string, value: number }>();
   /** Internal subject that publishes filter events */
-  private filterSubject = new Subject<{lower: number, upper: number }>();
+  private filterSubject = new Subject<{ lower: number, upper: number }>();
   /** Internal subject that publishes flyable location events */
   private flyableLocationSubject = new Subject<Location>();
   /** Internal subject that publishes flyable bounding box events */
@@ -816,16 +820,16 @@ export class MapComponent implements OnChanges, AfterViewInit {
       }
     }
 
-    if(this.filterHexResultsEnabled){
+    if (this.filterHexResultsEnabled) {
 
-    this.filterHexResultsIndicatorStops = [
-      (aggregatePropertyMin/1000).toFixed(1)+" km",
-      ((aggregatePropertyMin+0.33*(aggregatePropertyMax-aggregatePropertyMin))/1000).toFixed(1)+" km",
-      ((aggregatePropertyMin+0.66*(aggregatePropertyMax-aggregatePropertyMin))/1000).toFixed(1)+" km",
-      (aggregatePropertyMax/1000).toFixed(1)+" km"
-    ]
+      this.filterHexResultsIndicatorStops = [
+        (aggregatePropertyMin / 1000).toFixed(1) + " km",
+        ((aggregatePropertyMin + 0.33 * (aggregatePropertyMax - aggregatePropertyMin)) / 1000).toFixed(1) + " km",
+        ((aggregatePropertyMin + 0.66 * (aggregatePropertyMax - aggregatePropertyMin)) / 1000).toFixed(1) + " km",
+        (aggregatePropertyMax / 1000).toFixed(1) + " km"
+      ]
 
-    if(aggregatePropertyMin/1000) this.filterHexResultsVisible = true;
+      if (aggregatePropertyMin / 1000) this.filterHexResultsVisible = true;
     }
   }
 
@@ -864,25 +868,23 @@ export class MapComponent implements OnChanges, AfterViewInit {
   private initializeHexLayer(name, aggregatePropertyMin, aggregatePropertyStep) {
     // Link layer to source
     const layer = {
-        id: '',
-        type: 'fill',
-        source: name,
-        paint: {
-          'fill-color': {
-            property: 'avg',
-            stops: this.hexColorRamp.map((d, i) =>
-              [aggregatePropertyMin + (i * aggregatePropertyStep), d.replace(/, *[\d\.]*\)/g,(match) => {
-                if (!this.filterHexResultsEnabled || (i/this.hexColorRamp.length*100 >= this.filterHexResultsLowerLimit &&
-                  i/this.hexColorRamp.length*100 < this.filterHexResultsUpperLimit)) return match;
-                return ', 0)';
-              })]
-            )
-          },
-          'fill-opacity': 0.6
-        }
-      };
-
-
+      id: '',
+      type: 'fill',
+      source: name,
+      paint: {
+        'fill-color': {
+          property: 'avg',
+          stops: this.hexColorRamp.map((d, i) =>
+            [aggregatePropertyMin + (i * aggregatePropertyStep), d.replace(/, *[\d\.]*\)/g, (match) => {
+              if (!this.filterHexResultsEnabled || (i / this.hexColorRamp.length * 100 >= this.filterHexResultsLowerLimit &&
+                i / this.hexColorRamp.length * 100 < this.filterHexResultsUpperLimit)) return match;
+              return ', 0)';
+            })]
+          )
+        },
+        'fill-opacity': 0.6
+      }
+    };
 
 
     layer['id'] = name + '-layer';
@@ -934,30 +936,22 @@ export class MapComponent implements OnChanges, AfterViewInit {
     });
 
 
-
-
-
-
     // Update Filter opacity
-    this.filterSubject.subscribe((e: {lower, upper }) => {
+    this.filterSubject.subscribe((e: { lower, upper }) => {
 
-        if (layer['paint'].hasOwnProperty('fill-color')) {
-          this.map.setPaintProperty(layer.id, 'fill-color', {
-            property: 'avg',
-            stops: this.hexColorRamp.map((d, i) =>
-              [aggregatePropertyMin + (i * aggregatePropertyStep), d.replace(/, *[\d\.]*\)/g,(match) => {
-                if (!this.filterHexResultsEnabled || (i/this.hexColorRamp.length*100 >= this.filterHexResultsLowerLimit &&
-                  i/this.hexColorRamp.length*100 < this.filterHexResultsUpperLimit)) return match;
-                return ', 0)';
-              })]
-            )
-          });
-        }
+      if (layer['paint'].hasOwnProperty('fill-color')) {
+        this.map.setPaintProperty(layer.id, 'fill-color', {
+          property: 'avg',
+          stops: this.hexColorRamp.map((d, i) =>
+            [aggregatePropertyMin + (i * aggregatePropertyStep), d.replace(/, *[\d\.]*\)/g, (match) => {
+              if (!this.filterHexResultsEnabled || (i / this.hexColorRamp.length * 100 >= this.filterHexResultsLowerLimit &&
+                i / this.hexColorRamp.length * 100 < this.filterHexResultsUpperLimit)) return match;
+              return ', 0)';
+            })]
+          )
+        });
+      }
     });
-
-
-
-
 
 
     // Check if debug mode is enabled
@@ -1096,24 +1090,32 @@ export class MapComponent implements OnChanges, AfterViewInit {
    * @param event slider event
    */
   onFilterChanged(event: MatSliderChange) {
+
+    // Minimum distance between slider pointers in case they overlap
     let minSliderDist = 8;
     let initiator = event.source._elementRef.nativeElement.id
-    console.log(this.filterHexResultsUpperLimit)
+
     if (this.filterHexResultsEnabled) {
       switch (initiator) {
-        case 'upper':
+        case 'upper': {
           this.filterHexResultsUpperLimit = event.value;
-          if(this.filterHexResultsLowerLimit >= event.value - minSliderDist) this.filterHexResultsLowerLimit = event.value - minSliderDist;
+          if (this.filterHexResultsLowerLimit >= event.value - minSliderDist) {
+            this.filterHexResultsLowerLimit = event.value - minSliderDist;
+          }
           this.filterSubject.next({lower: this.filterHexResultsLowerLimit, upper: event.value});
           break;
-        case 'lower':
+        }
+        case 'lower': {
           this.filterHexResultsLowerLimit = event.value;
-          if(this.filterHexResultsUpperLimit <= event.value + minSliderDist) this.filterHexResultsUpperLimit = event.value + minSliderDist;
-          console.log(event.value + minSliderDist)
+          if (this.filterHexResultsUpperLimit <= event.value + minSliderDist) {
+            this.filterHexResultsUpperLimit = event.value + minSliderDist;
+          }
           this.filterSubject.next({lower: event.value, upper: this.filterHexResultsUpperLimit});
           break;
-        default:
+        }
+        default: {
           break;
+        }
       }
     }
   }
