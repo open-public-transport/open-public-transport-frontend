@@ -4,24 +4,24 @@
      (mouseenter)="onMouseEnter()">
 </div>
 <ng-container *ngIf="filterHexResultsEnabled && filterHexResultsVisible">
-  <div class="legend_data">
+  <div class="legend-data">
   <ul>
     <li *ngFor="let stop of filterHexResultsIndicatorStops">{{ stop }}</li>
   </ul>
 </div>
-<div class="legend_slider">
+<div class="legend-slider">
 <mat-slider id="upper"
   [min]=0
   [max]=100
-  [step]=1
+  [step]=5
   [(value)]="filterHexResultsUpperLimit"
   (input)="onFilterChanged($event)">
 </mat-slider>
 <mat-slider id="lower"
-  [(value)]="filterHexResultsLowerLimit"
   [min]=0
   [max]=100
-  [step]=1
+  [step]=5
+  [(value)]="filterHexResultsLowerLimit"
   (input)="onFilterChanged($event)">
 </mat-slider>
 </div>
