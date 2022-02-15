@@ -236,7 +236,7 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
       // Display overlays
       this.initializeResultOverlays(this.results);
-      this.initializeHexResultOverlays(this.hexResults);
+      // this.initializeHexResultOverlays(this.hexResults);
 
       // Update hex results filters
       this.initializeHexResultsFilter(this.hexResultsFilterLowerLimit, this.hexResultsFilterUpperLimit);
