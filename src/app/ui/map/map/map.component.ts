@@ -1099,18 +1099,35 @@ export class MapComponent implements OnChanges, AfterViewInit {
       switch (initiator) {
         case 'upper': {
           this.filterHexResultsUpperLimit = event.value;
+
+          // Prevent upper slider to be left of lower slider
           if (this.filterHexResultsLowerLimit >= event.value - minSliderDist) {
             this.filterHexResultsLowerLimit = event.value - minSliderDist;
           }
-          this.filterSubject.next({lower: this.filterHexResultsLowerLimit, upper: event.value});
+          // Prevent upper slide to overlap lower slider
+          if (event.value < minSliderDist) {
+            setTimeout(() => event.source.value = minSliderDist);
+            this.filterHexResultsUpperLimit = minSliderDist;
+          }
+
+          this.filterSubject.next({lower: this.filterHexResultsLowerLimit, upper: this.filterHexResultsUpperLimit});
           break;
         }
         case 'lower': {
           this.filterHexResultsLowerLimit = event.value;
+
+          // Prevent lower slider to be right of upper slider
           if (this.filterHexResultsUpperLimit <= event.value + minSliderDist) {
             this.filterHexResultsUpperLimit = event.value + minSliderDist;
           }
-          this.filterSubject.next({lower: event.value, upper: this.filterHexResultsUpperLimit});
+          // Prevent upper slide to overlap lower slider
+          if (event.value > 100 - minSliderDist) {
+            setTimeout(() => event.source.value = 100 - minSliderDist);
+            this.filterHexResultsLowerLimit = 100 - minSliderDist;
+          }
+
+
+          this.filterSubject.next({lower: this.filterHexResultsLowerLimit, upper: this.filterHexResultsUpperLimit});
           break;
         }
         default: {
