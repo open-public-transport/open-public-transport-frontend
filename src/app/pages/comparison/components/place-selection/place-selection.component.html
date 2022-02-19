@@ -24,13 +24,14 @@
             <mat-card-subtitle>{{ placeNames[1] }}<br/>{{ placeNames[2] }}<br/>{{ placeNames[3] }}</mat-card-subtitle>
           </div>
           <div class="flexbox"></div>
-          <div>
-            {{ t('labels.mobility-index') }}
-            <div class="mobility-index">
-              <span *ngIf="placeMetrics != null">{{ placeMetrics.mobility_index }}</span>
-              <span *ngIf="placeMetrics == null">-</span>
-            </div>
-          </div>
+          <!-- Uncomment if backend part is implemented -->
+          <!--          <div>-->
+          <!--            {{ t('labels.mobility-index') }}-->
+          <!--            <div class="mobility-index">-->
+          <!--              <span *ngIf="placeMetrics != null">{{ placeMetrics.mobility_index }}</span>-->
+          <!--              <span *ngIf="placeMetrics == null">-</span>-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
       </mat-card>
     </div>
