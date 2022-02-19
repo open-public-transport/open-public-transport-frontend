@@ -2,6 +2,7 @@
   "app-title": "Open Public Transport",
   "terms": {
     "germany": "Germany",
+    "number_of_stations": "number of stations",
     "bike": "bicycle",
     "bus": "bus",
     "light_rail": "light rail",

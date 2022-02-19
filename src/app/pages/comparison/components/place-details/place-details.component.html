@@ -18,7 +18,7 @@
       </span>
       </li>
     </ul>
-    <span *ngIf="getBikeInformation() != null">
+    <span *ngIf="getBikeInformation() != null && getBikeInformation().bike_infrastructure_percentage == 0">
       {{ t('labels.streets-suitable-for-biking', {
       bike_infrastructure_percentage: getBikeInformation().bike_infrastructure_percentage,
       placeName: placeName

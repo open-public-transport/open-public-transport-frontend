@@ -153,7 +153,14 @@ export class PlaceOverviewComponent implements OnInit, OnChanges {
     }];
 
     this.radarChartLabels = [];
-    ["bike"].concat(this.publicTransportTypes).forEach(transportType => {
+
+    this.translocoService.selectTranslate(`terms.number_of_stations`, {}, this.lang).subscribe(value => {
+      this.radarChartLabels.push(value);
+    });
+    // this.translocoService.selectTranslate(`terms.bike`, {}, this.lang).subscribe(value => {
+    //   this.radarChartLabels.push(value);
+    // });
+    this.publicTransportTypes.forEach(transportType => {
       this.translocoService.selectTranslate(`terms.${transportType}`, {}, this.lang).subscribe(value => {
         this.radarChartLabels.push(value);
       });
