@@ -12,7 +12,9 @@
           {{ t('labels.stations') }}
       </span>
         <span
-          *ngIf="getLineInformation(publicTransportType) != null && getLineInformation(publicTransportType).absolute_line_count.raw_value != null">
+          *ngIf="getLineInformation(publicTransportType) != null
+          && getLineInformation(publicTransportType).absolute_line_count.raw_value != null
+          && getLineInformation(publicTransportType).absolute_line_count.raw_value > 0">
           , {{ getLineInformation(publicTransportType).absolute_line_count.raw_value }}
           {{ t('labels.lines') }}
       </span>
