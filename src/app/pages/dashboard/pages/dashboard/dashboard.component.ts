@@ -6,7 +6,7 @@ import {City} from "../../model/city";
 import {ColorRamp} from "../../../../ui/map/model/color-ramp.model";
 import {environment} from "../../../../../environments/environment";
 import {ActivatedRoute} from "@angular/router";
-import {getBrowserLang} from "@ngneat/transloco";
+import {getBrowserLang, TranslocoService} from "@ngneat/transloco";
 import {SliderValue} from "../../model/slider-value";
 
 /**
@@ -70,8 +70,10 @@ export class DashboardComponent implements OnInit {
   /**
    * Constructor
    * @param route route
+   * @param translocoService transloco service
    */
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,
+              private translocoService: TranslocoService) {
   }
 
   //
@@ -95,8 +97,10 @@ export class DashboardComponent implements OnInit {
    * Initializes geocoder filter
    */
   private initializeGeocoderFilter() {
-    this.geocoderFilter = environment.dashboard.cities.map(city => {
-      return ["Deutschland", city.name];
+    this.translocoService.selectTranslate("terms.germany", {}, this.lang).subscribe(value => {
+      this.geocoderFilter = environment.dashboard.cities.map(city => {
+        return [value, city.name];
+      });
     });
   }
 
