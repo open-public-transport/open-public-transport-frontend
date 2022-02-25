@@ -106,6 +106,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
   /** Geocoder marker color */
   @Input() geocoderMarkerColor;
 
+  /** Whether scale is enabled or not */
+  @Input() scaleEnabled = false;
+
   /** Whether reset map position and zoom is enabled */
   @Input() resetEnabled = false;
   /** List of flyable location */
@@ -251,6 +254,9 @@ export class MapComponent implements OnChanges, AfterViewInit {
 
     // Initialize geocoder
     this.initializeGeocoder();
+
+    // Initialize scale
+    this.initializeScale();
 
     // Initialize controls
     this.initializeNavigationControl(this.navigationControlEnabled);
@@ -597,6 +603,15 @@ export class MapComponent implements OnChanges, AfterViewInit {
       geocoder.on("error", error => {
         console.error(error);
       });
+    }
+  }
+
+  /**
+   * Initializes scale
+   */
+  private initializeScale() {
+    if (this.scaleEnabled) {
+      this.map.addControl(new mapboxgl.ScaleControl({unit: 'metric', maxWidth: 225}), 'top-right');
     }
   }
 
