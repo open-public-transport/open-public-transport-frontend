@@ -35,7 +35,7 @@ export const environment = {
       // {name: 'Muenchen', boundingBox: [11.36087720838895, 48.06223277978042, 11.723082533270206, 48.24814577602209], publicTransportTypes: ["bus", "subway", "tram"]},
       // {name: 'Muenster', boundingBox: [7.473962942770497, 51.840191151329854, 7.774221787742102, 52.060175509627584], publicTransportTypes: ["bus", "tram"]},
       {name: 'Potsdam', boundingBox: [12.888410253169791, 52.342942127472284, 13.165897844431854, 52.51476310782476], publicTransportTypes: ["bus", "light_rail", "tram"]},
-      {name: 'Stuttgart', boundingBox: [9.03899379817525, 48.69015070969232, 9.315387276070416, 48.86724862272663], publicTransportTypes: ["bus", "light_rail", "tram"]},
+      // {name: 'Stuttgart', boundingBox: [9.03899379817525, 48.69015070969232, 9.315387276070416, 48.86724862272663], publicTransportTypes: ["bus", "light_rail", "tram"]},
       // {name: 'Wuppertal', boundingBox: [7.01407471400006, 51.165736174000074, 7.313426359000061, 51.31809703300007], publicTransportTypes: ["bus", "tram"]},
     ]
   },
