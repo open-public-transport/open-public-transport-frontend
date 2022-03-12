@@ -103,7 +103,7 @@
     "information": {
       "dashboard": {
         "title": "ÖPNV-Dashboard",
-        "headline": "Das Public Transport Dashboard zeigt die wie gut du mit dem ÖPNV in deiner Stadt vom Fleck kommst",
+        "headline": "Das Public Transport Dashboard zeigt dir, wie gut du mit dem ÖPNV in deiner Stadt vom Fleck kommst",
         "text": "Im Public Transport Dashboard wird die Geschwindigkeit des ÖPNV auf Basis sogenannter Isochrone berechnet und mithilfe von eingefärbten Hexagonen sichtbar gemacht. Dafür haben wir berechnet, wie weit man mit allen zur Verfügung stehenden Vekehrsmitteln des ÖPNV von einem beliebigen Ort innerhalb von 15 Minuten kommt. Gebiete mit einer besonders hohen Mobilität werden auf der Karte grün eingefärbt. Gebiete mit geringer Anbindung sind in rot sichtbar.\n\nWähle jetzt eine Stadt aus um mehr zu erfahren:"
       },
       "comparison": {
