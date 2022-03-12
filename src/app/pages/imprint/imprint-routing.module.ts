@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ComparisonComponent} from './pages/comparison/comparison.component';
+import {ImprintComponent} from "./components/imprint/imprint.component";
 
 const routes: Routes = [
-  {path: '', component: ComparisonComponent}
+  {path: '', component: ImprintComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ComparisonRoutingModule {
+export class ImprintRoutingModule {
 }

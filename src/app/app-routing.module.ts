@@ -7,6 +7,7 @@ const routes: Routes = [
   {path: 'uebersicht', loadChildren: () => import('./pages/overview/overview.module').then(m => m.OverviewModule)},
   {path: 'ueber', loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule)},
   {path: 'kontakt', loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule)},
+  {path: 'impressum', loadChildren: () => import('./pages/imprint/imprint.module').then(m => m.ImprintModule)},
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: '**', redirectTo: 'dashboard'}
 ];

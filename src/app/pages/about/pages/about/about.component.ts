@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {getBrowserLang} from "@ngneat/transloco";
 
 /**
@@ -9,24 +9,8 @@ import {getBrowserLang} from "@ngneat/transloco";
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent {
 
   /** Language */
   lang = getBrowserLang();
-
-  /**
-   * Constructor
-   */
-  constructor() {
-  }
-
-  //
-  // Lifecycle hooks
-  //
-
-  /**
-   * Handles on-init phase
-   */
-  ngOnInit() {
-  }
 }
