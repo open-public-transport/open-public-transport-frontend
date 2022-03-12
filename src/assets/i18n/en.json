@@ -78,7 +78,7 @@
       "information": "Information according to § 5 TMG",
       "contact": "Contact",
       "email": "e-mail",
-      "editorially-responsible": "Editorially responsible"
+      "editorially-responsible": "Editorially responsible",
       "disclaimer": {
         "title": "Disclaimer",
         "liability-for-content": {
@@ -94,7 +94,7 @@
         "data-protection": {
           "title": "Data protection",
           "text-1": "The use of our website is generally possible without providing personal data. Insofar as personal data (for example, name, address or e-mail addresses) are collected on our pages, this is always done, as far as possible, on a voluntary basis. This data will not be passed on to third parties without your express consent.",
-          "text-2": "We point out that data transmission over the Internet (eg communication by e-mail) security gaps. A complete protection of data against access by third parties is not possible.\nThe use of contact data published within the framework of the imprint obligation by third parties for the purpose of sending unsolicited advertising and information materials is hereby expressly prohibited. The operators of the pages expressly reserve the right to take legal action in the event of the unsolicited sending of advertising information, such as spam e-mails."
+          "text-2": "We point out that data transmission over the Internet (e.g. communication by e-mail) security gaps. A complete protection of data against access by third parties is not possible.\nThe use of contact data published within the framework of the imprint obligation by third parties for the purpose of sending unsolicited advertising and information materials is hereby expressly prohibited. The operators of the pages expressly reserve the right to take legal action in the event of the unsolicited sending of advertising information, such as spam e-mails."
         }
       }
     }
